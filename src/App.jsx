@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 const App = () => {
-    return <h1>Adopt them!</h1>;
+    return <div className="m-4 text-3xl">hello</div>;
 };
 
 const container = document.getElementById('root');
