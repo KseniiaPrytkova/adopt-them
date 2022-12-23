@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
+import QuickSearch from './QuickSearch';
+
 import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
+
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
 const SearchParams = () => {
@@ -58,7 +61,7 @@ const SearchParams = () => {
                                 name="location"
                                 placeholder="Location"
                                 type="text"
-                                className="mb-5 block w-96 border border-dark-sky shadow-sm focus:border-juicy-sun  focus:ring-juicy-sun focus:ring-opacity-50"
+                                className="mb-5 block w-96 rounded border border-dark-sky shadow-sm focus:border-juicy-sun  focus:ring-juicy-sun focus:ring-opacity-50"
                             />
                         </label>
 
@@ -67,7 +70,7 @@ const SearchParams = () => {
                             <select
                                 id="animal"
                                 name="animal"
-                                className="mb-5 block w-96 border border-dark-sky shadow-sm focus:border-juicy-sun focus:ring-juicy-sun focus:ring-opacity-50"
+                                className="mb-5 block w-96 rounded border border-dark-sky shadow-sm focus:border-juicy-sun focus:ring-juicy-sun focus:ring-opacity-50"
                                 onChange={(e) => {
                                     setAnimal(e.target.value);
                                 }}
@@ -90,7 +93,7 @@ const SearchParams = () => {
                                 disabled={!breeds.length}
                                 id="breed"
                                 name="breed"
-                                className="mb-5 block w-96 border border-dark-sky shadow-sm focus:border-juicy-sun focus:ring-juicy-sun focus:ring-opacity-50"
+                                className="mb-5 block w-96 rounded border border-dark-sky shadow-sm focus:border-juicy-sun focus:ring-juicy-sun focus:ring-opacity-50"
                             >
                                 <option />
                                 {breeds.map((breed) => (
@@ -180,6 +183,8 @@ const SearchParams = () => {
                 <Results pets={pets} />
             </div> */}
             </div>
+            <QuickSearch />
+            <h1 className="ml-8 text-3xl">Pets avaliable for adoption</h1>
         </main>
     );
 };
