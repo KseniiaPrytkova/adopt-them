@@ -22,10 +22,12 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
                 <Navbar />
 
-                <Routes>
-                    <Route path="/details/:id" element={<Details />} />
-                    <Route path="/" element={<SearchParams />} />
-                </Routes>
+                <main className="flex-auto">
+                    <Routes>
+                        <Route path="/details/:id" element={<Details />} />
+                        <Route path="/" element={<SearchParams />} />
+                    </Routes>
+                </main>
 
                 <Footer />
             </QueryClientProvider>

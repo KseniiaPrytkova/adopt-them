@@ -14,8 +14,19 @@
         @apply min-h-screen;
     }
 
+    img {
+        @apply w-full;
+    }
+
     /* main {
         flex: 1 1 auto;
     } */
 }
 /* box-border flex min-h-full flex-col */
+
+@layer utilities {
+    .active-image {
+        @apply opacity-60;
+        @apply border-2 border-red-400;
+    }
+}

@@ -22,30 +22,32 @@ const Details = () => {
     const pet = results.data.pets[0];
 
     return (
-        <div className="details">
-            <Carousel images={pet.images} />
-            <div>
-                <h1>{pet.name}</h1>
-                <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
-                <button onClick={() => setShowModal(true)}>
-                    Adopt {pet.name}
-                </button>
-                <p>{pet.description}</p>
-                {showModal ? (
-                    <Modal>
-                        <div>
-                            <h1>Would you like to adopt {pet.name}?</h1>
-                            <div className="buttons">
-                                <button>Yes</button>
-                                <button onClick={() => setShowModal(false)}>
-                                    No
-                                </button>
+        <main className="flex-auto">
+            <div className="details     mx-auto max-w-5xl bg-grey-snow sm:px-6 lg:px-8">
+                <Carousel images={pet.images} />
+                <div className="border border-red-400">
+                    <h1>{pet.name}</h1>
+                    <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
+                    <button onClick={() => setShowModal(true)}>
+                        Adopt {pet.name}
+                    </button>
+                    <p>{pet.description}</p>
+                    {showModal ? (
+                        <Modal>
+                            <div>
+                                <h1>Would you like to adopt {pet.name}?</h1>
+                                <div className="buttons">
+                                    <button>Yes</button>
+                                    <button onClick={() => setShowModal(false)}>
+                                        No
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </Modal>
-                ) : null}
+                        </Modal>
+                    ) : null}
+                </div>
             </div>
-        </div>
+        </main>
     );
 };
 
