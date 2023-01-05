@@ -5,6 +5,7 @@ import Details from './Details';
 import SearchParams from './SearchParams';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Header from './Header';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -17,12 +18,11 @@ const queryClient = new QueryClient({
 
 const App = () => {
     return (
-        // <div className="box-border flex min-h-full flex-col">
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
                 <Navbar />
 
-                <main className="flex-auto">
+                <main className="flex-auto ">
                     <Routes>
                         <Route path="/details/:id" element={<Details />} />
                         <Route path="/" element={<SearchParams />} />
@@ -32,7 +32,6 @@ const App = () => {
                 <Footer />
             </QueryClientProvider>
         </BrowserRouter>
-        // </div>
     );
 };
 

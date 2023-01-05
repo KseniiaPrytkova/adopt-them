@@ -22,13 +22,17 @@ class Carousel extends Component {
         const { images } = this.props;
         return (
             // <main className="flex-auto">
-            <div className="carousel flex h-96 content-center justify-around border border-green-600">
-                <img
-                    src={images[active]}
-                    alt="animal"
-                    className="w-max-1/2 max-h-96"
-                />
-                <div className="carousel-smaller w-1/2">
+            <div className="flex flex-col     md:flex-row">
+                <div className="  flex justify-center  p-5">
+                    <img
+                        src={images[active]}
+                        alt="animal"
+                        // className="w-max-1/2 max-h-96"
+                        className="w-4/5 rounded-3xl border-l border-t border-bright-sky p-2 sm:w-full"
+                    />
+                </div>
+
+                <div className=" mt-2 mb-2 flex flex-wrap justify-between md:content-start md:justify-center ">
                     {images.map((photo, index) => (
                         // eslint-disable-next-line
                         <img
@@ -36,7 +40,7 @@ class Carousel extends Component {
                             src={photo}
                             className={
                                 (index === active ? 'active-image ' : '') +
-                                'm-4 inline-block h-24 w-24 cursor-pointer rounded-full focus:ring-2 focus:ring-red-500'
+                                'm-2 inline-block h-24 w-24 cursor-pointer rounded-full'
                             }
                             // className={index === active ? 'active' : ''}
                             alt="animal thumbnail"

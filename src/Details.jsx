@@ -22,10 +22,11 @@ const Details = () => {
     const pet = results.data.pets[0];
 
     return (
-        <main className="flex-auto">
-            <div className="details     mx-auto max-w-5xl bg-grey-snow sm:px-6 lg:px-8">
+        <div className="m-5 grid grid-cols-12 ">
+            <div className="col-span-12 col-start-1 rounded-lg bg-grey-snow sm:col-span-10 sm:col-start-2">
                 <Carousel images={pet.images} />
-                <div className="border border-red-400">
+
+                <div className="border-4 border-red-400">
                     <h1>{pet.name}</h1>
                     <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button onClick={() => setShowModal(true)}>
@@ -47,7 +48,7 @@ const Details = () => {
                     ) : null}
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 
