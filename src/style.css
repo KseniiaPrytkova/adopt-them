@@ -24,6 +24,23 @@
 }
 /* box-border flex min-h-full flex-col */
 
+@layer components {
+    #modal {
+        @apply bg-dark-sky;
+        @apply bg-opacity-90;
+        @apply fixed;
+        @apply inset-0;
+        @apply z-10;
+        @apply flex;
+        @apply justify-center;
+        @apply items-center;
+    }
+
+    #modal:empty {
+        display: none;
+    }
+}
+
 @layer utilities {
     .active-image {
         @apply opacity-60;

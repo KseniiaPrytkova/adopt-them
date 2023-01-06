@@ -1,15 +1,19 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from './Modal';
 import ErrorBoundary from './ErrorBoundary';
 import fetchPet from './fetchPet';
 import Carousel from './Carousel';
+import AdoptedPetContext from './AdoptedPetContext';
 
 const Details = () => {
     const { id } = useParams();
     const [showModal, setShowModal] = useState(false);
     const results = useQuery(['details', id], fetchPet);
+    const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
+    const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
     if (results.isLoading) {
         return (
@@ -52,11 +56,27 @@ const Details = () => {
 
                     {showModal ? (
                         <Modal>
-                            <div>
-                                <h1>Would you like to adopt {pet.name}?</h1>
-                                <div className="buttons">
-                                    <button>Yes</button>
-                                    <button onClick={() => setShowModal(false)}>
+                            <div className=" flex flex-col  rounded-lg  bg-grey-snow ">
+                                <h1 className=" rounded-lg bg-neutral-200 p-4 text-xl  bg-blend-darken">
+                                    Would you like to adopt&nbsp;
+                                    <span className="font-semibold uppercase tracking-wide text-bright-sky">
+                                        {pet.name}?
+                                    </span>
+                                </h1>
+                                <div className="  m-4 rounded-b-lg text-center">
+                                    <button
+                                        onClick={() => {
+                                            setAdoptedPet(pet);
+                                            navigate('/');
+                                        }}
+                                        className="mr-4 rounded bg-juicy-sun py-2 px-6 text-white hover:opacity-50"
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        onClick={() => setShowModal(false)}
+                                        className=" rounded bg-purple-sky py-2 px-6 text-white hover:opacity-50"
+                                    >
                                         No
                                     </button>
                                 </div>
