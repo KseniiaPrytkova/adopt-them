@@ -7,7 +7,6 @@ import Details from './Details';
 import SearchParams from './SearchParams';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Header from './Header';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -22,8 +21,8 @@ const App = () => {
     const adoptedPet = useState(null);
     return (
         <BrowserRouter>
-            <AdoptedPetContext.Provider value={adoptedPet}>
-                <QueryClientProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <AdoptedPetContext.Provider value={adoptedPet}>
                     <Navbar />
 
                     <main className="flex-auto ">
@@ -34,8 +33,8 @@ const App = () => {
                     </main>
 
                     <Footer />
-                </QueryClientProvider>
-            </AdoptedPetContext.Provider>
+                </AdoptedPetContext.Provider>
+            </QueryClientProvider>
         </BrowserRouter>
     );
 };

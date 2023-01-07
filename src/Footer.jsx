@@ -8,9 +8,12 @@ const Footer = () => {
                 <p className="my-3">Legal disclaimer, copyright, etc.</p>
                 <ul>
                     <li className="peer-only-2 inline-block px-3">
-                        <a href="/">
+                        {/* <a href="/">
                             <FingerPrintIcon className="h-8 w-8 text-juicy-sun" />
-                        </a>
+                        </a> */}
+                        <Link to="/">
+                            <FingerPrintIcon className="h-8 w-8 text-juicy-sun" />
+                        </Link>
                     </li>
                 </ul>
             </div>
