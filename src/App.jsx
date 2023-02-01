@@ -25,7 +25,7 @@ const App = () => {
                 <AdoptedPetContext.Provider value={adoptedPet}>
                     <Navbar />
 
-                    <main className="flex-auto ">
+                    <main className="flex-auto">
                         <Routes>
                             <Route path="/details/:id" element={<Details />} />
                             <Route path="/" element={<SearchParams />} />

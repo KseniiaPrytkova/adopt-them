@@ -3,26 +3,24 @@
 @tailwind utilities;
 
 @layer base {
-    html,
     body {
         @apply font-poppins;
         @apply m-0 box-border p-0;
+
+        @apply grid grid-cols-12;
     }
 
     #root {
         @apply flex flex-col;
         @apply min-h-screen;
+
+        @apply col-span-12 col-start-1 2xl:col-span-10 2xl:col-start-2;
     }
 
     img {
         @apply w-full;
     }
-
-    /* main {
-        flex: 1 1 auto;
-    } */
 }
-/* box-border flex min-h-full flex-col */
 
 @layer components {
     #modal {
