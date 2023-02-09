@@ -9,11 +9,12 @@ const Navbar = () => {
                         to="/"
                         className="label f color text-d  font-gloria text-3xl text-purple-sky"
                     >
-                        <img
+                        {/* <img
                             src="2.png"
                             alt="icon"
                             className="inline h-10 w-10 md:h-16 md:w-16"
-                        />{' '}
+                        />{' '} */}
+                        <span className="inline  text-5xl">🦭</span>
                         <span className="text-2xl md:text-3xl">
                             Adopt Them!
                         </span>

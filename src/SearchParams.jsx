@@ -5,6 +5,7 @@ import AdoptedPetContext from './AdoptedPetContext';
 import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
+import HeaderSecondary from './HeaderSecondary';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
 const SearchParams = () => {
@@ -23,9 +24,10 @@ const SearchParams = () => {
     return (
         <Fragment>
             <Header />
+            <HeaderSecondary />
             <div className=" grid-rows-auto   grid grid-cols-1 lg:grid-cols-12">
                 <form
-                    className="mt-2 mb-2 ml-2 grid content-start justify-items-center rounded-lg bg-grey-snow bg-opacity-80 py-4 md:col-span-2 lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:col-start-2"
+                    className="mt-2 mb-2 grid content-start justify-items-center rounded-lg bg-grey-snow bg-opacity-80 py-4 md:col-span-2 lg:col-span-4 xl:col-span-3 2xl:col-span-3 "
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);

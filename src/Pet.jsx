@@ -11,15 +11,18 @@ const Pet = (props) => {
     return (
         <Link
             to={`/details/${id}`}
-            className="relative  block rounded-3xl border-x  border-purple-sky  p-1 shadow-xl"
+            // className="relative  block rounded-3xl border-x  border-purple-sky  p-1 shadow-xl"
+            className="relative  block    rounded-xl p-0 shadow-xl"
         >
             <img
                 src={hero}
                 alt={name}
-                className="  rounded-3xl  border-l border-t border-bright-sky object-cover  hover:border hover:border-juicy-sun"
+                // className="  rounded-3xl  border-l border-t border-bright-sky object-cover  hover:border hover:border-juicy-sun"
+                className="object-cover"
             />
             {/* </div> */}
-            <div className="absolute bottom-0 left-0  rounded-3xl bg-gradient-to-tr from-white to-transparent p-2">
+            {/* <div className="absolute bottom-0 left-0  rounded-3xl bg-gradient-to-tr from-white to-transparent p-2"> */}
+            <div className="absolute bottom-0 left-0  bg-gradient-to-tr from-white to-transparent p-2">
                 <h1 className="text-lg font-semibold uppercase tracking-wide text-bright-sky">
                     {name}
                 </h1>
