@@ -1,6 +1,6 @@
 const Header = () => {
     return (
-        <header className="relative overflow-hidden bg-juicy-sun text-white lg:pt-12 xl:pt-14">
+        <header className="relative overflow-hidden bg-juicy-sun text-white lg:pt-12 xl:pt-14 bg-[url('ddd.jpg')] bg-cover bg-center">
             {/* <h1 className="px-5 pt-10 text-4xl leading-snug sm:p-10 sm:text-5xl"> */}
             <h1 className="text-6xl  pt-10 pl-10 leading-snug w-10/12 sm:w-9/12 md:w-8/12 md:pl-15 lg:w-11/12 lg:text-left xl:text-7xl xl:pt-25 xl:pb-10">
                 Find your new best friend
