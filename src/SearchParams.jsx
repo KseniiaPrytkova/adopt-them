@@ -6,6 +6,7 @@ import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
+import Benefits from './Benefits';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
 const SearchParams = () => {
@@ -25,9 +26,13 @@ const SearchParams = () => {
         <Fragment>
             <Header />
             <HeaderSecondary />
+
             <div className=" grid-rows-auto   grid grid-cols-1 lg:grid-cols-12 ">
+                <h2 className=" text-4xl p-10 flex  lg:col-span-12  lg:justify-end">
+                    Pets avaliable for adoption:
+                </h2>
                 <form
-                    className="mt-2 mb-2 grid content-start justify-items-center rounded-lg bg-grey-snow bg-opacity-80 py-4 md:col-span-2 lg:col-span-4  xl:col-span-3 2xl:col-span-3 "
+                    className="py-4 mb-2 mx-2 grid content-start justify-items-center rounded-lg bg-grey-snow bg-opacity-80 md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3  "
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);
@@ -57,7 +62,7 @@ const SearchParams = () => {
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-80"
+                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64"
                         />
                     </label>
 
@@ -66,7 +71,7 @@ const SearchParams = () => {
                         <select
                             id="animal"
                             name="animal"
-                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-80"
+                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64"
                             onChange={(e) => {
                                 setAnimal(e.target.value);
                             }}
@@ -89,7 +94,7 @@ const SearchParams = () => {
                             disabled={!breeds.length}
                             id="breed"
                             name="breed"
-                            className="mb-5 block w-80 disabled:opacity-50 sm:w-96 lg:w-72 2xl:w-80"
+                            className="mb-5 block w-80 disabled:opacity-50 sm:w-96 lg:w-72 2xl:w-64"
                         >
                             <option />
                             {breeds.map((breed) => (
@@ -107,6 +112,7 @@ const SearchParams = () => {
 
                 <Results pets={pets} />
             </div>
+            <Benefits />
         </Fragment>
     );
 };
