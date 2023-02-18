@@ -54,7 +54,7 @@ class Carousel extends Component {
                     <img
                         src={images[active]}
                         alt="animal"
-                        className="m-auto w-10/12 rounded-3xl border-l border-t border-bright-sky p-2 xl:w-8/12"
+                        className="m-auto w-10/12 rounded-3xl border-l border-t  p-2 xl:w-8/12"
                     />
                 </div>
 

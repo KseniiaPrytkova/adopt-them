@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-import { FingerPrintIcon } from '@heroicons/react/24/solid';
-
 // const Footer = () => {
 //     return (
 //         <footer className="bg-dark-sky text-center text-white">
@@ -15,13 +12,24 @@ import { FingerPrintIcon } from '@heroicons/react/24/solid';
 //         </footer>
 //     );
 // };
-const date = new Date();
 
 const Footer = () => {
+    const date = new Date();
+
+    const toggleTheme = () => {
+        const body = document.querySelector('body');
+        body.classList.toggle('dark');
+
+        const theme = body.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+
+        const label = document.querySelector('.theme-label');
+        label.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+    };
+
     return (
-        // <footer className="bg-dark-sky p-10 text-white flex gap-2 justify-evenly items-center">
-        <footer className="bg-dark-sky px-10 pt-10 pb-5 text-white flex flex-wrap lg:justify-evenly lg:items-center ">
-            <ul className="basis-1/3 flex flex-col space-y-4 order-1 lg:basis-1/6">
+        <footer className="bg-light-darkNavy dark:bg-dark-purple px-10 pt-10 pb-5 text-white flex flex-wrap lg:justify-evenly lg:items-center">
+            <ul className="text-light-gold dark:text-dark-paleGreen basis-1/3 flex flex-col space-y-4 order-1 lg:basis-1/6">
                 <li>Furstagram</li>
                 <li>Furbook</li>
                 <li>Tailitter</li>
@@ -29,16 +37,17 @@ const Footer = () => {
                 <li>WhatsFur</li>
             </ul>
 
-            {/* <ul className=" flex flex-col space-y-4"> */}
-            <ul className="basis-1/3 flex flex-col space-y-4 order-2 lg:basis-1/6">
+            <ul className="text-light-paleGold dark:text-dark-green basis-1/3 flex flex-col space-y-4 order-2 lg:basis-1/6">
                 <li>About us</li>
                 <li>Jobs</li>
                 <li>Fur and tails</li>
             </ul>
 
             <section className="basis-full flex flex-col space-y-4 pt-10 order-4 lg:order-3 lg:basis-2/5 lg:pt-0">
-                <h3 className="text-xl">Sign up for our newsletter</h3>
-                <p>
+                <h3 className="text-xl  text-light-gold dark:text-dark-green">
+                    Sign up for our newsletter
+                </h3>
+                <p className="">
                     We will send you emails about new animals joining our family
                     and some pet care tips.
                 </p>
@@ -46,7 +55,7 @@ const Footer = () => {
                 <input
                     type="text"
                     id="success"
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className=" bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
                     placeholder="Drop your email"
                 ></input>
             </section>
@@ -55,18 +64,24 @@ const Footer = () => {
                 <label className="relative inline-flex items-center mr-5 cursor-pointer">
                     <input
                         type="checkbox"
-                        value=""
                         className="sr-only peer"
-                        checked
+                        defaultChecked={
+                            localStorage.getItem('theme') === 'dark'
+                                ? true
+                                : false
+                        }
+                        onClick={() => toggleTheme()}
                     />
                     <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-yellow-300 dark:peer-focus:ring-yellow-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-yellow-400"></div>
-                    <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Yellow
+                    <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 theme-label">
+                        {localStorage.getItem('theme') === 'dark'
+                            ? 'Dark'
+                            : 'Light'}
                     </span>
                 </label>
             </div>
 
-            <p className="order-4 basis-full text-center pt-10 text-sm">
+            <p className=" order-4 basis-full text-center pt-10 text-sm">
                 Adopt Them @{date.getFullYear()}
             </p>
         </footer>

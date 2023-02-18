@@ -11,8 +11,7 @@ const Pet = (props) => {
     return (
         <Link
             to={`/details/${id}`}
-            // className="relative  block rounded-3xl border-x  border-purple-sky  p-1 shadow-xl"
-            className="relative  block    rounded-xl p-0 shadow-xl "
+            className="relative  block   p-0 shadow-xl "
         >
             <img
                 src={hero}
@@ -23,11 +22,11 @@ const Pet = (props) => {
             {/* </div> */}
             {/* <div className="absolute bottom-0 left-0  rounded-3xl bg-gradient-to-tr from-white to-transparent p-2"> */}
             <div className="absolute bottom-0 left-0  bg-gradient-to-tr from-white to-transparent p-2">
-                <h1 className="text-lg font-semibold uppercase tracking-wide text-bright-sky">
+                <h1 className="text-light-navy dark:text-dark-purple text-lg font-semibold uppercase tracking-wide ">
                     {name}
                 </h1>
 
-                <h2 className="text-md  block font-medium leading-tight text-dark-sky">{`${animal} — ${breed} — ${location}`}</h2>
+                <h2 className="text-light-darkNavy dark:text-dark-darkRed text-md  block font-medium leading-tight ">{`${animal} — ${breed} — ${location}`}</h2>
             </div>
         </Link>
     );

@@ -28,11 +28,11 @@ const SearchParams = () => {
             <HeaderSecondary />
 
             <div className=" grid-rows-auto   grid grid-cols-1 lg:grid-cols-12 ">
-                <h2 className=" text-4xl p-10 flex  lg:col-span-12  lg:justify-end">
+                <h2 className="text-light-navy dark:text-dark-purple text-4xl p-10 flex  lg:col-span-12  lg:justify-end">
                     Pets avaliable for adoption:
                 </h2>
                 <form
-                    className="py-4 mb-2 mx-2 grid content-start justify-items-center rounded-lg bg-grey-snow bg-opacity-80 md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3  "
+                    className="bg-light-lightNavy dark:bg-dark-lightGrey py-4 mb-2 mx-2 grid content-start justify-items-center rounded-lg  bg-opacity-80 md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3  "
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);
@@ -45,7 +45,7 @@ const SearchParams = () => {
                     }}
                 >
                     {adoptedPet ? (
-                        <div className=" m-4 flex flex-col items-center rounded-lg bg-bright-sky p-4">
+                        <div className=" m-4 flex flex-col items-center rounded-lg  p-4">
                             <h1>You adopted {adoptedPet.name}</h1>
                             <img
                                 src={adoptedPet.images[0]}
@@ -56,18 +56,22 @@ const SearchParams = () => {
                     ) : null}
 
                     <label htmlFor="location">
-                        Location
+                        <span className="text-light-darkNavy dark:text-dark-purple">
+                            Location
+                        </span>
                         <input
                             id="location"
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64"
+                            className=" mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64"
                         />
                     </label>
 
                     <label htmlFor="animal">
-                        Animal
+                        <span className="text-light-darkNavy dark:text-dark-purple">
+                            Animal
+                        </span>
                         <select
                             id="animal"
                             name="animal"
@@ -89,7 +93,9 @@ const SearchParams = () => {
                     </label>
 
                     <label htmlFor="breed">
-                        Breed
+                        <span className="text-light-darkNavy dark:text-dark-purple">
+                            Breed
+                        </span>
                         <select
                             disabled={!breeds.length}
                             id="breed"
@@ -105,7 +111,7 @@ const SearchParams = () => {
                         </select>
                     </label>
 
-                    <button className="w-36 rounded border-none bg-juicy-sun px-6 py-2 text-white hover:opacity-50 ">
+                    <button className="bg-light-tan dark:bg-dark-green text-white w-36 rounded border-none  px-6 py-2  hover:opacity-50 ">
                         Submit
                     </button>
                 </form>

@@ -22,7 +22,7 @@ const Benefits = () => {
 
     return (
         <article className="lg:mt-10 lg:mb-10 py-10 lg:p-0 lg:flex lg:flex-wrap lg:justify-evenly">
-            <h2 className="text-4xl font-bold pl-10 mb-10 lg:mb-0 lg:basis-2/6 lg:pl-10">
+            <h2 className="text-light-navy dark:text-dark-purple text-4xl font-bold pl-10 mb-10 lg:mb-0 lg:basis-2/6 lg:pl-10">
                 All our animals are...
             </h2>
             <ul className="flex flex-wrap px-6 lg:basis-4/6 lg:py-0 items-center">
@@ -31,18 +31,19 @@ const Benefits = () => {
                         key={`word-${index}`}
                         className={`m-1 px-4 py-2 ${
                             index % 7 === 0
-                                ? 'text-lg lg:text-xl'
+                                ? 'text-lg lg:text-xl text-light-blue dark:text-dark-darkRed'
                                 : index % 7 === 1
-                                ? 'border-2 border-yellow-600 rounded-md text-yellow-500 text-base'
-                                : index % 7 === 2
-                                ? 'bg-green-500 border-2 border-green-700 rounded text-white text-sm'
+                                ? 'border-2 border-light-gold dark:border-dark-paleTeal rounded-md text-light-darkNavy dark:text-dark-purple text-base'
+                                : //   'border border-yellow-600 bg-gradient-to-tr from-yellow-100  to-transparent  text-yellow-500 text-base'
+                                index % 7 === 2
+                                ? 'bg-light-teal dark:bg-dark-paleGreen border-2 border-light-navy dark:border-dark-purple dark:text-dark-purple rounded text-light-lightNavy text-sm'
                                 : index % 7 === 3
-                                ? 'border-2 border-indigo-700 rounded-md text-indigo-500 text-2xl'
+                                ? 'border-2 border-light-teal dark:border-dark-teal rounded-md text-light-navy dark:text-dark-purple text-2xl'
                                 : index % 7 === 4
-                                ? 'bg-purple-600 border-2 border-purple-800 rounded-lg text-white text-lg'
+                                ? ' text-light-tan dark:text-dark-lightPurple text-xl lg:text-2xl'
                                 : index % 7 === 5
-                                ? ' text-pink-500 text-xl lg:text-2xl'
-                                : 'border-2 border-teal-700 rounded-md text-teal-500 text-lg lg:text-xl'
+                                ? 'bg-light-gold border-2 dark:bg-dark-paleTeal border-light-orange dark:border-dark-lightPurple rounded-lg text-white text-lg'
+                                : 'border-2 border-light-orange dark:border-dark-green rounded-md text-light-orange dark:text-dark-teal text-lg lg:text-xl'
                         }`}
                     >
                         {word}
