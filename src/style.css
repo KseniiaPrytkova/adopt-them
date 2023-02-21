@@ -13,34 +13,26 @@
         @apply flex flex-col;
         @apply min-h-screen;
         @apply col-span-12 col-start-1 2xl:col-span-10 2xl:col-start-2;
-        /* @apply bg-slate-50 dark:bg-dark-bg; */
     }
 
     img {
         @apply w-full;
     }
-}
 
-@layer components {
-    #modal {
-        /* @apply bg-light-purple-sky dark:bg-dark-purple-sky; */
-        @apply bg-opacity-90;
-        @apply fixed;
-        @apply inset-0;
-        @apply z-10;
-        @apply flex;
-        @apply justify-center;
-        @apply items-center;
-    }
-
-    #modal:empty {
-        display: none;
+    @keyframes appear-from-left-top {
+        0% {
+            transform: translate(-100%, -100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
     }
 }
 
 @layer utilities {
     .active-image {
         @apply opacity-60;
-        /* @apply border-2 border-red-400; */
     }
 }

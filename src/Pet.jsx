@@ -13,16 +13,10 @@ const Pet = (props) => {
             to={`/details/${id}`}
             className="relative  block   p-0 shadow-xl "
         >
-            <img
-                src={hero}
-                alt={name}
-                // className="  rounded-3xl  border-l border-t border-bright-sky object-cover  hover:border hover:border-juicy-sun"
-                className="object-cover "
-            />
-            {/* </div> */}
-            {/* <div className="absolute bottom-0 left-0  rounded-3xl bg-gradient-to-tr from-white to-transparent p-2"> */}
+            <img src={hero} alt={name} className="object-cover " />
+
             <div className="absolute bottom-0 left-0  bg-gradient-to-tr from-white to-transparent p-2">
-                <h1 className="text-light-navy dark:text-dark-purple text-lg font-semibold uppercase tracking-wide ">
+                <h1 className="text-light-blue dark:text-dark-purple text-lg  font-bold uppercase tracking-wide ">
                     {name}
                 </h1>
 

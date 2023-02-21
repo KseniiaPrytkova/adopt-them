@@ -28,11 +28,10 @@ const Details = () => {
 
     return (
         <div className="my-10 grid grid-cols-12">
-            {/* <Link to="/" className="text-xl col-span-12 col-start-3 mb-10">
-                <button>Back</button>
-            </Link> */}
-
-            <Link to="/" className="text-xl col-span-12 col-start-3 mb-10">
+            <Link
+                to="/"
+                className="text-xl col-span-12 col-start-3 mb-10 text-light-darkNavy dark:text-dark-darkRed"
+            >
                 <button>
                     <svg
                         className="inline-block w-4 h-4 mr-2"
@@ -49,46 +48,46 @@ const Details = () => {
                 </button>
             </Link>
 
-            <div className=" bg-light-lightNavy dark:bg-dark-lightGrey col-span-12 col-start-1 rounded-lg  p-4 sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
+            <div className="bg-light-lightNavy dark:bg-dark-lightGrey col-span-12 col-start-1 rounded-lg p-4 sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
                 <Carousel images={pet.images} />
 
-                <div className=" text-center">
-                    <h1 className=" mt-2 text-3xl font-semibold uppercase tracking-wide ">
+                <div className="text-center">
+                    <h1 className="mt-2 text-3xl font-semibold uppercase tracking-wide text-light-navy dark:text-dark-lightPurple">
                         {pet.name}
                     </h1>
-                    <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
+                    <h2 className="text-light-darkNavy dark:text-dark-darkRed">{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button
                         onClick={() => setShowModal(true)}
-                        className="m-2 rounded  py-2 px-4 text-white hover:opacity-50"
+                        className="m-2 rounded py-2 px-4 text-white hover:opacity-50 bg-light-teal dark:bg-dark-green"
                     >
                         Adopt {pet.name}
                     </button>
-                    <div className="m-2 flex flex-col items-center rounded-lg lg:flex-row">
+                    <div className="m-2 flex flex-col items-center rounded-lg lg:flex-row text-light-darkNavy dark:text-dark-darkRed">
                         <p className="text-left">{pet.description}</p>
                     </div>
 
                     {showModal ? (
                         <Modal>
-                            <div className=" flex flex-col  rounded-lg   ">
-                                <h1 className=" rounded-lg bg-neutral-200 p-4 text-xl  bg-blend-darken">
+                            <div className="flex flex-col z-20 bg-light-lightNavy dark:bg-dark-lightGrey rounded-xl">
+                                <h1 className="    text-xl  bg-blend-darken px-8 py-4 md:px-11 md:py-6">
                                     Would you like to adopt&nbsp;
-                                    <span className="font-semibold uppercase tracking-wide ">
+                                    <span className="font-semibold uppercase tracking-wide text-light-orange dark:text-dark-teal">
                                         {pet.name}?
                                     </span>
                                 </h1>
-                                <div className="  m-4 rounded-b-lg text-center">
+                                <div className="text-center py-8">
                                     <button
                                         onClick={() => {
                                             setAdoptedPet(pet);
                                             navigate('/');
                                         }}
-                                        className="mr-4 rounded py-2 px-6 text-white hover:opacity-50"
+                                        className="mr-4 rounded py-2 px-6 text-white hover:opacity-50 bg-light-tan dark:bg-dark-purple w-20"
                                     >
                                         Yes
                                     </button>
                                     <button
                                         onClick={() => setShowModal(false)}
-                                        className="rounded  py-2 px-6 text-white hover:opacity-50"
+                                        className="rounded py-2 px-6 text-white hover:opacity-50 bg-light-darkNavy dark:bg-dark-paleTeal w-20"
                                     >
                                         No
                                     </button>

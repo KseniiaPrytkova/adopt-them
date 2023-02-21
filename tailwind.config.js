@@ -30,6 +30,10 @@ module.exports = {
                     darkRed: '#1f0802',
                     lightGrey: '#f9f9f9'
                 }
+            },
+            animation: {
+                'appear-from-left-top':
+                    'appear-from-left-top 1s ease-out forwards'
             }
         }
     },
