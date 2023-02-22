@@ -24,17 +24,33 @@ const Footer = () => {
     return (
         <footer className="flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around  lg:justify-evenly">
             <ul className="order-1 flex basis-1/2 flex-col space-y-4 text-light-gold dark:text-dark-green sm:basis-1/4 lg:basis-1/6">
-                <li>Furstagram</li>
-                <li>Furbook</li>
-                <li>Tailitter</li>
-                <li>LinkedOut</li>
-                <li>WhatsFur</li>
+                <li>
+                    <a href="https://www.google.com">Furstagram</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">Furbook</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">Tailitter</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">LinkedOut</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">WhatsFur</a>
+                </li>
             </ul>
 
-            <ul className="order-2 flex basis-1/4 flex-col space-y-4 text-light-paleGold dark:text-dark-paleGreen lg:basis-1/6">
-                <li>About us</li>
-                <li>Jobs</li>
-                <li>Fur and tails</li>
+            <ul className="order-2 flex basis-2/6 flex-col space-y-4 text-light-paleGold dark:text-dark-paleGreen sm:basis-1/4 lg:basis-1/6">
+                <li>
+                    <a href="https://www.google.com">About us</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">Jobs</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com">Fur and tails</a>
+                </li>
             </ul>
 
             <section className="order-4 flex basis-full flex-col space-y-4 pt-10 lg:basis-2/5 lg:pt-0">
