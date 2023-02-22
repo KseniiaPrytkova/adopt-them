@@ -20,10 +20,8 @@ const SearchParams = () => {
     const [adoptedPet] = useContext(AdoptedPetContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
-
     const results = useQuery(['search', requestParams], fetchSearch);
     const pets = results?.data?.pets ?? [];
-
     const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
 
     return (
@@ -48,12 +46,31 @@ const SearchParams = () => {
                         setRequestParams(obj);
                     }}
                 >
-                    {adoptedPet ? (
+                    {adoptedPet || localStorage.getItem('adopted') ? (
                         <div className="m-4 flex flex-col items-center rounded-lg bg-light-teal p-4 text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey">
-                            <h1>You adopted {adoptedPet.name}</h1>
+                            <h1>
+                                You adopted{' '}
+                                {adoptedPet
+                                    ? adoptedPet.name
+                                    : JSON.parse(
+                                          localStorage.getItem('adopted')
+                                      ).name}
+                            </h1>
                             <img
-                                src={adoptedPet.images[0]}
-                                alt={adoptedPet.name}
+                                src={
+                                    adoptedPet
+                                        ? adoptedPet.images[0]
+                                        : JSON.parse(
+                                              localStorage.getItem('adopted')
+                                          ).images[0]
+                                }
+                                alt={
+                                    adoptedPet
+                                        ? adoptedPet.name
+                                        : JSON.parse(
+                                              localStorage.getItem('adopted')
+                                          ).name
+                                }
                                 className="mt-2 w-1/4 rounded-full"
                             />
                         </div>

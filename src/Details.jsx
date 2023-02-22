@@ -85,6 +85,10 @@ const Details = () => {
                                         ref={ref}
                                         onClick={() => {
                                             setAdoptedPet(pet);
+                                            localStorage.setItem(
+                                                'adopted',
+                                                JSON.stringify(pet)
+                                            );
                                             navigate('/');
                                         }}
                                         className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
