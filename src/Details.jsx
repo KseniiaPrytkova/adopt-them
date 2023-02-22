@@ -7,6 +7,7 @@ import ErrorBoundary from './ErrorBoundary';
 import fetchPet from './fetchPet';
 import Carousel from './Carousel';
 import AdoptedPetContext from './AdoptedPetContext';
+import { useIntersectionObserver } from './useIntersectionObserver';
 
 const Details = () => {
     const { id } = useParams();
@@ -15,6 +16,7 @@ const Details = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+    const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
 
     if (results.isLoading) {
         return (
@@ -30,11 +32,11 @@ const Details = () => {
         <div className="my-10 grid grid-cols-12">
             <Link
                 to="/"
-                className="text-xl col-span-12 col-start-2 lg:col-start-3 mb-10 text-light-darkNavy dark:text-dark-darkRed"
+                className="col-span-12 col-start-2 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"
             >
                 <button>
                     <svg
-                        className="inline-block w-4 h-4 mr-2"
+                        className="mr-2 inline-block h-4 w-4"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -48,7 +50,7 @@ const Details = () => {
                 </button>
             </Link>
 
-            <div className="bg-light-lightNavy dark:bg-dark-lightGrey col-span-12 col-start-1 rounded-lg p-4 sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
+            <div className="col-span-12 col-start-1 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
                 <Carousel images={pet.images} />
 
                 <div className="text-center">
@@ -57,37 +59,45 @@ const Details = () => {
                     </h1>
                     <h2 className="text-light-darkNavy dark:text-dark-darkRed">{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button
+                        ref={ref}
                         onClick={() => setShowModal(true)}
-                        className="m-2 rounded py-2 px-4 text-white hover:opacity-50 bg-light-teal dark:bg-dark-green"
+                        className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
+                            isIntersecting ? 'animate-fade-in' : ''
+                        }`}
                     >
                         Adopt {pet.name}
                     </button>
-                    <div className="m-2 flex flex-col items-center rounded-lg lg:flex-row text-light-darkNavy dark:text-dark-darkRed">
+                    <div className="m-2 flex flex-col items-center rounded-lg text-light-darkNavy dark:text-dark-darkRed lg:flex-row">
                         <p className="text-left">{pet.description}</p>
                     </div>
 
                     {showModal ? (
                         <Modal>
-                            <div className="flex flex-col z-20 bg-light-lightNavy dark:bg-dark-lightGrey rounded-xl">
-                                <h1 className="    text-xl  bg-blend-darken px-8 py-4 md:px-11 md:py-6">
+                            <div className="z-20 col-span-10 col-start-2 flex flex-col rounded-xl bg-light-lightNavy text-center dark:bg-dark-lightGrey">
+                                <h1 className="px-8 py-4 text-xl bg-blend-darken md:px-11 md:py-6">
                                     Would you like to adopt&nbsp;
                                     <span className="font-semibold uppercase tracking-wide text-light-orange dark:text-dark-teal">
                                         {pet.name}?
                                     </span>
                                 </h1>
-                                <div className="text-center py-8">
+                                <div className="py-8 text-center">
                                     <button
+                                        ref={ref}
                                         onClick={() => {
                                             setAdoptedPet(pet);
                                             navigate('/');
                                         }}
-                                        className="mr-4 rounded py-2 px-6 text-white hover:opacity-50 bg-light-tan dark:bg-dark-purple w-20"
+                                        className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
+                                            isIntersecting
+                                                ? 'animate-shake-immediately'
+                                                : ''
+                                        }`}
                                     >
                                         Yes
                                     </button>
                                     <button
                                         onClick={() => setShowModal(false)}
-                                        className="rounded py-2 px-6 text-white hover:opacity-50 bg-light-darkNavy dark:bg-dark-paleTeal w-20"
+                                        className="w-20 rounded bg-light-darkNavy py-2 px-6 text-white hover:opacity-50 dark:bg-dark-paleTeal"
                                     >
                                         No
                                     </button>

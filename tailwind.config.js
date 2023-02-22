@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ['./src/**/*.{js,ts,jsx,tsx,html}', './src/index.html'],
+    tailwindConfig: './styles/tailwind.config.js',
     darkMode: 'class',
     theme: {
         extend: {
@@ -34,17 +35,52 @@ module.exports = {
             animation: {
                 'appear-from-left': '3s appear-from-left  ease-in-out ',
                 'fade-in': '6s fade-in ease-in-out forwards',
-                shake: '2s shake 6s   both'
-                // 'shake-me': '2s shake-me both'
+                shake: '2s shake 6s both',
+                'zoom-in-out': '2s zoom-in-out',
+                'shake-immediately': '4s shake both'
+            },
+
+            keyframes: {
+                'appear-from-left': {
+                    from: {
+                        opacity: 0,
+                        transform: 'translateX(-100%)'
+                    },
+                    to: {
+                        opacity: 1,
+                        transform: 'translateX(0)'
+                    }
+                },
+                'fade-in': {
+                    from: {
+                        opacity: 0,
+                        transform: 'translateY(20px)'
+                    },
+                    to: {
+                        opacity: 1,
+                        transform: 'translateY(0)'
+                    }
+                },
+                shake: {
+                    '20%, 40%, 60%, 80%': {
+                        transform: 'translateX(1%)'
+                    },
+                    '10%, 30%, 50%, 70%, 90%': {
+                        transform: 'translateX(-5%)'
+                    },
+                    from: {
+                        transform: 'none'
+                    },
+                    to: {
+                        transform: 'none'
+                    }
+                },
+                'zoom-in-out': {
+                    '0%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.2)' },
+                    '100%': { transform: 'scale(1)' }
+                }
             }
-            // keyframes: {
-            //     shake: {
-            //         '10%, 90%': { transform: 'translate3d(-1px, 0 , 0)' },
-            //         '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-            //         '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-            //         '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
-            //     }
-            // }
         }
     },
     variants: {
@@ -55,3 +91,45 @@ module.exports = {
     },
     plugins: [require('@tailwindcss/forms')]
 };
+
+// @keyframes appear-from-left {
+//     from {
+//         opacity: 0;
+//         transform: translateX(-100%);
+//     }
+//     to {
+//         opacity: 1;
+//         transform: translateX(0);
+//     }
+// }
+
+// @keyframes fade-in {
+//     from {
+//         opacity: 0;
+//         transform: translateY(20px);
+//     }
+//     to {
+//         opacity: 1;
+//         transform: translateY(0);
+//     }
+// }
+
+// @keyframes shake {
+//     20%,
+//     40%,
+//     60%,
+//     80% {
+//         transform: translateX(1%);
+//     }
+//     10%,
+//     30%,
+//     50%,
+//     70%,
+//     90% {
+//         transform: translateX(-1%);
+//     }
+//     from,
+//     to {
+//         transform: none;
+//     }
+// }

@@ -1,7 +1,7 @@
 const HeaderSecondary = () => {
     return (
-        <article className="bg-light-gold dark:bg-dark-lightPurple grid grid-cols-12 px-20 pt-10 pb-16 bg-light-lol ">
-            <p className="text-light-navy dark:text-dark-paleGreen col-start-2 col-span-10 text-center text-lg lg:text-xl">
+        <article className="grid grid-cols-12 bg-light-gold px-20 pt-10 pb-16 dark:bg-dark-lightPurple">
+            <p className="col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl">
                 From the comfort of their personal computers, pet lovers can
                 search for a pet that best matches their needs. They can then
                 reference a shelter’s web page and discover what services it

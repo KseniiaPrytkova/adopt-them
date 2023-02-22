@@ -16,8 +16,8 @@ const Modal = ({ children }) => {
 
     return createPortal(
         <div className="fixed inset-0 z-10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-light-darkNavy opacity-70 backdrop-filter backdrop-blur-sm"></div>
-            {children}
+            <div className="absolute inset-0 bg-light-darkNavy opacity-70 backdrop-blur-sm backdrop-filter"></div>
+            <div className="grid grid-cols-12">{children}</div>
         </div>,
         elRef.current
     );

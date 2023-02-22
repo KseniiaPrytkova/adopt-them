@@ -20,13 +20,13 @@ const Results = ({ pets }) => {
     }, [pets]);
 
     return (
-        <section className=" bg-light-lightNavy dark:bg-dark-lightGrey mx-2 p-4 grid grid-cols-1 justify-items-stretch gap-4 rounded-lg  sm:grid-cols-2 lg:grid-rows-2 lg:col-span-8 lg:grid-cols-3 xl:col-span-9 xl:col-start-4 xl:grid-cols-4">
+        <section className="mx-2 grid grid-cols-1 justify-items-stretch gap-4 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey  sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:grid-rows-2 xl:col-span-9 xl:col-start-4 xl:grid-cols-4">
             {!pets.length ? (
-                <div className="flex p-10 justify-center items-center">
+                <div className="flex items-center justify-center p-10">
                     <h1>No Pets Found</h1>
                 </div>
             ) : (
-                pets.slice(pageConfig.from, pageConfig.to).map((pet, index) => {
+                pets.slice(pageConfig.from, pageConfig.to).map((pet) => {
                     return (
                         <Pet
                             animal={pet.animal}
@@ -42,7 +42,7 @@ const Results = ({ pets }) => {
             )}
 
             {pets.length ? (
-                <div className="flex justify-center items-center gap-4 lg:row-start-4 sm:col-span-2 lg:col-span-3 xl:col-span-4">
+                <div className="flex items-center justify-center gap-4 sm:col-span-2 lg:col-span-3 lg:row-start-4 xl:col-span-4">
                     <button
                         disabled={pageConfig.from === 0}
                         onClick={() => {
@@ -53,11 +53,11 @@ const Results = ({ pets }) => {
                                 to: pageConfig.to - ITEMS_PER_PAGE
                             });
                         }}
-                        className="disabled:cursor-not-allowed text-light-darkNavy dark:text-dark-darkRed"
+                        className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
                     >
                         Prev
                     </button>
-                    <span className="w-10 h-10 flex justify-center items-center text-light-darkNavy dark:text-dark-darkRed">
+                    <span className="flex h-10 w-10 items-center justify-center text-light-darkNavy dark:text-dark-darkRed">
                         {pageConfig.page}
                     </span>
                     <button
@@ -70,7 +70,7 @@ const Results = ({ pets }) => {
                                 to: pageConfig.to + ITEMS_PER_PAGE
                             });
                         }}
-                        className="disabled:cursor-not-allowed text-light-darkNavy dark:text-dark-darkRed"
+                        className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
                     >
                         Next
                     </button>

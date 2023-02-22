@@ -7,6 +7,8 @@ import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
+import { useIntersectionObserver } from './useIntersectionObserver';
+
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
 const SearchParams = () => {
@@ -22,17 +24,19 @@ const SearchParams = () => {
     const results = useQuery(['search', requestParams], fetchSearch);
     const pets = results?.data?.pets ?? [];
 
+    const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
+
     return (
         <Fragment>
             <Header />
             <HeaderSecondary />
 
-            <div className=" grid-rows-auto   grid grid-cols-1 lg:grid-cols-12 ">
-                <h2 className="text-light-navy dark:text-dark-purple text-4xl p-10 flex  lg:col-span-12 lg:justify-end">
+            <div className="grid-rows-auto grid grid-cols-1 lg:grid-cols-12">
+                <h2 className="flex p-10 text-4xl text-light-navy dark:text-dark-purple lg:col-span-12 lg:justify-end">
                     Pets avaliable for adoption:
                 </h2>
                 <form
-                    className="bg-light-lightNavy dark:bg-dark-lightGrey py-4 mb-2 mx-2 grid content-start justify-items-center rounded-lg bg-opacity-80 md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3"
+                    className="mx-2 mb-2 grid content-start justify-items-center rounded-lg bg-light-lightNavy bg-opacity-80 py-4 dark:bg-dark-lightGrey md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3"
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);
@@ -45,18 +49,18 @@ const SearchParams = () => {
                     }}
                 >
                     {adoptedPet ? (
-                        <div className="m-4 flex flex-col items-center rounded-lg p-4 bg-light-teal text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey">
+                        <div className="m-4 flex flex-col items-center rounded-lg bg-light-teal p-4 text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey">
                             <h1>You adopted {adoptedPet.name}</h1>
                             <img
                                 src={adoptedPet.images[0]}
                                 alt={adoptedPet.name}
-                                className="w-1/4 rounded-full mt-2"
+                                className="mt-2 w-1/4 rounded-full"
                             />
                         </div>
                     ) : null}
 
                     <label htmlFor="location">
-                        <span className="text-light-darkNavy dark:text-dark-purple ">
+                        <span className="text-light-darkNavy dark:text-dark-purple">
                             Location
                         </span>
                         <input
@@ -64,7 +68,7 @@ const SearchParams = () => {
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64 border-light-darkNavy text-light-darkNavy dark:text-dark-darkRed  dark:border-dark-darkRed placeholder:text-light-lightNavy focus:ring-light-gold focus:border-light-gold  dark:focus:ring-dark-lightPurple dark:focus:border-dark-lightPurple"
+                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
                         />
                     </label>
 
@@ -75,7 +79,7 @@ const SearchParams = () => {
                         <select
                             id="animal"
                             name="animal"
-                            className="mb-5 block w-80 sm:w-96 lg:w-72 2xl:w-64 border-light-darkNavy text-light-darkNavy dark:text-dark-darkRed dark:border-dark-darkRed placeholder:text-light-lightNavy focus:ring-light-gold focus:border-light-gold dark:focus:ring-dark-lightPurple dark:focus:border-dark-lightPurple"
+                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
                             onChange={(e) => {
                                 setAnimal(e.target.value);
                             }}
@@ -100,7 +104,7 @@ const SearchParams = () => {
                             disabled={!breeds.length}
                             id="breed"
                             name="breed"
-                            className="mb-5 block w-80 disabled:opacity-50 sm:w-96 lg:w-72 2xl:w-64 border-light-darkNavy text-light-darkNavy dark:text-dark-darkRed dark:border-dark-darkRed placeholder:text-light-lightNavy focus:ring-light-gold focus:border-light-gold dark:focus:ring-dark-lightPurple dark:focus:border-dark-lightPurple"
+                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold disabled:opacity-50 dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
                         >
                             <option />
                             {breeds.map((breed) => (
@@ -111,7 +115,12 @@ const SearchParams = () => {
                         </select>
                     </label>
 
-                    <button className="bg-light-tan dark:bg-dark-green text-white w-36 rounded border-none  px-6 py-2  hover:opacity-50 ">
+                    <button
+                        ref={ref}
+                        className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
+                            isIntersecting ? 'animate-zoom-in-out' : ''
+                        }`}
+                    >
                         Submit
                     </button>
                 </form>
