@@ -24,20 +24,23 @@ const Benefits = () => {
 
     return (
         <article className="py-10 lg:mt-10 lg:mb-10 lg:flex lg:flex-wrap lg:justify-evenly lg:p-0">
-            <h2 className="mb-10 pl-10 text-4xl text-light-navy dark:text-dark-purple lg:mb-0 lg:basis-2/6 lg:pl-10">
+            <h2
+                ref={ref}
+                className="mb-10 pl-10 text-4xl text-light-navy dark:text-dark-purple lg:mb-0 lg:basis-2/6 lg:pl-10"
+            >
                 All our animals are:
             </h2>
             <ul className="flex flex-wrap items-center px-6 lg:basis-4/6 lg:py-0">
                 {characteristics.map((word, index) => (
                     <li
-                        ref={ref}
                         key={`word-${index}`}
                         className={`m-1 px-4 py-2 ${
                             index % 7 === 0
                                 ? 'text-lg text-light-blue dark:text-dark-darkRed lg:text-xl' +
                                   (isIntersecting ? ' animate-zoom-in-out' : '')
                                 : index % 7 === 1
-                                ? 'rounded-md border-2 border-light-gold text-base text-light-darkNavy dark:border-dark-paleTeal dark:text-dark-purple'
+                                ? 'rounded-md border-2 border-light-gold text-base text-light-darkNavy dark:border-dark-paleTeal dark:text-dark-purple' +
+                                  (isIntersecting ? ' animate-zoom-in-out' : '')
                                 : index % 7 === 2
                                 ? 'rounded border-2 border-light-navy bg-light-teal text-sm text-light-lightNavy dark:border-dark-purple dark:bg-dark-paleGreen dark:text-dark-purple'
                                 : index % 7 === 3
@@ -47,7 +50,8 @@ const Benefits = () => {
                                 ? 'text-xl text-light-tan dark:text-dark-lightPurple lg:text-2xl'
                                 : index % 7 === 5
                                 ? 'rounded-lg border-2 border-light-orange bg-light-gold text-lg text-white dark:border-dark-lightPurple dark:bg-dark-paleTeal'
-                                : 'rounded-md border-2 border-light-orange text-lg text-light-orange dark:border-dark-green dark:text-dark-teal lg:text-xl'
+                                : 'rounded-md border-2 border-light-orange text-lg text-light-orange dark:border-dark-green dark:text-dark-teal lg:text-xl' +
+                                  (isIntersecting ? ' animate-zoom-in-out' : '')
                         }`}
                     >
                         {word}

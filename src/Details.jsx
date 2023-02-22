@@ -62,7 +62,7 @@ const Details = () => {
                         ref={ref}
                         onClick={() => setShowModal(true)}
                         className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
-                            isIntersecting ? 'animate-fade-in' : ''
+                            isIntersecting ? 'animate-zoom-in-out' : ''
                         }`}
                     >
                         Adopt {pet.name}

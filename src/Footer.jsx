@@ -58,7 +58,7 @@ const Footer = () => {
                 <label
                     ref={ref}
                     className={`relative mr-5 inline-flex cursor-pointer items-center ${
-                        isIntersecting ? 'animate-shake-immediately' : ''
+                        isIntersecting ? 'animate-shake' : ''
                     }`}
                 >
                     <input

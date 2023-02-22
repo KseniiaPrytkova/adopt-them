@@ -35,7 +35,7 @@ module.exports = {
             animation: {
                 'appear-from-left': '3s appear-from-left  ease-in-out ',
                 'fade-in': '6s fade-in ease-in-out forwards',
-                shake: '2s shake 6s both',
+                shake: '2s shake 4s both',
                 'zoom-in-out': '2s zoom-in-out',
                 'shake-immediately': '4s shake both'
             },
@@ -91,45 +91,3 @@ module.exports = {
     },
     plugins: [require('@tailwindcss/forms')]
 };
-
-// @keyframes appear-from-left {
-//     from {
-//         opacity: 0;
-//         transform: translateX(-100%);
-//     }
-//     to {
-//         opacity: 1;
-//         transform: translateX(0);
-//     }
-// }
-
-// @keyframes fade-in {
-//     from {
-//         opacity: 0;
-//         transform: translateY(20px);
-//     }
-//     to {
-//         opacity: 1;
-//         transform: translateY(0);
-//     }
-// }
-
-// @keyframes shake {
-//     20%,
-//     40%,
-//     60%,
-//     80% {
-//         transform: translateX(1%);
-//     }
-//     10%,
-//     30%,
-//     50%,
-//     70%,
-//     90% {
-//         transform: translateX(-1%);
-//     }
-//     from,
-//     to {
-//         transform: none;
-//     }
-// }
