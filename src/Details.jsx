@@ -30,7 +30,7 @@ const Details = () => {
         <div className="my-10 grid grid-cols-12">
             <Link
                 to="/"
-                className="text-xl col-span-12 col-start-3 mb-10 text-light-darkNavy dark:text-dark-darkRed"
+                className="text-xl col-span-12 col-start-2 lg:col-start-3 mb-10 text-light-darkNavy dark:text-dark-darkRed"
             >
                 <button>
                     <svg

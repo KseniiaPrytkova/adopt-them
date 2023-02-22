@@ -2,21 +2,21 @@ const Header = () => {
     return (
         <header className=" relative overflow-hidden  lg:pt-12 xl:pt-14 bg-[url('/img/fox.jpg')] bg-cover bg-center">
             <div className=" grid grid-cols-12 grid-template-rows: repeat(2, minmax(0, 1fr));">
-                <h1 className="text-light-blue dark:text-dark-teal row-start-1 row-span-1 col-start-2 col-span-8 md:col-start-2 md:col-span-7 text-5xl py-10 lg:text-6xl leading-snug xl:text-7xl  animate-appear-from-left-top delay-500">
-                    Find your new best friend!
+                <h1 className="text-light-blue dark:text-dark-teal row-start-1 row-span-1 col-start-2 col-span-7 md:col-start-2 md:col-span-6 md:pr-0 text-5xl py-10 lg:text-6xl leading-snug xl:text-7xl animate-appear-from-left ">
+                    Find your new best friend
                 </h1>
 
-                <h2 className="text-light-teal dark:text-dark-paleTeal row-start-2 row-span-1 col-start-2 col-span-5 text-2xl md:leading-relaxed xl:leading-loose xl:text-3xl animate-appear-from-left-top ">
+                <h2 className="pr-5 text-light-teal dark:text-dark-paleTeal row-start-2 row-span-1 col-start-2 col-span-5 text-2xl md:leading-relaxed xl:leading-loose xl:text-3xl animate-fade-in">
                     Adopt Them is an online, searchable database of animals who
-                    need homes.
+                    need homes
                 </h2>
             </div>
 
-            <span className="mt-20 block text-center sm:hidden">
+            <span className="mt-20 block text-center sm:hidden animate-shake">
                 <a
                     href="https://www.petfinder.com/"
                     target={'blank'}
-                    className="bg-light-orange dark:bg-dark-teal mx-auto rounded py-2 px-8 hover:opacity-50 text-white"
+                    className="bg-light-orange dark:bg-dark-teal mx-auto rounded py-2 px-8 hover:opacity-50 text-white "
                 >
                     Explore
                 </a>

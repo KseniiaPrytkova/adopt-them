@@ -19,8 +19,8 @@ const Footer = () => {
     };
 
     return (
-        <footer className="bg-light-darkNavy dark:bg-dark-purple px-10 pt-10 pb-5 text-white flex flex-wrap justify-around lg:justify-evenly">
-            <ul className="text-light-gold dark:text-dark-green basis-1/4 flex flex-col space-y-4 order-1 lg:basis-1/6">
+        <footer className="bg-light-darkNavy dark:bg-dark-purple px-10 pt-10 pb-5 text-white flex flex-wrap justify-start sm:justify-around  lg:justify-evenly">
+            <ul className="text-light-gold dark:text-dark-green basis-1/2 flex flex-col space-y-4 order-1 sm:basis-1/4 lg:basis-1/6">
                 <li>Furstagram</li>
                 <li>Furbook</li>
                 <li>Tailitter</li>
@@ -51,7 +51,7 @@ const Footer = () => {
                 ></input>
             </section>
 
-            <div className="mt-10 basis-full sm:basis-1/6 order-3 lg:order-4 sm:mt-0">
+            <div className="mt-10 basis-full sm:basis-1/6 order-3 lg:order-4 sm:mt-0 animate-shake">
                 <label className="relative inline-flex items-center mr-5 cursor-pointer">
                     <input
                         type="checkbox"

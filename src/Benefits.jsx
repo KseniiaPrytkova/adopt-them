@@ -21,8 +21,8 @@ const Benefits = () => {
 
     return (
         <article className="lg:mt-10 lg:mb-10 py-10 lg:p-0 lg:flex lg:flex-wrap lg:justify-evenly">
-            <h2 className="text-light-navy dark:text-dark-purple text-4xl font-bold pl-10 mb-10 lg:mb-0 lg:basis-2/6 lg:pl-10">
-                All our animals are...
+            <h2 className="text-light-navy dark:text-dark-purple text-4xl pl-10 mb-10 lg:mb-0 lg:basis-2/6 lg:pl-10">
+                All our animals are:
             </h2>
             <ul className="flex flex-wrap px-6 lg:basis-4/6 lg:py-0 items-center">
                 {characteristics.map((word, index) => (
