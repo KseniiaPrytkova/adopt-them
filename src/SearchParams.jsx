@@ -12,6 +12,7 @@ import { useIntersectionObserver } from './useIntersectionObserver';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
 const SearchParams = () => {
+    const [page, setPage] = useState(0);
     const [requestParams, setRequestParams] = useState({
         location: '',
         animal: '',
@@ -20,8 +21,15 @@ const SearchParams = () => {
     const [adoptedPet] = useContext(AdoptedPetContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
-    const results = useQuery(['search', requestParams], fetchSearch);
-    const pets = results?.data?.pets ?? [];
+    const { isError, error, data, isFetching, isPreviousData } = useQuery(
+        ['search', { ...requestParams, page }],
+        fetchSearch,
+        {
+            keepPreviousData: true
+        }
+    );
+    const pets = data?.pets ?? [];
+    console.log(data);
     const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
 
     return (
@@ -44,6 +52,7 @@ const SearchParams = () => {
                             location: formData.get('location') ?? ''
                         };
                         setRequestParams(obj);
+                        setPage(0);
                     }}
                 >
                     {adoptedPet || localStorage.getItem('adopted') ? (
@@ -142,8 +151,17 @@ const SearchParams = () => {
                     </button>
                 </form>
 
-                <Results pets={pets} />
+                <Results
+                    pets={pets}
+                    page={page}
+                    setPage={setPage}
+                    isFetching={isFetching}
+                    isPreviousData={isPreviousData}
+                    isError={isError}
+                    error={error}
+                />
             </div>
+
             <Benefits />
         </Fragment>
     );
