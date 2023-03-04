@@ -4,6 +4,7 @@ const Results = ({
     pets,
     page,
     setPage,
+    isLoading,
     isFetching,
     isPreviousData,
     isError,
@@ -15,6 +16,8 @@ const Results = ({
                 <div>No Pets Found</div>
             ) : isError ? (
                 <div>Error: {error.message}</div>
+            ) : isFetching || isLoading ? (
+                <div>Loading...</div>
             ) : (
                 pets.map((pet) => {
                     return (

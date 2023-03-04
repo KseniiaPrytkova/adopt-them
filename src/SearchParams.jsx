@@ -21,13 +21,10 @@ const SearchParams = () => {
     const [adoptedPet] = useContext(AdoptedPetContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
-    const { isError, error, data, isFetching, isPreviousData } = useQuery(
-        ['search', { ...requestParams, page }],
-        fetchSearch,
-        {
+    const { isLoading, isError, error, data, isFetching, isPreviousData } =
+        useQuery(['search', { ...requestParams, page }], fetchSearch, {
             keepPreviousData: true
-        }
-    );
+        });
     const pets = data?.pets ?? [];
     console.log(data);
     const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
@@ -155,6 +152,7 @@ const SearchParams = () => {
                     pets={pets}
                     page={page}
                     setPage={setPage}
+                    isLoading={isLoading}
                     isFetching={isFetching}
                     isPreviousData={isPreviousData}
                     isError={isError}
