@@ -1,7 +1,6 @@
-import { useIntersectionObserver } from './useIntersectionObserver';
+import { useAnimateOnIntersection } from './useAnimateOnIntersection';
 
 const Footer = () => {
-    const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
     const date = new Date();
 
     const toggleTheme = () => {
@@ -21,8 +20,18 @@ const Footer = () => {
         }
     };
 
+    const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
+        'fade-in-fast',
+        0.5
+    );
+
     return (
-        <footer className="flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around  lg:justify-evenly">
+        <footer
+            ref={intersectionRef}
+            className={`ref={intersectionRef} flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
+                hasAnimated ? 'opacity-100' : 'opacity-0'
+            } transition-opacity`}
+        >
             <ul className="order-1 flex basis-1/2 flex-col space-y-4 text-light-gold dark:text-dark-green sm:basis-1/4 lg:basis-1/6">
                 <li>
                     <a href="https://www.google.com">Furstagram</a>
@@ -72,10 +81,11 @@ const Footer = () => {
 
             <div className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4">
                 <label
-                    ref={ref}
-                    className={`relative mr-5 inline-flex cursor-pointer items-center ${
-                        isIntersecting ? 'animate-shake' : ''
-                    }`}
+                    // ref={ref}
+                    // className={`relative mr-5 inline-flex cursor-pointer items-center ${
+                    //     isIntersecting ? 'animate-shake' : ''
+                    // }`}
+                    className={`relative mr-5 inline-flex cursor-pointer items-center `}
                 >
                     <input
                         type="checkbox"

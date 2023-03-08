@@ -1,26 +1,73 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-export function useIntersectionObserver(options) {
+// const useIntersectionObserver = (elements, callback, options) => {
+//     useEffect(() => {
+//         const observer = new IntersectionObserver((entries) => {
+//             entries.forEach((entry) => {
+//                 if (entry.isIntersecting) {
+//                     callback(entry.target);
+//                 }
+//             });
+//         }, options);
+
+//         elements.forEach((element) => {
+//             observer.observe(element);
+//         });
+
+//         return () => {
+//             observer.disconnect();
+//         };
+//     }, [elements, callback, options]);
+// };
+
+const useIntersectionObserver = (
+    ref,
+    callback,
+    oncePerSession = true,
+    options = {}
+) => {
     const [isIntersecting, setIsIntersecting] = useState(false);
-    const ref = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            setIsIntersecting(entry.isIntersecting);
-        }, options);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        console.log(
+                            'isIntersecting:',
+                            isIntersecting,
+                            'ref:',
+                            ref
+                        );
 
-        const currentRef = ref.current;
+                        setIsIntersecting(true);
+                        if (oncePerSession) {
+                            observer.disconnect();
+                        }
+                    }
+                });
+            },
+            {
+                ...options
+            }
+        );
 
-        if (currentRef) {
-            observer.observe(currentRef);
+        if (ref.current) {
+            observer.observe(ref.current);
         }
 
         return () => {
-            if (currentRef) {
-                observer.unobserve(currentRef);
-            }
+            observer.disconnect();
         };
-    }, [options]);
+    }, [ref, callback, oncePerSession, options]);
+
+    useEffect(() => {
+        if (isIntersecting) {
+            callback();
+        }
+    }, [isIntersecting, callback]);
 
     return [ref, isIntersecting];
-}
+};
+
+export { useIntersectionObserver };

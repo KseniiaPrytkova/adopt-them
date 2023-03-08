@@ -35,6 +35,7 @@ module.exports = {
             animation: {
                 'appear-from-left': '3s appear-from-left  ease-in-out ',
                 'fade-in': '6s fade-in ease-in-out forwards',
+                'fade-in-fast': '2s fade-in ease-in-out forwards',
                 shake: '2s shake 4s both',
                 'zoom-in-out': '2s zoom-in-out',
                 'shake-immediately': '4s shake both'

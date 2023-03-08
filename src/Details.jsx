@@ -16,7 +16,6 @@ const Details = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const [_, setAdoptedPet] = useContext(AdoptedPetContext);
-    const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
 
     if (results.isLoading) {
         return (
@@ -59,11 +58,12 @@ const Details = () => {
                     </h1>
                     <h2 className="text-light-darkNavy dark:text-dark-darkRed">{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button
-                        ref={ref}
+                        // ref={ref}
                         onClick={() => setShowModal(true)}
-                        className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
-                            isIntersecting ? 'animate-zoom-in-out' : ''
-                        }`}
+                        // className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
+                        //     isIntersecting ? 'animate-zoom-in-out' : ''
+                        // }`}
+                        className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green`}
                     >
                         Adopt {pet.name}
                     </button>

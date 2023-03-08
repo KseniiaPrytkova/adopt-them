@@ -7,7 +7,7 @@ import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
-import { useIntersectionObserver } from './useIntersectionObserver';
+import { useAnimateOnIntersection } from './useAnimateOnIntersection';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
@@ -26,15 +26,22 @@ const SearchParams = () => {
             keepPreviousData: true
         });
     const pets = data?.pets ?? [];
-    console.log(data);
-    const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 });
+    const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
+        'fade-in-fast',
+        0
+    );
 
     return (
         <Fragment>
             <Header />
             <HeaderSecondary />
 
-            <div className="grid-rows-auto grid grid-cols-1 lg:grid-cols-12">
+            <div
+                ref={intersectionRef}
+                className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
+                    hasAnimated ? 'opacity-100' : 'opacity-0'
+                } transition-opacity`}
+            >
                 <h2 className="flex p-10 text-4xl text-light-navy dark:text-dark-purple lg:col-span-12 lg:justify-end">
                     Pets avaliable for adoption:
                 </h2>
@@ -139,10 +146,11 @@ const SearchParams = () => {
                     </label>
 
                     <button
-                        ref={ref}
-                        className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
-                            isIntersecting ? 'animate-zoom-in-out' : ''
-                        }`}
+                        // ref={ref}
+                        // className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
+                        //     isIntersecting ? 'animate-zoom-in-out' : ''
+                        // }`}
+                        className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green `}
                     >
                         Submit
                     </button>

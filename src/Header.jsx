@@ -1,6 +1,6 @@
 const Header = () => {
     return (
-        <header className="relative overflow-hidden bg-[url('/img/fox.jpg')] bg-cover bg-center lg:pt-12 xl:pt-14">
+        <header className="relative overflow-hidden bg-[url('/img/fox.jpg')] bg-cover bg-center lg:pt-12 xl:pt-14  ">
             <div className="grid-template-rows: repeat(2, minmax(0, 1fr)); grid grid-cols-12">
                 <h1 className="col-span-7 col-start-2 row-span-1 row-start-1 animate-appear-from-left py-10 text-5xl leading-snug text-light-blue dark:text-dark-teal md:col-span-6 md:col-start-2 md:pr-0 lg:text-6xl xl:text-7xl">
                     Find your new best friend
