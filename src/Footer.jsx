@@ -30,7 +30,7 @@ const Footer = () => {
     return (
         <footer
             ref={intersectionRef}
-            className={`ref={intersectionRef} flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
+            className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
                 hasAnimated ? 'opacity-100' : 'opacity-0'
             } transition-opacity`}
         >

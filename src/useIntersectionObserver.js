@@ -31,24 +31,14 @@ const useIntersectionObserver = (
 ) => {
     const [isIntersecting, setIsIntersecting] = useState(false);
     const { hasAnimated1, _ } = useContext(AppContext);
-    // const [adoptedPet] = useContext(AdoptedPetContext);
 
     useEffect(() => {
-        // if (!adoptedPet) {
-        // console.log('inobserfer');
-        // if (oncePerApp && !hasAnimated1) {
-
         console.log('inside obsever');
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // console.log(
-                        //     'isIntersecting:',
-                        //     isIntersecting,
-                        //     'ref:',
-                        //     ref
-                        // );
+                        console.log('intersecting!!');
 
                         setIsIntersecting(true);
                         if (oncePerPage) {
@@ -70,20 +60,21 @@ const useIntersectionObserver = (
         }
 
         return () => {
+            console.log('disconnect');
             observer.disconnect();
         };
-        // }
-        // }
     });
 
     useEffect(() => {
-        // if (isIntersecting && !hasAnimated1) {
-        //     callback();
-        // }
-        if (isIntersecting) {
+        console.log('))', hasAnimated1[ref.current?.id]);
+        if (isIntersecting && hasAnimated1[ref.current?.id] === undefined) {
+            console.log(':::::::');
             callback();
         }
-    }, [isIntersecting, callback]);
+        // if (isIntersecting) {
+        //     callback();
+        // }
+    }, [callback, hasAnimated1, isIntersecting, ref]);
 
     return [ref, isIntersecting];
 };

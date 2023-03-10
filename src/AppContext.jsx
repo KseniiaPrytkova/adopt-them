@@ -10,7 +10,7 @@ const AppContext = createContext();
 
 const AppContextProvider = (props) => {
     const [adoptedPet, setAdoptedPet] = useState(null);
-    const [hasAnimated1, setHasAnimated1] = useState(false);
+    const [hasAnimated1, setHasAnimated1] = useState({});
 
     const contextValue = {
         adoptedPet,

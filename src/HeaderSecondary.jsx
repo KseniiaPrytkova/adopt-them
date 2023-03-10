@@ -15,17 +15,20 @@ const HeaderSecondary = () => {
         []
     );
 
-    const { adoptedPet, hasAnimated1 } = useContext(AppContext);
+    const { hasAnimated1, setHasAnimated1 } = useContext(AppContext);
 
     console.log('hasAnimated1------------>', hasAnimated1);
 
     return (
         <article className="grid grid-cols-12 bg-light-gold px-20 pt-10 pb-16 dark:bg-dark-lightPurple">
             <p
+                id="headerSecondary"
                 ref={intersectionRef}
                 // className={`col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl`}
                 className={`col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl ${
-                    hasAnimated ? 'opacity-100' : 'opacity-0'
+                    hasAnimated || hasAnimated1['headerSecondary']
+                        ? 'opacity-100'
+                        : 'opacity-0'
                 } transition-opacity`}
             >
                 From the comfort of their personal computers, pet lovers can

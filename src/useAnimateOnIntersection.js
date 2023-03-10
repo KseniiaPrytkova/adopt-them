@@ -33,8 +33,7 @@ const useAnimateOnIntersection = ({
     oncePerPage = false
 }) => {
     console.log('in useAnimateOnIntersection');
-    const { __, setHasAnimated1 } = useContext(AppContext);
-    // const ref = useRef(null);
+    const { hasAnimated1, setHasAnimated1 } = useContext(AppContext);
     const [hasAnimated, setHasAnimated] = useState(false);
 
     const [ref, isIntersecting] = useIntersectionObserver(
@@ -46,20 +45,25 @@ const useAnimateOnIntersection = ({
     );
 
     function animate() {
-        console.log('in animate');
+        console.log('in animate&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
 
         setHasAnimated(true);
 
         ref.current.classList.add(`animate-${animationName}`);
-        setHasAnimated1(true);
+
         setTimeout(() => {
+            console.log('animation completed');
             ref.current.classList.remove(`animate-${animationName}`);
+            setHasAnimated(false);
+            if (oncePerApp) {
+                setHasAnimated1((prevState) => ({
+                    ...prevState,
+                    [ref.current?.id]: true
+                }));
+            }
         }, 2000);
     }
 
-    if (isIntersecting) {
-        console.log('intersecting!!!', ref);
-    }
     return [ref, hasAnimated];
 };
 

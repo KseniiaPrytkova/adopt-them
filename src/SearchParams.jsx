@@ -1,13 +1,14 @@
 import { Fragment, useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
-import { AppContext } from './AppContext';
+// import { AppContext } from './AppContext';
 import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
 import { useAnimateOnIntersection } from './useAnimateOnIntersection';
+import { AppContext } from './AppContext';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
@@ -28,12 +29,15 @@ const SearchParams = () => {
     const pets = data?.pets ?? [];
     const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
         animationName: 'fade-in-fast',
-        threshold: 0,
+        threshold: 0.1,
         oncePerApp: true,
         oncePerPage: true
     });
 
+    const { hasAnimated1, setHasAnimated1 } = useContext(AppContext);
+
     // console.log('2', adoptedPet);
+    console.log('hasAnimated1------------>', hasAnimated1);
 
     return (
         <Fragment>
@@ -41,9 +45,12 @@ const SearchParams = () => {
             <HeaderSecondary />
 
             <div
+                id="searchParams"
                 ref={intersectionRef}
                 className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
-                    hasAnimated ? 'opacity-100' : 'opacity-0'
+                    hasAnimated || hasAnimated1['searchParams']
+                        ? 'opacity-100'
+                        : 'opacity-0'
                 } transition-opacity`}
             >
                 <h2 className="flex p-10 text-4xl text-light-navy dark:text-dark-purple lg:col-span-12 lg:justify-end">
