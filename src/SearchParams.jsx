@@ -1,7 +1,7 @@
 import { Fragment, useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
-import AdoptedPetContext from './AdoptedPetContext';
+import { AppContext } from './AppContext';
 import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
@@ -18,7 +18,7 @@ const SearchParams = () => {
         animal: '',
         breed: ''
     });
-    const [adoptedPet] = useContext(AdoptedPetContext);
+    const { adoptedPet } = useContext(AppContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
     const { isLoading, isError, error, data, isFetching, isPreviousData } =
@@ -26,10 +26,14 @@ const SearchParams = () => {
             keepPreviousData: true
         });
     const pets = data?.pets ?? [];
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
-        'fade-in-fast',
-        0
-    );
+    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+        animationName: 'fade-in-fast',
+        threshold: 0,
+        oncePerApp: true,
+        oncePerPage: true
+    });
+
+    // console.log('2', adoptedPet);
 
     return (
         <Fragment>

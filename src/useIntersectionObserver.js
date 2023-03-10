@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AppContext } from './AppContext';
+// import AdoptedPetContext from './AppContext';
 
 // const useIntersectionObserver = (elements, callback, options) => {
 //     useEffect(() => {
@@ -23,25 +25,35 @@ import { useState, useEffect } from 'react';
 const useIntersectionObserver = (
     ref,
     callback,
-    oncePerSession = true,
+    oncePerPage = true,
+    oncePerApp = true,
     options = {}
 ) => {
     const [isIntersecting, setIsIntersecting] = useState(false);
+    const { hasAnimated1, _ } = useContext(AppContext);
+    // const [adoptedPet] = useContext(AdoptedPetContext);
 
     useEffect(() => {
+        // if (!adoptedPet) {
+        // console.log('inobserfer');
+        // if (oncePerApp && !hasAnimated1) {
+
+        console.log('inside obsever');
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        console.log(
-                            'isIntersecting:',
-                            isIntersecting,
-                            'ref:',
-                            ref
-                        );
+                        // console.log(
+                        //     'isIntersecting:',
+                        //     isIntersecting,
+                        //     'ref:',
+                        //     ref
+                        // );
 
                         setIsIntersecting(true);
-                        if (oncePerSession) {
+                        if (oncePerPage) {
+                            console.log('once per page ---> disconnect!');
+                            console.log(observer);
                             observer.disconnect();
                         }
                     }
@@ -53,15 +65,21 @@ const useIntersectionObserver = (
         );
 
         if (ref.current) {
+            console.log('if ref.current', ref.current);
             observer.observe(ref.current);
         }
 
         return () => {
             observer.disconnect();
         };
-    }, [ref, callback, oncePerSession, options]);
+        // }
+        // }
+    });
 
     useEffect(() => {
+        // if (isIntersecting && !hasAnimated1) {
+        //     callback();
+        // }
         if (isIntersecting) {
             callback();
         }

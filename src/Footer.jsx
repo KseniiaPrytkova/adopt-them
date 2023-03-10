@@ -20,10 +20,12 @@ const Footer = () => {
         }
     };
 
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
-        'fade-in-fast',
-        0.5
-    );
+    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+        animationName: 'fade-in-fast',
+        threshold: 0.5,
+        oncePerApp: true,
+        oncePerPage: true
+    });
 
     return (
         <footer

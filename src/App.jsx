@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
-import AdoptedPetContext from './AdoptedPetContext';
+import { AppContextProvider } from './AppContext';
 import Details from './Details';
 import SearchParams from './SearchParams';
 import Navbar from './Navbar';
@@ -18,7 +18,10 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-    const adoptedPet = useState(null);
+    // const adoptedPet = useState(null);
+    console.log(
+        '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BEGIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    );
 
     useEffect(() => {
         const theme = localStorage.getItem('theme');
@@ -30,7 +33,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-                <AdoptedPetContext.Provider value={adoptedPet}>
+                <AppContextProvider>
                     <Navbar />
 
                     <main className="flex-auto">
@@ -41,7 +44,7 @@ const App = () => {
                     </main>
 
                     <Footer />
-                </AdoptedPetContext.Provider>
+                </AppContextProvider>
                 <div id="modal"></div>
             </QueryClientProvider>
         </BrowserRouter>

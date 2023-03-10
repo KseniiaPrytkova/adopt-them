@@ -21,10 +21,12 @@ const Benefits = () => {
         "More than just animals, they are loyal companions that offer us a sense of purpose, provide comfort, and can even improve our physical and mental well-being. However, it's important to remember that caring for them requires responsibility, commitment, and providing proper nutrition, exercise, and veterinary care"
     ];
 
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
-        'fade-in-fast',
-        0.5
-    );
+    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+        animationName: 'fade-in-fast',
+        threshold: 0.5,
+        oncePerApp: true,
+        oncePerPage: true
+    });
 
     return (
         <article

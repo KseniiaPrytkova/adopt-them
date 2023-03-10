@@ -1,10 +1,23 @@
 import { useAnimateOnIntersection } from './useAnimateOnIntersection';
+// import AdoptedPetContext from './AppContext';
+import { useEffect, useRef, useState, useContext } from 'react';
+
+import { AppContext } from './AppContext';
 
 const HeaderSecondary = () => {
     const [intersectionRef, hasAnimated] = useAnimateOnIntersection(
-        'fade-in-fast',
-        0.5
+        {
+            animationName: 'fade-in-fast',
+            threshold: 0.5,
+            oncePerApp: true,
+            oncePerPage: true
+        },
+        []
     );
+
+    const { adoptedPet, hasAnimated1 } = useContext(AppContext);
+
+    console.log('hasAnimated1------------>', hasAnimated1);
 
     return (
         <article className="grid grid-cols-12 bg-light-gold px-20 pt-10 pb-16 dark:bg-dark-lightPurple">
