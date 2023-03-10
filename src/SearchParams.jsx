@@ -1,13 +1,13 @@
 import { Fragment, useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
-// import { AppContext } from './AppContext';
+
 import useBreedList from './useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
-import { useAnimateOnIntersection } from './useAnimateOnIntersection';
+import useAnimateOnceOnIntersection from './useAnimateOnceOnIntersection';
 import { AppContext } from './AppContext';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
@@ -27,17 +27,15 @@ const SearchParams = () => {
             keepPreviousData: true
         });
     const pets = data?.pets ?? [];
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+    const [intersectionRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         threshold: 0.1,
-        oncePerApp: true,
-        oncePerPage: true
+        oncePerApp: true
     });
 
-    const { hasAnimated1, setHasAnimated1 } = useContext(AppContext);
+    const { hasAnimated, _ } = useContext(AppContext);
 
-    // console.log('2', adoptedPet);
-    console.log('hasAnimated1------------>', hasAnimated1);
+    console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <Fragment>
@@ -48,7 +46,7 @@ const SearchParams = () => {
                 id="searchParams"
                 ref={intersectionRef}
                 className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
-                    hasAnimated || hasAnimated1['searchParams']
+                    animated || hasAnimated['searchParams']
                         ? 'opacity-100'
                         : 'opacity-0'
                 } transition-opacity`}

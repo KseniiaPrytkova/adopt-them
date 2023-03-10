@@ -1,4 +1,6 @@
-import { useAnimateOnIntersection } from './useAnimateOnIntersection';
+import useAnimateOnceOnIntersection from './useAnimateOnceOnIntersection';
+import { AppContext } from './AppContext';
+import { useContext } from 'react';
 
 const Benefits = () => {
     const characteristics = [
@@ -21,18 +23,25 @@ const Benefits = () => {
         "More than just animals, they are loyal companions that offer us a sense of purpose, provide comfort, and can even improve our physical and mental well-being. However, it's important to remember that caring for them requires responsibility, commitment, and providing proper nutrition, exercise, and veterinary care"
     ];
 
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+    const [intersectionRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         threshold: 0.5,
-        oncePerApp: true,
-        oncePerPage: true
+        oncePerApp: true
+        // oncePerPage: true
     });
+
+    const { hasAnimated, _ } = useContext(AppContext);
+
+    console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <article
+            id="benefits"
             ref={intersectionRef}
             className={`py-10 lg:mt-10 lg:mb-10 lg:flex lg:flex-wrap lg:justify-evenly lg:p-0 ${
-                hasAnimated ? 'opacity-100' : 'opacity-0'
+                animated || hasAnimated['benefits']
+                    ? 'opacity-100'
+                    : 'opacity-0'
             } transition-opacity`}
         >
             <h2 className="mb-10 pl-10 text-4xl text-light-navy dark:text-dark-purple lg:mb-0 lg:basis-2/6 lg:pl-10">

@@ -10,13 +10,13 @@ const AppContext = createContext();
 
 const AppContextProvider = (props) => {
     const [adoptedPet, setAdoptedPet] = useState(null);
-    const [hasAnimated1, setHasAnimated1] = useState({});
+    const [hasAnimated, setHasAnimated] = useState({});
 
     const contextValue = {
         adoptedPet,
         setAdoptedPet,
-        hasAnimated1,
-        setHasAnimated1
+        hasAnimated,
+        setHasAnimated
     };
 
     return <AppContext.Provider value={contextValue} {...props} />;

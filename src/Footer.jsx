@@ -1,4 +1,6 @@
-import { useAnimateOnIntersection } from './useAnimateOnIntersection';
+import useAnimateOnceOnIntersection from './useAnimateOnceOnIntersection';
+import { AppContext } from './AppContext';
+import { useContext } from 'react';
 
 const Footer = () => {
     const date = new Date();
@@ -20,18 +22,22 @@ const Footer = () => {
         }
     };
 
-    const [intersectionRef, hasAnimated] = useAnimateOnIntersection({
+    const [intersectionRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         threshold: 0.5,
-        oncePerApp: true,
-        oncePerPage: true
+        oncePerApp: true
     });
+
+    const { hasAnimated, _ } = useContext(AppContext);
+
+    console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <footer
+            id="footer"
             ref={intersectionRef}
             className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
-                hasAnimated ? 'opacity-100' : 'opacity-0'
+                animated || hasAnimated['footer'] ? 'opacity-100' : 'opacity-0'
             } transition-opacity`}
         >
             <ul className="order-1 flex basis-1/2 flex-col space-y-4 text-light-gold dark:text-dark-green sm:basis-1/4 lg:basis-1/6">
