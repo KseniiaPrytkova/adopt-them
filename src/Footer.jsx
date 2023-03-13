@@ -42,7 +42,9 @@ const Footer = () => {
             id="footer"
             ref={nodeRef}
             className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
-                animated || hasAnimated['footer'] ? 'opacity-100' : 'opacity-0'
+                animated || hasAnimated['footer']
+                    ? 'animate-fade-in-fast opacity-100'
+                    : 'opacity-0'
             } transition-opacity`}
             // className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly `}
         >

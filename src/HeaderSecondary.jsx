@@ -23,7 +23,7 @@ const HeaderSecondary = () => {
                 ref={nodeRef}
                 className={`col-span-10 col-start-2 text-center text-lg text-red-600 dark:text-dark-paleGreen lg:text-xl ${
                     animated || hasAnimated['headerSecondary']
-                        ? 'opacity-100'
+                        ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
                 } transition-opacity`}
             >

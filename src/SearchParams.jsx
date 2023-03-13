@@ -51,7 +51,7 @@ const SearchParams = () => {
                 ref={nodeRef}
                 className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
                     animated || hasAnimated['searchParams']
-                        ? 'opacity-100'
+                        ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
                 } transition-opacity`}
                 // className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 `}

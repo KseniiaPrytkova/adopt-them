@@ -44,7 +44,7 @@ const Benefits = () => {
             ref={nodeRef}
             className={`py-10 lg:mt-10 lg:mb-10 lg:flex lg:flex-wrap lg:justify-evenly lg:p-0 ${
                 animated || hasAnimated['benefits']
-                    ? 'opacity-100'
+                    ? 'animate-fade-in-fast opacity-100'
                     : 'opacity-0'
             } transition-opacity`}
             // className={`py-10 lg:mt-10 lg:mb-10 lg:flex lg:flex-wrap lg:justify-evenly lg:p-0 `}

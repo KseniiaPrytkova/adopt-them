@@ -6,7 +6,7 @@ const Header = () => {
                     Find your new best friend
                 </h1>
 
-                <h2 className="col-span-5 col-start-2 row-span-1 row-start-2 animate-fade-in pr-5 text-2xl text-light-teal dark:text-dark-paleTeal md:leading-relaxed xl:text-3xl xl:leading-loose">
+                <h2 className="col-span-5 col-start-2 row-span-1 row-start-2 animate-fade-in-slow pr-5 text-2xl text-light-teal dark:text-dark-paleTeal md:leading-relaxed xl:text-3xl xl:leading-loose">
                     Adopt Them is an online, searchable database of animals who
                     need homes
                 </h2>
