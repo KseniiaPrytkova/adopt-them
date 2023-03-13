@@ -34,7 +34,7 @@ const SearchParams = () => {
     // });
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
-        options: { threshold: 0.2 }
+        options: { threshold: 0.1 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);

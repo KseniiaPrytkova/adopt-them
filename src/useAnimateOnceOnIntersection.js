@@ -1,26 +1,18 @@
 import { useRef, useState, useContext, useEffect } from 'react';
-import useIntersectionObserverForAnimateOnce from './useIntersectionObserverForAnimateOnce';
 import { AppContext } from './AppContext';
 
 export const useAnimateOnceOnIntersection = ({
     animationName = '',
     options
 }) => {
-    // const [entry, updateEntry] = useState({});
     const { hasAnimated, setHasAnimated } = useContext(AppContext);
     const [animated, setAnimated] = useState(false);
     const [node, setNode] = useState(null);
 
     const observer = useRef(null);
+    console.log('OPTIONS:', options);
 
     useEffect(() => {
-        // console.log('++++++', hasAnimated[node?.id]);
-        // if (hasAnimated[node.id])
-        // if (node) {
-        //     console.log('++++++', hasAnimated[node.id]);
-        //     // Rest of the code here
-        // }
-        // console.log('++++++', hasAnimated[node.id]);
         if (node) {
             console.log('++++++++++node:', node.id);
             console.log('@@@', hasAnimated[node.id]);
@@ -31,7 +23,6 @@ export const useAnimateOnceOnIntersection = ({
 
         observer.current = new IntersectionObserver(
             ([entry]) => {
-                // updateEntry(entry);
                 if (entry.isIntersecting) {
                     setAnimated(true);
                     console.log('intersecting...');
@@ -39,9 +30,6 @@ export const useAnimateOnceOnIntersection = ({
                 }
             },
             {
-                // root,
-                // rootMargin,
-                // threshold
                 ...options
             }
         );
@@ -69,8 +57,7 @@ export const useAnimateOnceOnIntersection = ({
 
                 setTimeout(() => {
                     element.classList.remove(`animate-${animationName}`);
-                }, 2000);
-                // element.classList.add(animationName);
+                }, 4000);
             }
         }
     }, [animated, node, animationName]);
