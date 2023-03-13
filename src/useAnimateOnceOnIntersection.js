@@ -65,6 +65,7 @@ export const useAnimateOnceOnIntersection = ({
                 }));
 
                 element.classList.add(`animate-${animationName}`);
+                console.log('!!!!!!!!!!!', element.classList);
 
                 setTimeout(() => {
                     element.classList.remove(`animate-${animationName}`);

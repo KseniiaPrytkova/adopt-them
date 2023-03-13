@@ -27,7 +27,12 @@ const HeaderSecondary = () => {
                 id="headerSecondary"
                 ref={nodeRef}
                 // className={`col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl`}
-                className={`col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl ${
+                // className={`col-span-10 col-start-2 text-center text-lg text-light-navy dark:text-dark-paleGreen lg:text-xl ${
+                //     animated || hasAnimated['headerSecondary']
+                //         ? 'opacity-100'
+                //         : 'opacity-0'
+                // } transition-opacity`}
+                className={`col-span-10 col-start-2 text-center text-lg text-red-600 dark:text-dark-paleGreen lg:text-xl ${
                     animated || hasAnimated['headerSecondary']
                         ? 'opacity-100'
                         : 'opacity-0'
