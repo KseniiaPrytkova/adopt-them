@@ -4,21 +4,26 @@ import { AppContext } from './AppContext';
 const useIntersectionObserverForAnimateOnce = (
     ref,
     callback,
-    oncePerApp,
+    oncePerApp = true,
     options = {}
 ) => {
     const [isIntersecting, setIsIntersecting] = useState(false);
-    const { hasAnimated, _ } = useContext(AppContext);
+    // const { hasAnimated, _ } = useContext(AppContext);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setIsIntersecting(true);
-                        observer.disconnect();
-                    }
-                });
+            (entry) => {
+                console.log('entry:-----> ', entry, 'for: ', ref);
+
+                if (entry.isIntersecting) {
+                    console.log('intersecting!!!');
+                    // setIsIntersecting(true);
+                    callback();
+                }
+
+                if (oncePerApp) {
+                    observer.disconnect();
+                }
             },
             {
                 ...options
@@ -29,16 +34,29 @@ const useIntersectionObserverForAnimateOnce = (
             observer.observe(ref.current);
         }
 
+        // return () => {
+        //     observer.disconnect();
+        // };
+
+        // return () => {};
+
+        // if (ref.current) {
+        //     observer.observe(ref.current);
+        // }
+
         return () => {
             observer.disconnect();
         };
     });
 
-    useEffect(() => {
-        if (isIntersecting && hasAnimated[ref.current?.id] === undefined) {
-            callback();
-        }
-    }, [callback, hasAnimated, isIntersecting, ref]);
+    // useEffect(() => {
+    //     // if (isIntersecting && hasAnimated[ref.current?.id] === undefined) {
+    //     //     callback();
+    //     // }
+    //     if (isIntersecting) {
+    //         callback();
+    //     }
+    // }, [callback, isIntersecting]);
 
     return [ref, isIntersecting];
 };

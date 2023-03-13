@@ -1,4 +1,4 @@
-import useAnimateOnceOnIntersection from './useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
 import { AppContext } from './AppContext';
 import { useContext } from 'react';
 
@@ -22,10 +22,15 @@ const Footer = () => {
         }
     };
 
-    const [intersectionRef, animated] = useAnimateOnceOnIntersection({
+    // const [intersectionRef, animated] = useAnimateOnceOnIntersection({
+    //     animationName: 'fade-in-fast',
+    //     threshold: 0.5
+    //     // oncePerApp: true
+    // });
+
+    const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
-        threshold: 0.5,
-        oncePerApp: true
+        options: { threshold: 0.5 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);
@@ -35,10 +40,11 @@ const Footer = () => {
     return (
         <footer
             id="footer"
-            ref={intersectionRef}
+            ref={nodeRef}
             className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
                 animated || hasAnimated['footer'] ? 'opacity-100' : 'opacity-0'
             } transition-opacity`}
+            // className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly `}
         >
             <ul className="order-1 flex basis-1/2 flex-col space-y-4 text-light-gold dark:text-dark-green sm:basis-1/4 lg:basis-1/6">
                 <li>

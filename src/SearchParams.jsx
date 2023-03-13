@@ -7,7 +7,7 @@ import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
-import useAnimateOnceOnIntersection from './useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
 import { AppContext } from './AppContext';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
@@ -27,10 +27,14 @@ const SearchParams = () => {
             keepPreviousData: true
         });
     const pets = data?.pets ?? [];
-    const [intersectionRef, animated] = useAnimateOnceOnIntersection({
+    // const [intersectionRef, animated] = useAnimateOnceOnIntersection({
+    //     animationName: 'fade-in-fast',
+    //     threshold: 0.1
+    //     // oncePerApp: true
+    // });
+    const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
-        threshold: 0.1,
-        oncePerApp: true
+        options: { threshold: 0.2 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);
@@ -44,12 +48,13 @@ const SearchParams = () => {
 
             <div
                 id="searchParams"
-                ref={intersectionRef}
+                ref={nodeRef}
                 className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
                     animated || hasAnimated['searchParams']
                         ? 'opacity-100'
                         : 'opacity-0'
                 } transition-opacity`}
+                // className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 `}
             >
                 <h2 className="flex p-10 text-4xl text-light-navy dark:text-dark-purple lg:col-span-12 lg:justify-end">
                     Pets avaliable for adoption:
