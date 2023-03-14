@@ -5,14 +5,15 @@ import { useContext } from 'react';
 import { AppContext } from './AppContext';
 
 const HeaderSecondary = () => {
-    console.log('headerSecondary');
+    // console.log('headerSecondary');
 
     const { hasAnimated, _ } = useContext(AppContext);
 
-    console.log('hasAnimated1------------>', hasAnimated);
+    // console.log('hasAnimated1------------>', hasAnimated);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
+        animationDuration: 2000,
         options: { threshold: 0.5 }
     });
 
@@ -21,11 +22,16 @@ const HeaderSecondary = () => {
             <p
                 id="headerSecondary"
                 ref={nodeRef}
-                className={`col-span-10 col-start-2 text-center text-lg text-red-600 dark:text-dark-paleGreen lg:text-xl ${
+                className={`text col-span-10 col-start-2 text-center text-light-navy dark:text-dark-paleGreen lg:text-xl 
+                ${
                     animated || hasAnimated['headerSecondary']
                         ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
-                } transition-opacity`}
+                }
+
+           
+                
+                transition-opacity duration-1000 ease-in-out`}
             >
                 From the comfort of their personal computers, pet lovers can
                 search for a pet that best matches their needs. They can then

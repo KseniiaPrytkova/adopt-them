@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from './ErrorBoundary';
@@ -17,6 +17,19 @@ const Details = () => {
     // eslint-disable-next-line no-unused-vars
     const { adoptedPet, setAdoptedPet } = useContext(AppContext);
     // const [_, setAdoptedPet] = useContext(AppContext);
+    const wrapperRef = useRef(null);
+
+    useEffect(() => {
+        if (wrapperRef.current) {
+            wrapperRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, []);
 
     if (results.isLoading) {
         return (
@@ -29,7 +42,7 @@ const Details = () => {
     const pet = results.data.pets[0];
 
     return (
-        <div className="my-10 grid grid-cols-12">
+        <div ref={wrapperRef} className="my-10 grid grid-cols-12">
             <Link
                 to="/"
                 className="col-span-12 col-start-2 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"

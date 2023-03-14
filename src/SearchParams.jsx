@@ -34,12 +34,13 @@ const SearchParams = () => {
     // });
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
+        animationDuration: 2000,
         options: { threshold: 0.1 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);
 
-    console.log('hasAnimated1------------>', hasAnimated);
+    // console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <Fragment>

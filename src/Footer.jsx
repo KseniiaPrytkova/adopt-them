@@ -29,13 +29,14 @@ const Footer = () => {
     // });
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
-        animationName: 'fade-in-fast',
+        animationName: 'zoom-in-out',
+        animationDuration: 2000,
         options: { threshold: 0.5 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);
 
-    console.log('hasAnimated1------------>', hasAnimated);
+    // console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <footer
@@ -43,7 +44,7 @@ const Footer = () => {
             ref={nodeRef}
             className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
                 animated || hasAnimated['footer']
-                    ? 'animate-fade-in-fast opacity-100'
+                    ? 'animate-zoom-in-out opacity-100'
                     : 'opacity-0'
             } transition-opacity`}
             // className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly `}

@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+    /* #root:before {
+        content: '🌀';
+        font-size: 3rem;
+        animation: spin 2s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    } */
+
     body {
         @apply font-poppins;
         @apply m-0 box-border p-0;
@@ -23,5 +42,26 @@
 @layer utilities {
     .active-image {
         @apply opacity-60;
+    }
+
+    #loading-container {
+        @apply fixed top-0 left-0 h-full w-full;
+        @apply flex items-center justify-center;
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .loading-spinner {
+        font-size: 2rem;
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

@@ -24,6 +24,13 @@ const App = () => {
     );
 
     useEffect(() => {
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+            loadingContainer.style.display = 'none';
+        }
+    }, []);
+
+    useEffect(() => {
         const theme = localStorage.getItem('theme');
         theme === 'dark'
             ? document.body.classList.add('dark')

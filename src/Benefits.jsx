@@ -31,12 +31,13 @@ const Benefits = () => {
     // });
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
+        animationDuration: 2000,
         options: { threshold: 0.5 }
     });
 
     const { hasAnimated, _ } = useContext(AppContext);
 
-    console.log('hasAnimated1------------>', hasAnimated);
+    // console.log('hasAnimated1------------>', hasAnimated);
 
     return (
         <article
