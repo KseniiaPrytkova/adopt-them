@@ -42,10 +42,13 @@ const Details = () => {
     const pet = results.data.pets[0];
 
     return (
-        <div ref={wrapperRef} className="my-10 grid grid-cols-12">
+        <section
+            ref={wrapperRef}
+            className="my-10 grid h-[90vh] grid-cols-12 grid-rows-detailsLayout "
+        >
             <Link
                 to="/"
-                className="col-span-12 col-start-2 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"
+                className="col-span-12 col-start-2 row-span-1 row-start-1 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"
             >
                 <button>
                     <svg
@@ -63,7 +66,7 @@ const Details = () => {
                 </button>
             </Link>
 
-            <div className="col-span-12 col-start-1 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
+            <article className="col-span-12 col-start-1 row-span-1 row-start-2 rounded-lg  bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
                 <Carousel images={pet.images} />
 
                 <div className="text-center">
@@ -127,8 +130,8 @@ const Details = () => {
                         </Modal>
                     ) : null}
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
     );
 };
 

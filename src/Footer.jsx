@@ -29,7 +29,7 @@ const Footer = () => {
     // });
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
-        animationName: 'zoom-in-out',
+        animationName: 'appear',
         animationDuration: 2000,
         options: { threshold: 0.5 }
     });
@@ -44,7 +44,7 @@ const Footer = () => {
             ref={nodeRef}
             className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
                 animated || hasAnimated['footer']
-                    ? 'animate-zoom-in-out opacity-100'
+                    ? 'animate-appear opacity-100'
                     : 'opacity-0'
             } transition-opacity`}
             // className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly `}

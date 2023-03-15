@@ -9,6 +9,10 @@ module.exports = {
                 poppins: ['Poppins', 'ui-sans-serif'],
                 gloria: ['"Gloria Hallelujah"', 'ui-sans-serif']
             },
+            gridTemplateRows: {
+                // Complex site-specific row configuration
+                detailsLayout: 'auto minmax(0, 1fr)'
+            },
             colors: {
                 light: {
                     navy: '#1b277b',
@@ -37,6 +41,7 @@ module.exports = {
                 'fade-in-slow': '6s fade-in ease-in-out forwards',
                 'fade-in-fast': '2s fade-in ease-in-out forwards',
                 shake: '2s shake 4s both',
+                appear: '2s appear ease-out forwards',
                 'zoom-in-out': '2s zoom-in-out',
                 'shake-immediately': '4s shake both'
             },
@@ -60,6 +65,14 @@ module.exports = {
                     to: {
                         opacity: 1,
                         transform: 'translateY(0)'
+                    }
+                },
+                appear: {
+                    from: {
+                        opacity: 0
+                    },
+                    to: {
+                        opacity: 1
                     }
                 },
                 shake: {

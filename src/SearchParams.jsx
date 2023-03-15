@@ -50,7 +50,7 @@ const SearchParams = () => {
             <div
                 id="searchParams"
                 ref={nodeRef}
-                className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
+                className={`grid-rows-auto grid grid-cols-1  lg:grid-cols-12 ${
                     animated || hasAnimated['searchParams']
                         ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'

@@ -5,40 +5,47 @@ const useHandleButtonClick = (setPage, isFetching) => {
     const sectionRef = useRef(null);
     const [scrolling, setScrolling] = useState(false);
 
-    useEffect(() => {
-        console.log('isFetching', isFetching);
-        if (!scrolling) {
-            console.log('!scrolling, return ....');
-            return;
-        }
+    // useEffect(() => {
+    //     console.log('isFetching', isFetching);
+    //     if (!scrolling) {
+    //         console.log('!scrolling, return ....');
+    //         return;
+    //     }
 
-        if (isFetching) {
-            console.log('!fetching, return ....');
-            return;
-        }
+    //     if (isFetching) {
+    //         console.log('!fetching, return ....');
+    //         return;
+    //     }
 
-        if (!isFetching && sectionRef.current) {
-            console.log('finally');
-            // sectionRef.current.scrollIntoView({
-            //     behavior: 'smooth',
-            //     block: 'start',
-            //     inline: 'nearest'
-            // });
-            setTimeout(() => {
-                sectionRef.current.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }, 100); // Adjust this delay value if needed
-            setScrolling(false);
-        }
-    }, [isFetching, scrolling]);
+    //     if (!isFetching && sectionRef.current) {
+    //         console.log('finally');
+    //         // sectionRef.current.scrollIntoView({
+    //         //     behavior: 'smooth',
+    //         //     block: 'start',
+    //         //     inline: 'nearest'
+    //         // });
+    //         setTimeout(() => {
+    //             sectionRef.current.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'start',
+    //                 inline: 'nearest'
+    //             });
+    //         }, 100);
+    //         setScrolling(false);
+    //     }
+    // }, [isFetching, scrolling]);
 
     const handleButtonClick = (newPage) => {
         console.log('handleButtonClick');
+        setTimeout(() => {
+            sectionRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }, 100);
         setPage(newPage);
-        setScrolling(true);
+        // setScrolling(true);
     };
 
     return [sectionRef, handleButtonClick];
@@ -74,32 +81,33 @@ const Results = ({
     return (
         <section
             ref={sectionRef}
-            // className="mx-2 grid grid-cols-1  justify-items-stretch gap-4 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:grid-rows-2 xl:col-span-9 xl:col-start-4 xl:grid-cols-4"
-            className="mx-2 grid min-h-[50vh] grid-cols-1 justify-items-stretch gap-4 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:grid-rows-2 xl:col-span-9 xl:col-start-4 xl:grid-cols-4"
+            className=" mx-2 flex flex-col   rounded-lg  bg-light-lightNavy  p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
         >
-            {!pets.length ? (
-                <div>No Pets Found</div>
-            ) : isError ? (
-                <div>Error: {error.message}</div>
-            ) : isFetching || isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                pets.map((pet) => {
-                    return (
-                        <Pet
-                            animal={pet.animal}
-                            key={pet.id}
-                            name={pet.name}
-                            breed={pet.breed}
-                            images={pet.images}
-                            location={`${pet.city}, ${pet.state}`}
-                            id={pet.id}
-                        />
-                    );
-                })
-            )}
+            <article className=" m-2 grid basis-52 gap-4  sm:grid-cols-2 md:grid-cols-3  lg:basis-full xl:grid-cols-4">
+                {!pets.length ? (
+                    <div>No Pets Found😩</div>
+                ) : isError ? (
+                    <div>Error: {error.message}</div>
+                ) : isFetching ? (
+                    <div>Loading...</div>
+                ) : (
+                    pets.map((pet) => {
+                        return (
+                            <Pet
+                                animal={pet.animal}
+                                key={pet.id}
+                                name={pet.name}
+                                breed={pet.breed}
+                                images={pet.images}
+                                location={`${pet.city}, ${pet.state}`}
+                                id={pet.id}
+                            />
+                        );
+                    })
+                )}
+            </article>
 
-            <div className="row-start-10 flex items-center justify-center gap-4 sm:col-span-2  sm:row-start-6 lg:col-span-3 xl:col-span-4">
+            <nav className="mb-2 flex  justify-center gap-4 ">
                 <button
                     // onClick={() => setPage((old) => Math.max(old - 1, 0))}
                     onClick={handlePrevClick}
@@ -129,7 +137,7 @@ const Results = ({
                 >
                     Next
                 </button>
-            </div>
+            </nav>
         </section>
     );
 };
