@@ -9,8 +9,26 @@ const Pet = (props) => {
     }
 
     return (
-        <Link to={`/details/${id}`} className="relative block p-0 shadow-xl">
-            <img src={hero} alt={name} className="object-cover " />
+        <Link
+            to={`/details/${id}`}
+            className="relative block min-h-[12.5rem] p-0 shadow-xl"
+        >
+            {/* <img
+                src={hero}
+                alt={name}
+                className="border border-red-500 object-cover"
+            />
+            <hr></hr> */}
+            <div className="relative overflow-hidden">
+                <img
+                    src={hero}
+                    alt={name}
+                    className="h-auto w-full scale-110 transform object-cover object-center opacity-0 transition-opacity duration-500 ease-in-out"
+                    onLoad={(e) => {
+                        e.target.style.opacity = '1';
+                    }}
+                />
+            </div>
 
             <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-white to-transparent p-2">
                 <h1 className="text-lg font-bold uppercase tracking-wide text-light-blue dark:text-dark-purple">

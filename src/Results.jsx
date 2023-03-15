@@ -1,56 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import Pet from './Pet';
 
-const useHandleButtonClick = (setPage, isFetching) => {
-    const sectionRef = useRef(null);
-    const [scrolling, setScrolling] = useState(false);
-
-    // useEffect(() => {
-    //     console.log('isFetching', isFetching);
-    //     if (!scrolling) {
-    //         console.log('!scrolling, return ....');
-    //         return;
-    //     }
-
-    //     if (isFetching) {
-    //         console.log('!fetching, return ....');
-    //         return;
-    //     }
-
-    //     if (!isFetching && sectionRef.current) {
-    //         console.log('finally');
-    //         // sectionRef.current.scrollIntoView({
-    //         //     behavior: 'smooth',
-    //         //     block: 'start',
-    //         //     inline: 'nearest'
-    //         // });
-    //         setTimeout(() => {
-    //             sectionRef.current.scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'start',
-    //                 inline: 'nearest'
-    //             });
-    //         }, 100);
-    //         setScrolling(false);
-    //     }
-    // }, [isFetching, scrolling]);
-
-    const handleButtonClick = (newPage) => {
-        console.log('handleButtonClick');
-        setTimeout(() => {
-            sectionRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-                inline: 'nearest'
-            });
-        }, 100);
-        setPage(newPage);
-        // setScrolling(true);
-    };
-
-    return [sectionRef, handleButtonClick];
-};
-
 const Results = ({
     pets,
     page,
@@ -61,21 +11,21 @@ const Results = ({
     isError,
     error
 }) => {
-    // const sectionRef = useRef(null);
+    const sectionRef = useRef(null);
 
-    const [sectionRef, handleButtonClick] = useHandleButtonClick(
-        setPage,
-        isFetching
-    );
-
-    const handlePrevClick = () => {
-        handleButtonClick((old) => Math.max(old - 1, 0));
+    const scrollToTop = () => {
+        setTimeout(() => {
+            sectionRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }, 100);
     };
 
-    const handleNextClick = () => {
-        if (!isPreviousData && pets.length === 10) {
-            handleButtonClick((old) => old + 1);
-        }
+    const handleButtonClick = (newPage) => {
+        scrollToTop();
+        setPage(newPage);
     };
 
     return (
@@ -88,7 +38,7 @@ const Results = ({
                     <div>No Pets Found😩</div>
                 ) : isError ? (
                     <div>Error: {error.message}</div>
-                ) : isFetching ? (
+                ) : isFetching || isLoading ? (
                     <div>Loading...</div>
                 ) : (
                     pets.map((pet) => {
@@ -109,10 +59,17 @@ const Results = ({
 
             <nav className="mb-2 flex  justify-center gap-4 ">
                 <button
-                    // onClick={() => setPage((old) => Math.max(old - 1, 0))}
-                    onClick={handlePrevClick}
+                    type="button"
+                    onClick={() =>
+                        handleButtonClick((old) => Math.max(old - 1, 0))
+                    }
                     disabled={page === 0}
-                    className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
+                    // className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
+                    className={`text-light-darkNavy dark:text-dark-darkRed ${
+                        page === 0
+                            ? 'cursor-not-allowed bg-gray-200 opacity-50 dark:bg-gray-700'
+                            : 'bg-light-lightNavy dark:bg-dark-lightGrey'
+                    }`}
                 >
                     Prev
                 </button>
@@ -126,14 +83,14 @@ const Results = ({
                 )}
 
                 <button
-                    // onClick={() => {
-                    //     if (!isPreviousData && pets.length === 10) {
-                    //         setPage((old) => old + 1);
-                    //     }
-                    // }}
-                    onClick={handleNextClick}
+                    type="button"
+                    onClick={() => handleButtonClick((old) => old + 1)}
                     disabled={isFetching || isPreviousData || pets.length < 10}
-                    className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
+                    className={`text-light-darkNavy dark:text-dark-darkRed ${
+                        isFetching || isPreviousData || pets.length < 10
+                            ? 'cursor-not-allowed bg-gray-200 opacity-50 dark:bg-gray-700'
+                            : 'bg-light-lightNavy dark:bg-dark-lightGrey'
+                    }`}
                 >
                     Next
                 </button>
