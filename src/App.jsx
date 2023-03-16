@@ -43,7 +43,7 @@ const App = () => {
                 <AppContextProvider>
                     <Navbar />
 
-                    <main className="min-h-[80vh] flex-auto ">
+                    <main className="min-h-[50vh] flex-auto ">
                         <Routes>
                             <Route path="/details/:id" element={<Details />} />
                             <Route path="/" element={<SearchParams />} />

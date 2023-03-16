@@ -61,7 +61,7 @@ const SearchParams = () => {
                     Pets avaliable for adoption:
                 </h2>
                 <form
-                    className="mx-2 mb-2 grid content-start justify-items-center rounded-lg bg-light-lightNavy bg-opacity-80 py-4 dark:bg-dark-lightGrey md:col-span-2 lg:col-span-4 lg:mb-0 xl:col-span-3"
+                    className="mx-2 mb-2 grid grid-cols-12 rounded-lg    bg-light-lightNavy bg-opacity-80 py-4 dark:bg-dark-lightGrey md:col-span-2 lg:col-span-4  lg:mb-0 lg:flex lg:flex-col xl:col-span-3"
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);
@@ -75,7 +75,7 @@ const SearchParams = () => {
                     }}
                 >
                     {adoptedPet || localStorage.getItem('adopted') ? (
-                        <div className="m-4 flex flex-col items-center rounded-lg bg-light-teal p-4 text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey">
+                        <div className="col-span-10 col-start-2 my-4 flex flex-col items-center rounded-lg bg-light-teal p-4 text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey lg:m-4">
                             <h1>
                                 You adopted{' '}
                                 {adoptedPet
@@ -104,27 +104,36 @@ const SearchParams = () => {
                         </div>
                     ) : null}
 
-                    <label htmlFor="location">
-                        <span className="text-light-darkNavy dark:text-dark-purple">
+                    <label
+                        htmlFor="location"
+                        // className="flex max-w-full flex-col place-items-start border-2 border-red-600"
+                        className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
+                    >
+                        <span className="   text-light-darkNavy dark:text-dark-purple">
                             Location
                         </span>
+                        {/* <div className="mx-auto w-4/5"> */}
                         <input
                             id="location"
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
+                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
                         />
+                        {/* </div> */}
                     </label>
 
-                    <label htmlFor="animal">
-                        <span className="text-light-darkNavy dark:text-dark-purple">
+                    <label
+                        htmlFor="animal"
+                        className="  col-span-8   col-start-3  flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
+                    >
+                        <span className="  text-light-darkNavy dark:text-dark-purple">
                             Animal
                         </span>
                         <select
                             id="animal"
                             name="animal"
-                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
+                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
                             onChange={(e) => {
                                 setAnimal(e.target.value);
                             }}
@@ -141,7 +150,10 @@ const SearchParams = () => {
                         </select>
                     </label>
 
-                    <label htmlFor="breed">
+                    <label
+                        htmlFor="breed"
+                        className="  col-span-8   col-start-3  flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
+                    >
                         <span className="text-light-darkNavy dark:text-dark-purple">
                             Breed
                         </span>
@@ -149,7 +161,7 @@ const SearchParams = () => {
                             disabled={!breeds.length}
                             id="breed"
                             name="breed"
-                            className="mb-5 block w-80 border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold disabled:opacity-50 dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple sm:w-96 lg:w-72 2xl:w-64"
+                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold disabled:opacity-50 dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
                         >
                             <option />
                             {breeds.map((breed) => (
@@ -160,15 +172,18 @@ const SearchParams = () => {
                         </select>
                     </label>
 
-                    <button
-                        // ref={ref}
-                        // className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
-                        //     isIntersecting ? 'animate-zoom-in-out' : ''
-                        // }`}
-                        className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green `}
-                    >
-                        Submit
-                    </button>
+                    <div className="col-span-10 col-start-2 flex justify-center">
+                        <button
+                            // ref={ref}
+                            // className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
+                            //     isIntersecting ? 'animate-zoom-in-out' : ''
+                            // }`}
+                            // w-36
+                            className={`rounded border-none bg-light-tan py-2 px-8 text-white hover:opacity-50 dark:bg-dark-green sm:px-10 md:px-12`}
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </form>
 
                 <Results

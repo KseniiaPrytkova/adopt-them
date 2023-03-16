@@ -64,7 +64,7 @@ const Details = () => {
     return (
         <section
             ref={handleRef}
-            className="my-10 grid  min-h-[90vh] grid-cols-12 grid-rows-detailsLayout "
+            className="my-10 grid   min-h-[50vh] grid-cols-12 grid-rows-detailsLayout "
         >
             <Link
                 to="/"

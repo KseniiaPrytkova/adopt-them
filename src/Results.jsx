@@ -67,10 +67,10 @@ const Results = ({
                     }
                     disabled={page === 0}
                     // className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
-                    className={`text-light-darkNavy dark:text-dark-darkRed ${
+                    className={` text-light-darkNavy dark:text-dark-darkRed ${
                         page === 0
-                            ? 'cursor-not-allowed bg-gray-200 opacity-50 dark:bg-gray-700'
-                            : 'bg-light-lightNavy dark:bg-dark-lightGrey'
+                            ? 'cursor-not-allowed  opacity-50 '
+                            : ' opacity-100'
                     }`}
                 >
                     Prev
@@ -90,8 +90,8 @@ const Results = ({
                     disabled={isFetching || isPreviousData || pets.length < 10}
                     className={`text-light-darkNavy dark:text-dark-darkRed ${
                         isFetching || isPreviousData || pets.length < 10
-                            ? 'cursor-not-allowed bg-gray-200 opacity-50 dark:bg-gray-700'
-                            : 'bg-light-lightNavy dark:bg-dark-lightGrey'
+                            ? 'cursor-not-allowed  opacity-50 '
+                            : ' opacity-100'
                     }`}
                 >
                     Next
