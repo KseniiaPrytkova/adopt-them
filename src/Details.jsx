@@ -1,6 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useState, useEffect, useRef } from 'react';
+import {
+    useContext,
+    useState,
+    useEffect,
+    useRef,
+    useLayoutEffect,
+    useCallback
+} from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from './ErrorBoundary';
@@ -16,24 +23,37 @@ const Details = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const { adoptedPet, setAdoptedPet } = useContext(AppContext);
-    // const [_, setAdoptedPet] = useContext(AppContext);
-    const wrapperRef = useRef(null);
+    // wrapperRef is a reference to the DOM node and can be used later in
+    // the component if needed
+    const [wrapperRef, setWrapperRef] = useState(null);
 
-    useEffect(() => {
-        if (wrapperRef.current) {
-            wrapperRef.current.scrollIntoView({
+    // A callback ref is a function that you pass to the ref attribute of a
+    // component. React will automatically call this function when
+    // the component mounts, passing the DOM node as an argument, and again
+    // when the component unmounts, passing null as the argument.
+    // The primary purpose of a callback ref is to allow you to execute some
+    // code as soon as the ref is set.
+    const handleRef = useCallback((node) => {
+        if (node !== null) {
+            setWrapperRef(node);
+            node.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
                 inline: 'nearest'
             });
         } else {
+            console.log('else');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, []);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     if (results.isLoading) {
         return (
-            <div className="flex h-full  items-center  justify-center">
+            <div className="flex h-full items-center  justify-center ">
                 <span className="inline animate-spin text-5xl">🌀</span>
             </div>
         );
@@ -43,8 +63,8 @@ const Details = () => {
 
     return (
         <section
-            ref={wrapperRef}
-            className="my-10 grid h-[90vh] grid-cols-12 grid-rows-detailsLayout "
+            ref={handleRef}
+            className="my-10 grid  min-h-[90vh] grid-cols-12 grid-rows-detailsLayout "
         >
             <Link
                 to="/"

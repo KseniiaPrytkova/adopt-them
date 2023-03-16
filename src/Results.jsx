@@ -14,18 +14,20 @@ const Results = ({
     const sectionRef = useRef(null);
 
     const scrollToTop = () => {
-        setTimeout(() => {
-            sectionRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-                inline: 'nearest'
-            });
-        }, 100);
+        // setTimeout(() => {
+        sectionRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        });
+        // }, 1000);
     };
 
     const handleButtonClick = (newPage) => {
         scrollToTop();
-        setPage(newPage);
+        setTimeout(() => {
+            setPage(newPage);
+        }, 1000);
     };
 
     return (
