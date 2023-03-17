@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,9 @@ const Details = () => {
     // the component if needed
     // eslint-disable-next-line no-unused-vars
     const [wrapperRef, setWrapperRef] = useState(null);
+    const location = useLocation();
+    // eslint-disable-next-line no-unused-vars
+    const { resultsPage, setResultsPage } = useContext(AppContext);
 
     // A callback ref is a function that you pass to the ref attribute of a
     // component. React will automatically call this function when
@@ -42,6 +45,7 @@ const Details = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        setResultsPage(location.state);
     }, []);
 
     if (results.isLoading) {
@@ -57,10 +61,12 @@ const Details = () => {
     return (
         <section
             ref={handleRef}
-            className="my-10 grid   min-h-[50vh] grid-cols-12 grid-rows-detailsLayout "
+            className="my-10 grid min-h-[50vh] grid-cols-12 grid-rows-detailsLayout"
         >
             <Link
-                to="/"
+                to={`/`}
+                // to={{ pathname: '/', hash: '#results-section' }}
+                // to="#results-section"
                 className="col-span-12 col-start-2 row-span-1 row-start-1 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"
             >
                 <button>
@@ -88,7 +94,6 @@ const Details = () => {
                     </h1>
                     <h2 className="text-light-darkNavy dark:text-dark-darkRed">{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button
-                        // ref={ref}
                         onClick={() => setShowModal(true)}
                         // className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
                         //     isIntersecting ? 'animate-zoom-in-out' : ''

@@ -31,6 +31,7 @@ const Results = ({
     return (
         <section
             ref={sectionRef}
+            id="results-section"
             className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
         >
             <article className=" m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4">
@@ -52,6 +53,7 @@ const Results = ({
                                 location={`${pet.city}, ${pet.state}`}
                                 id={pet.id}
                                 delay={index * 1000}
+                                currentPage={page}
                             />
                         );
                     })

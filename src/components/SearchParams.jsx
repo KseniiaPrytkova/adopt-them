@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState, useContext, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
 import useBreedList from '../customHooks/useBreedList';
@@ -8,6 +8,7 @@ import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from '../AppContext';
+import { useLocation } from 'react-router-dom';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
@@ -21,19 +22,38 @@ const SearchParams = () => {
     const { adoptedPet } = useContext(AppContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
+    // const sectionRef = useRef(null);
     const { isLoading, isError, error, data, isFetching, isPreviousData } =
         useQuery(['search', { ...requestParams, page }], fetchSearch, {
             keepPreviousData: true
         });
+    const pets = data?.pets ?? [];
+    const { hasAnimated, resultsPage } = useContext(AppContext);
+    console.log('resultsPage', resultsPage);
+
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         animationDuration: 2000,
         animateOnce: true,
         options: { threshold: 0.1 }
     });
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
-    const pets = data?.pets ?? [];
+
+    // const scrollToTop = () => {
+    //     sectionRef.current.scrollIntoView({
+    //         behavior: 'smooth'
+    //     });
+    // };
+
+    // const location = useLocation();
+
+    useEffect(() => {
+        console.log('hello');
+        if (resultsPage) {
+            // scrollToTop();
+            setPage(resultsPage);
+        }
+        // }, [location.pathname]);
+    }, [resultsPage]);
 
     return (
         <Fragment>
@@ -184,6 +204,8 @@ const SearchParams = () => {
                     isPreviousData={isPreviousData}
                     isError={isError}
                     error={error}
+                    // sectionRef={sectionRef}
+                    // scrollToTop={scrollToTop}
                 />
             </div>
 

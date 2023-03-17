@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const Pet = (props) => {
-    const { name, animal, breed, images, location, id, delay } = props;
+    const { name, animal, breed, images, location, id, delay, currentPage } =
+        props;
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     let hero = 'http://pets-images.dev-apis.com/pets/none.jpg';
@@ -16,9 +17,12 @@ const Pet = (props) => {
         e.target.style.opacity = '1';
     };
 
+    console.log('in pet currentPage', currentPage);
+
     return (
         <Link
             to={`/details/${id}`}
+            state={currentPage}
             className={`relative block min-h-[12.5rem] p-0 shadow-xl  ${
                 isImageLoaded ? '' : 'opacity-0'
             }`}
