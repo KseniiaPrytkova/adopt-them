@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import Pet from './Pet';
 
 const Results = ({
@@ -9,18 +8,10 @@ const Results = ({
     isFetching,
     isPreviousData,
     isError,
-    error
+    error,
+    resultsRef,
+    scrollToTop
 }) => {
-    const sectionRef = useRef(null);
-
-    const scrollToTop = () => {
-        sectionRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'nearest'
-        });
-    };
-
     const handleButtonClick = (newPage) => {
         scrollToTop();
         setTimeout(() => {
@@ -30,11 +21,10 @@ const Results = ({
 
     return (
         <section
-            ref={sectionRef}
-            id="results-section"
+            ref={resultsRef}
             className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
         >
-            <article className=" m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4">
+            <article className="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4">
                 {!pets.length ? (
                     <div>No Pets Found😩</div>
                 ) : isError ? (
@@ -60,7 +50,7 @@ const Results = ({
                 )}
             </article>
 
-            <nav className="mb-2 flex justify-center gap-4 ">
+            <nav className="mb-2 flex justify-center gap-4">
                 <button
                     type="button"
                     onClick={() =>
@@ -69,7 +59,7 @@ const Results = ({
                     disabled={page === 0}
                     className={`text-light-darkNavy dark:text-dark-darkRed ${
                         page === 0
-                            ? 'cursor-not-allowed  opacity-50 '
+                            ? 'cursor-not-allowed opacity-50'
                             : ' opacity-100'
                     }`}
                 >

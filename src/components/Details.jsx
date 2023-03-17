@@ -45,8 +45,11 @@ const Details = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setResultsPage(location.state);
     }, []);
+
+    useEffect(() => {
+        setResultsPage(location.state);
+    }, [location.state, setResultsPage]);
 
     if (results.isLoading) {
         return (
@@ -65,8 +68,6 @@ const Details = () => {
         >
             <Link
                 to={`/`}
-                // to={{ pathname: '/', hash: '#results-section' }}
-                // to="#results-section"
                 className="col-span-12 col-start-2 row-span-1 row-start-1 mb-10 text-xl text-light-darkNavy dark:text-dark-darkRed lg:col-start-3"
             >
                 <button>

@@ -17,8 +17,6 @@ const Pet = (props) => {
         e.target.style.opacity = '1';
     };
 
-    console.log('in pet currentPage', currentPage);
-
     return (
         <Link
             to={`/details/${id}`}

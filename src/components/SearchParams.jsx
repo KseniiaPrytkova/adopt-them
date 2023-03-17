@@ -8,7 +8,6 @@ import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from '../AppContext';
-import { useLocation } from 'react-router-dom';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
@@ -22,14 +21,28 @@ const SearchParams = () => {
     const { adoptedPet } = useContext(AppContext);
     const [animal, setAnimal] = useState('');
     const [breeds] = useBreedList(animal);
-    // const sectionRef = useRef(null);
     const { isLoading, isError, error, data, isFetching, isPreviousData } =
         useQuery(['search', { ...requestParams, page }], fetchSearch, {
             keepPreviousData: true
         });
     const pets = data?.pets ?? [];
     const { hasAnimated, resultsPage } = useContext(AppContext);
-    console.log('resultsPage', resultsPage);
+    const resultsRef = useRef(null);
+
+    const scrollToTop = () => {
+        resultsRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        });
+    };
+
+    useEffect(() => {
+        if (resultsPage !== null) {
+            scrollToTop();
+            setPage(resultsPage);
+        }
+    }, [resultsPage]);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
@@ -37,23 +50,6 @@ const SearchParams = () => {
         animateOnce: true,
         options: { threshold: 0.1 }
     });
-
-    // const scrollToTop = () => {
-    //     sectionRef.current.scrollIntoView({
-    //         behavior: 'smooth'
-    //     });
-    // };
-
-    // const location = useLocation();
-
-    useEffect(() => {
-        console.log('hello');
-        if (resultsPage) {
-            // scrollToTop();
-            setPage(resultsPage);
-        }
-        // }, [location.pathname]);
-    }, [resultsPage]);
 
     return (
         <Fragment>
@@ -204,8 +200,8 @@ const SearchParams = () => {
                     isPreviousData={isPreviousData}
                     isError={isError}
                     error={error}
-                    // sectionRef={sectionRef}
-                    // scrollToTop={scrollToTop}
+                    resultsRef={resultsRef}
+                    scrollToTop={scrollToTop}
                 />
             </div>
 
