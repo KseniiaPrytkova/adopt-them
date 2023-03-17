@@ -1,20 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import {
-    useContext,
-    useState,
-    useEffect,
-    useRef,
-    useLayoutEffect,
-    useCallback
-} from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from './ErrorBoundary';
 import fetchPet from './fetchPet';
 import Carousel from './Carousel';
 import { AppContext } from './AppContext';
-// import { useIntersectionObserver } from './useIntersectionObserver';
 
 const Details = () => {
     const { id } = useParams();
@@ -22,9 +14,11 @@ const Details = () => {
     const results = useQuery(['details', id], fetchPet);
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
-    const { adoptedPet, setAdoptedPet } = useContext(AppContext);
+    const { _, setAdoptedPet } = useContext(AppContext);
+
     // wrapperRef is a reference to the DOM node and can be used later in
     // the component if needed
+    // eslint-disable-next-line no-unused-vars
     const [wrapperRef, setWrapperRef] = useState(null);
 
     // A callback ref is a function that you pass to the ref attribute of a
@@ -42,7 +36,6 @@ const Details = () => {
                 inline: 'nearest'
             });
         } else {
-            console.log('else');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, []);
@@ -126,8 +119,6 @@ const Details = () => {
                                                 'adopted',
                                                 JSON.stringify(pet)
                                             );
-                                            // console.log(pet);
-                                            // console.log(adoptedPet);
                                             navigate('/');
                                         }}
                                         // className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${

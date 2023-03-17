@@ -1,16 +1,10 @@
-import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
-
+import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
-
 import { AppContext } from './AppContext';
 
 const HeaderSecondary = () => {
-    // console.log('headerSecondary');
-
+    // eslint-disable-next-line no-unused-vars
     const { hasAnimated, _ } = useContext(AppContext);
-
-    // console.log('hasAnimated1------------>', hasAnimated);
-
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         animationDuration: 2000,
@@ -27,11 +21,7 @@ const HeaderSecondary = () => {
                     animated || hasAnimated['headerSecondary']
                         ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
-                }
-
-           
-                
-                transition-opacity duration-1000 ease-in-out`}
+                } transition-opacity duration-1000 ease-in-out`}
             >
                 From the comfort of their personal computers, pet lovers can
                 search for a pet that best matches their needs. They can then

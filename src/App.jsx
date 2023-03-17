@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { AppContextProvider } from './AppContext';
 import Details from './Details';
 import SearchParams from './SearchParams';
@@ -19,9 +19,6 @@ const queryClient = new QueryClient({
 
 const App = () => {
     // const adoptedPet = useState(null);
-    console.log(
-        '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BEGIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    );
 
     useEffect(() => {
         const loadingContainer = document.getElementById('loading-container');
@@ -43,7 +40,7 @@ const App = () => {
                 <AppContextProvider>
                     <Navbar />
 
-                    <main className="min-h-[50vh] flex-auto ">
+                    <main className="min-h-[50vh] flex-auto">
                         <Routes>
                             <Route path="/details/:id" element={<Details />} />
                             <Route path="/" element={<SearchParams />} />

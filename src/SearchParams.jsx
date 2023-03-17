@@ -1,13 +1,12 @@
 import { Fragment, useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
-
-import useBreedList from './useBreedList';
+import useBreedList from './customHooks/useBreedList';
 import fetchSearch from './fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
-import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from './AppContext';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
@@ -26,21 +25,15 @@ const SearchParams = () => {
         useQuery(['search', { ...requestParams, page }], fetchSearch, {
             keepPreviousData: true
         });
-    const pets = data?.pets ?? [];
-    // const [intersectionRef, animated] = useAnimateOnceOnIntersection({
-    //     animationName: 'fade-in-fast',
-    //     threshold: 0.1
-    //     // oncePerApp: true
-    // });
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         animationDuration: 2000,
+        animateOnce: true,
         options: { threshold: 0.1 }
     });
-
+    // eslint-disable-next-line no-unused-vars
     const { hasAnimated, _ } = useContext(AppContext);
-
-    // console.log('hasAnimated1------------>', hasAnimated);
+    const pets = data?.pets ?? [];
 
     return (
         <Fragment>
@@ -55,13 +48,12 @@ const SearchParams = () => {
                         ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
                 } transition-opacity`}
-                // className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 `}
             >
                 <h2 className="flex p-10 text-4xl text-light-navy dark:text-dark-purple lg:col-span-12 lg:justify-end">
                     Pets avaliable for adoption:
                 </h2>
                 <form
-                    className="mx-2 mb-2 grid grid-cols-12 rounded-lg    bg-light-lightNavy bg-opacity-80 py-4 dark:bg-dark-lightGrey md:col-span-2 lg:col-span-4  lg:mb-0 lg:flex lg:flex-col xl:col-span-3"
+                    className="mx-2 mb-2 grid grid-cols-12 rounded-lg bg-light-lightNavy bg-opacity-80 py-4 dark:bg-dark-lightGrey md:col-span-2 lg:col-span-4 lg:mb-0 lg:flex lg:flex-col xl:col-span-3"
                     onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.target);
@@ -106,26 +98,23 @@ const SearchParams = () => {
 
                     <label
                         htmlFor="location"
-                        // className="flex max-w-full flex-col place-items-start border-2 border-red-600"
                         className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
                     >
                         <span className="   text-light-darkNavy dark:text-dark-purple">
                             Location
                         </span>
-                        {/* <div className="mx-auto w-4/5"> */}
                         <input
                             id="location"
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
+                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple"
                         />
-                        {/* </div> */}
                     </label>
 
                     <label
                         htmlFor="animal"
-                        className="  col-span-8   col-start-3  flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
+                        className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
                     >
                         <span className="  text-light-darkNavy dark:text-dark-purple">
                             Animal
@@ -133,7 +122,7 @@ const SearchParams = () => {
                         <select
                             id="animal"
                             name="animal"
-                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
+                            className="mb-5 block border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple"
                             onChange={(e) => {
                                 setAnimal(e.target.value);
                             }}
@@ -152,7 +141,7 @@ const SearchParams = () => {
 
                     <label
                         htmlFor="breed"
-                        className="  col-span-8   col-start-3  flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
+                        className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
                     >
                         <span className="text-light-darkNavy dark:text-dark-purple">
                             Breed
@@ -161,7 +150,7 @@ const SearchParams = () => {
                             disabled={!breeds.length}
                             id="breed"
                             name="breed"
-                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold disabled:opacity-50 dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple "
+                            className="mb-5 block border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold disabled:opacity-50 dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple"
                         >
                             <option />
                             {breeds.map((breed) => (

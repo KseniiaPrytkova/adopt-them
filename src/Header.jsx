@@ -1,8 +1,9 @@
-import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
 import { AppContext } from './AppContext';
 
 const Header = () => {
+    // eslint-disable-next-line no-unused-vars
     const { hasAnimated, _ } = useContext(AppContext);
     const [headerRef, animatedHeader] = useAnimateOnceOnIntersection({
         animationName: 'appear-from-left',
@@ -15,14 +16,9 @@ const Header = () => {
         options: { threshold: 0.5 }
     });
 
-    console.log('hasAnimated ---------------->', hasAnimated);
-
     return (
         <header className="relative overflow-hidden bg-[url('/img/fox.jpg')] bg-cover bg-center lg:pt-12 xl:pt-14  ">
             <div className="grid-template-rows: repeat(2, minmax(0, 1fr)); grid grid-cols-12">
-                {/* <h1 className="col-span-7 col-start-2 row-span-1 row-start-1 animate-appear-from-left py-10 text-5xl leading-snug text-light-blue dark:text-dark-teal md:col-span-6 md:col-start-2 md:pr-0 lg:text-6xl xl:text-7xl">
-                    Find your new best friend
-                </h1> */}
                 <h1
                     ref={headerRef}
                     id="header"
@@ -39,7 +35,6 @@ const Header = () => {
                 <h2
                     ref={descriptionRef}
                     id="description"
-                    // className={`col-span-5 col-start-2 row-span-1 row-start-2 animate-fade-in-slow pr-5 text-2xl text-light-teal dark:text-dark-paleTeal md:leading-relaxed xl:text-3xl xl:leading-loose ${
                     className={`col-span-5 col-start-2 row-span-1 row-start-2  pr-5 text-2xl text-light-teal dark:text-dark-paleTeal md:leading-relaxed xl:text-3xl xl:leading-loose ${
                         animatedDescription || hasAnimated['description']
                             ? 'animate-fade-in-slow opacity-100'

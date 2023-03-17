@@ -10,7 +10,6 @@ module.exports = {
                 gloria: ['"Gloria Hallelujah"', 'ui-sans-serif']
             },
             gridTemplateRows: {
-                // Complex site-specific row configuration
                 detailsLayout: 'auto minmax(0, 1fr)'
             },
             colors: {

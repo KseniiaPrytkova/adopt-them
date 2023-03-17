@@ -1,8 +1,16 @@
-import { useAnimateOnceOnIntersection } from './useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from './AppContext';
 import { useContext } from 'react';
 
 const Footer = () => {
+    const [nodeRef, animated] = useAnimateOnceOnIntersection({
+        animationName: 'appear',
+        animationDuration: 2000,
+
+        options: { threshold: 0.5 }
+    });
+    // eslint-disable-next-line no-unused-vars
+    const { hasAnimated, _ } = useContext(AppContext);
     const date = new Date();
 
     const toggleTheme = () => {
@@ -22,22 +30,6 @@ const Footer = () => {
         }
     };
 
-    // const [intersectionRef, animated] = useAnimateOnceOnIntersection({
-    //     animationName: 'fade-in-fast',
-    //     threshold: 0.5
-    //     // oncePerApp: true
-    // });
-
-    const [nodeRef, animated] = useAnimateOnceOnIntersection({
-        animationName: 'appear',
-        animationDuration: 2000,
-        options: { threshold: 0.5 }
-    });
-
-    const { hasAnimated, _ } = useContext(AppContext);
-
-    // console.log('hasAnimated1------------>', hasAnimated);
-
     return (
         <footer
             id="footer"
@@ -47,7 +39,6 @@ const Footer = () => {
                     ? 'animate-appear opacity-100'
                     : 'opacity-0'
             } transition-opacity`}
-            // className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly `}
         >
             <ul className="order-1 flex basis-1/2 flex-col space-y-4 text-light-gold dark:text-dark-green sm:basis-1/4 lg:basis-1/6">
                 <li>

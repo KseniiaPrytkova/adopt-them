@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import Pet from './Pet';
 
 const Results = ({
@@ -14,13 +14,11 @@ const Results = ({
     const sectionRef = useRef(null);
 
     const scrollToTop = () => {
-        // setTimeout(() => {
         sectionRef.current.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
             inline: 'nearest'
         });
-        // }, 1000);
     };
 
     const handleButtonClick = (newPage) => {
@@ -33,7 +31,7 @@ const Results = ({
     return (
         <section
             ref={sectionRef}
-            className=" mx-2 flex flex-col   rounded-lg  bg-light-lightNavy  p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
+            className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
         >
             <article className=" m-2 grid basis-52 gap-4  sm:grid-cols-2 md:grid-cols-3  lg:basis-full xl:grid-cols-4">
                 {!pets.length ? (
@@ -66,8 +64,7 @@ const Results = ({
                         handleButtonClick((old) => Math.max(old - 1, 0))
                     }
                     disabled={page === 0}
-                    // className="text-light-darkNavy disabled:cursor-not-allowed dark:text-dark-darkRed"
-                    className={` text-light-darkNavy dark:text-dark-darkRed ${
+                    className={`text-light-darkNavy dark:text-dark-darkRed ${
                         page === 0
                             ? 'cursor-not-allowed  opacity-50 '
                             : ' opacity-100'
@@ -90,8 +87,8 @@ const Results = ({
                     disabled={isFetching || isPreviousData || pets.length < 10}
                     className={`text-light-darkNavy dark:text-dark-darkRed ${
                         isFetching || isPreviousData || pets.length < 10
-                            ? 'cursor-not-allowed  opacity-50 '
-                            : ' opacity-100'
+                            ? 'cursor-not-allowed opacity-50'
+                            : 'opacity-100'
                     }`}
                 >
                     Next

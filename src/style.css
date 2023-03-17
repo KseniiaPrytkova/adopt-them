@@ -3,25 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-    /* #root:before {
-        content: '🌀';
-        font-size: 3rem;
-        animation: spin 2s linear infinite;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    @keyframes spin {
-        0% {
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-        100% {
-            transform: translate(-50%, -50%) rotate(360deg);
-        }
-    } */
-
     body {
         @apply font-poppins;
         @apply m-0 box-border p-0;
