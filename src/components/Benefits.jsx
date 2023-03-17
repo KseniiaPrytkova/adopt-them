@@ -1,5 +1,5 @@
-import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
-import { AppContext } from './AppContext';
+import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
+import { AppContext } from '../AppContext';
 import { useContext } from 'react';
 
 const Benefits = () => {

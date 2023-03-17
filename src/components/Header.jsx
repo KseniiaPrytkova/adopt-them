@@ -1,6 +1,6 @@
-import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
+import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
-import { AppContext } from './AppContext';
+import { AppContext } from '../AppContext';
 
 const Header = () => {
     // eslint-disable-next-line no-unused-vars

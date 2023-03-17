@@ -1,5 +1,5 @@
-import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
-import { AppContext } from './AppContext';
+import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
+import { AppContext } from '../AppContext';
 import { useContext } from 'react';
 
 const Footer = () => {
@@ -76,7 +76,7 @@ const Footer = () => {
                 </h3>
                 <p className="text-light-lightNavy dark:text-dark-lightGrey">
                     We will send you emails about new animals joining our family
-                    and some pet care tips.
+                    and some pet care tips
                 </p>
 
                 <input
@@ -89,10 +89,6 @@ const Footer = () => {
 
             <div className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4">
                 <label
-                    // ref={ref}
-                    // className={`relative mr-5 inline-flex cursor-pointer items-center ${
-                    //     isIntersecting ? 'animate-shake' : ''
-                    // }`}
                     className={`relative mr-5 inline-flex cursor-pointer items-center `}
                 >
                     <input

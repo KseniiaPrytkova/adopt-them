@@ -1,13 +1,13 @@
 import { Fragment, useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
-import useBreedList from './customHooks/useBreedList';
-import fetchSearch from './fetchSearch';
+import useBreedList from '../customHooks/useBreedList';
+import fetchSearch from '../fetchSearch';
 import Header from './Header';
 import HeaderSecondary from './HeaderSecondary';
 import Benefits from './Benefits';
-import { useAnimateOnceOnIntersection } from './customHooks/useAnimateOnceOnIntersection';
-import { AppContext } from './AppContext';
+import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
+import { AppContext } from '../AppContext';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 

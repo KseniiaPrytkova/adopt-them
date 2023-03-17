@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { AppContextProvider } from './AppContext';
-import Details from './Details';
-import SearchParams from './SearchParams';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Details from './components/Details';
+import SearchParams from './components/SearchParams';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const queryClient = new QueryClient({
     defaultOptions: {

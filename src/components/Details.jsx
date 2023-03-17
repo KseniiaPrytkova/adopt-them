@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
-import ErrorBoundary from './ErrorBoundary';
-import fetchPet from './fetchPet';
+import ErrorBoundary from '../ErrorBoundary';
+import fetchPet from '../fetchPet';
 import Carousel from './Carousel';
-import { AppContext } from './AppContext';
+import { AppContext } from '../AppContext';
 
 const Details = () => {
     const { id } = useParams();

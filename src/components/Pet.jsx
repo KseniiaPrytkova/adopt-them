@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const Pet = (props) => {
-    const { name, animal, breed, images, location, id } = props;
+    const { name, animal, breed, images, location, id, delay } = props;
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     let hero = 'http://pets-images.dev-apis.com/pets/none.jpg';
@@ -19,15 +19,19 @@ const Pet = (props) => {
     return (
         <Link
             to={`/details/${id}`}
-            className={`relative block min-h-[12.5rem] p-0 shadow-xl transition-opacity duration-500 ease-in-out ${
-                isImageLoaded ? 'opacity-100' : 'opacity-0'
+            className={`relative block min-h-[12.5rem] p-0 shadow-xl  ${
+                isImageLoaded ? '' : 'opacity-0'
             }`}
+            style={{
+                animationDelay: `${delay}ms`,
+                animation: isImageLoaded ? '2s appear ease-out' : 'none'
+            }}
         >
             <div className="relative overflow-hidden">
                 <img
                     src={hero}
                     alt={name}
-                    className="h-auto w-full scale-110 transform object-cover object-center opacity-0 "
+                    className="h-auto w-full scale-110 transform object-cover object-center  "
                     onLoad={handleImageLoad}
                 />
             </div>
