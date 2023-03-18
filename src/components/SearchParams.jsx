@@ -1,4 +1,11 @@
-import { Fragment, useState, useContext, useEffect, useRef } from 'react';
+import {
+    Fragment,
+    useState,
+    useContext,
+    useEffect,
+    useRef,
+    useLayoutEffect
+} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from './Results';
 import useBreedList from '../customHooks/useBreedList';
@@ -38,12 +45,19 @@ const SearchParams = () => {
     };
 
     useEffect(() => {
-        if (resultsPage !== null) setPage(resultsPage);
+        if (resultsPage !== null) {
+            setPage(resultsPage);
+        }
     }, [resultsPage]);
 
-    useEffect(() => {
-        if (resultsPage !== null) scrollToTop();
-    }, [page, resultsPage]);
+    // componentDidMount && componentDidUpdate
+    // that it will be executed after the component's layout has been updated,
+    // ensuring that resultsRef.current is available and set correctly
+    useLayoutEffect(() => {
+        if (resultsPage !== null) {
+            scrollToTop();
+        }
+    }, [page]);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
