@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from '../ErrorBoundary';
@@ -24,24 +24,21 @@ const Details = () => {
     // eslint-disable-next-line no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
 
-    // A callback ref is a function that you pass to the ref attribute of a
-    // component. React will automatically call this function when
-    // the component mounts, passing the DOM node as an argument, and again
-    // when the component unmounts, passing null as the argument.
-    // The primary purpose of a callback ref is to allow you to execute some
-    // code as soon as the ref is set.
     const handleRef = useCallback((node) => {
         if (node !== null) {
             setWrapperRef(node);
-            node.scrollIntoView({
+        }
+    }, []);
+
+    useEffect(() => {
+        if (wrapperRef !== null) {
+            wrapperRef.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
                 inline: 'nearest'
             });
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, []);
+    }, [wrapperRef]);
 
     useEffect(() => {
         window.scrollTo(0, 0);

@@ -44,6 +44,16 @@ const SearchParams = () => {
         });
     };
 
+    // const scrollToTopWithDelay = () => {
+    //     if (resultsRef.current) {
+    //         scrollToTop();
+    //     } else {
+    //         setTimeout(scrollToTopWithDelay, 100);
+    //     }
+    // };
+
+    // setTimeout(scrollToTopWithDelay, 100);
+
     useEffect(() => {
         if (resultsPage !== null) {
             setPage(resultsPage);
