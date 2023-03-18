@@ -35,6 +35,7 @@ const SearchParams = () => {
     const pets = data?.pets ?? [];
     const { hasAnimated, resultsPage } = useContext(AppContext);
     const resultsRef = useRef(null);
+    const [isRef, setIsRef] = useState(false);
 
     const scrollToTop = () => {
         resultsRef.current.scrollIntoView({
@@ -44,19 +45,10 @@ const SearchParams = () => {
         });
     };
 
-    // const scrollToTopWithDelay = () => {
-    //     if (resultsRef.current) {
-    //         scrollToTop();
-    //     } else {
-    //         setTimeout(scrollToTopWithDelay, 100);
-    //     }
-    // };
-
-    // setTimeout(scrollToTopWithDelay, 100);
-
     useEffect(() => {
         if (resultsPage !== null) {
             setPage(resultsPage);
+            setIsRef(true);
         }
     }, [resultsPage]);
 
@@ -64,10 +56,10 @@ const SearchParams = () => {
     // that it will be executed after the component's layout has been updated,
     // ensuring that resultsRef.current is available and set correctly
     useLayoutEffect(() => {
-        if (resultsPage !== null) {
+        if (isRef) {
             scrollToTop();
         }
-    }, [page]);
+    }, [isRef]);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
