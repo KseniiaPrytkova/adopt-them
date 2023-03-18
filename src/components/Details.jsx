@@ -1,12 +1,13 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from '../ErrorBoundary';
 import fetchPet from '../fetchPet';
 import Carousel from './Carousel';
 import { AppContext } from '../AppContext';
+import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
 const Details = () => {
     const { id } = useParams();
@@ -15,7 +16,6 @@ const Details = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const { _, setAdoptedPet } = useContext(AppContext);
-
     // wrapperRef is a reference to the DOM node and can be used later in
     // the component if needed
     // eslint-disable-next-line no-unused-vars
@@ -23,6 +23,14 @@ const Details = () => {
     const location = useLocation();
     // eslint-disable-next-line no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
+    const [adoptButtonRef, isadoptButtonIntersecting] = useIntersectionObserver(
+        {
+            threshold: 0.5
+        }
+    );
+    const [yesButtonRef, isYesButtonIntersecting] = useIntersectionObserver({
+        threshold: 0.5
+    });
 
     const handleRef = useCallback((node) => {
         if (node !== null) {
@@ -93,10 +101,11 @@ const Details = () => {
                     <h2 className="text-light-darkNavy dark:text-dark-darkRed">{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
                     <button
                         onClick={() => setShowModal(true)}
-                        // className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
-                        //     isIntersecting ? 'animate-zoom-in-out' : ''
-                        // }`}
-                        className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green`}
+                        ref={yesButtonRef}
+                        className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
+                            isYesButtonIntersecting ? 'animate-zoom-in-out' : ''
+                        }`}
+                        // className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green`}
                     >
                         Adopt {pet.name}
                     </button>
@@ -115,7 +124,7 @@ const Details = () => {
                                 </h1>
                                 <div className="py-8 text-center">
                                     <button
-                                        // ref={ref}
+                                        ref={adoptButtonRef}
                                         onClick={() => {
                                             setAdoptedPet(pet);
                                             localStorage.setItem(
@@ -124,12 +133,12 @@ const Details = () => {
                                             );
                                             navigate('/');
                                         }}
-                                        // className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
-                                        //     isIntersecting
-                                        //         ? 'animate-shake-immediately'
-                                        //         : ''
-                                        // }`}
-                                        className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple `}
+                                        className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
+                                            isadoptButtonIntersecting
+                                                ? 'animate-shake-immediately'
+                                                : ''
+                                        }`}
+                                        // className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple `}
                                     >
                                         Yes
                                     </button>

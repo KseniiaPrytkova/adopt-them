@@ -1,6 +1,7 @@
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from '../AppContext';
 import { useContext } from 'react';
+import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
 const Footer = () => {
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
@@ -11,6 +12,10 @@ const Footer = () => {
     });
     // eslint-disable-next-line no-unused-vars
     const { hasAnimated, _ } = useContext(AppContext);
+    const [themeControllerRef, isThemeControllerIntersecting] =
+        useIntersectionObserver({
+            threshold: 0.5
+        });
     const date = new Date();
 
     const toggleTheme = () => {
@@ -87,9 +92,16 @@ const Footer = () => {
                 ></input>
             </section>
 
-            <div className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4">
+            <div
+                ref={themeControllerRef}
+                className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4"
+            >
                 <label
-                    className={`relative mr-5 inline-flex cursor-pointer items-center `}
+                    className={`relative mr-5 inline-flex cursor-pointer items-center ${
+                        isThemeControllerIntersecting
+                            ? 'animate-shake-immediately'
+                            : ''
+                    }`}
                 >
                     <input
                         type="checkbox"
@@ -102,7 +114,9 @@ const Footer = () => {
                         onClick={() => toggleTheme()}
                     />
                     <div className="peer h-6 w-11 rounded-full bg-light-lightNavy after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-dark-paleTeal peer-checked:after:translate-x-full peer-checked:after:border-light-lightNavy peer-focus:ring-4 peer-focus:ring-light-gold dark:border-gray-600 dark:bg-dark-paleTeal dark:peer-focus:ring-dark-green"></div>
-                    <span className="theme-label ml-3 text-sm font-medium text-light-lightNavy">
+                    <span
+                        className={`theme-label ml-3 text-sm font-medium text-light-lightNavy `}
+                    >
                         {localStorage.getItem('theme') === 'dark'
                             ? 'Dionysus'
                             : 'Poseidon'}

@@ -5,6 +5,13 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            backgroundImage: {
+                'rainbow-border':
+                    'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)'
+            },
+            backgroundSize: {
+                border: '200% 100%'
+            },
             fontFamily: {
                 poppins: ['Poppins', 'ui-sans-serif'],
                 gloria: ['"Gloria Hallelujah"', 'ui-sans-serif']
@@ -42,7 +49,8 @@ module.exports = {
                 shake: '2s shake 4s both',
                 appear: '2s appear ease-out forwards',
                 'zoom-in-out': '2s zoom-in-out',
-                'shake-immediately': '4s shake both'
+                'shake-immediately': '4s shake both',
+                rainbow: 'rainbow 3s linear infinite'
             },
 
             keyframes: {
@@ -92,6 +100,16 @@ module.exports = {
                     '0%': { transform: 'scale(1)' },
                     '50%': { transform: 'scale(1.2)' },
                     '100%': { transform: 'scale(1)' }
+                },
+                rainbow: {
+                    '0%': { borderColor: 'red' },
+                    '14%': { borderColor: 'orange' },
+                    '28%': { borderColor: 'yellow' },
+                    '42%': { borderColor: 'green' },
+                    '57%': { borderColor: 'blue' },
+                    '71%': { borderColor: 'indigo' },
+                    '85%': { borderColor: 'violet' },
+                    '100%': { borderColor: 'red' }
                 }
             }
         }
@@ -99,7 +117,9 @@ module.exports = {
     variants: {
         extend: {
             backgroundColor: ['dark'],
-            textColor: ['dark']
+            textColor: ['dark'],
+            backgroundPosition: ['hover'],
+            animation: ['hover']
         }
     },
     plugins: [require('@tailwindcss/forms')]

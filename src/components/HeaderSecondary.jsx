@@ -16,7 +16,7 @@ const HeaderSecondary = () => {
             <p
                 id="headerSecondary"
                 ref={nodeRef}
-                className={`text col-span-10 col-start-2 text-center text-light-navy dark:text-dark-paleGreen lg:text-xl 
+                className={`col-span-10 col-start-2 text-center text-light-navy dark:text-dark-paleGreen lg:text-xl 
                 ${
                     animated || hasAnimated['headerSecondary']
                         ? 'animate-fade-in-fast opacity-100'
