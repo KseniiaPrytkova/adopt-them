@@ -38,11 +38,16 @@ const SearchParams = () => {
     };
 
     useEffect(() => {
+        console.log(resultsRef);
         if (resultsPage !== null) {
-            scrollToTop();
+            // scrollToTop();
             setPage(resultsPage);
         }
     }, [resultsPage]);
+
+    useEffect(() => {
+        scrollToTop();
+    }, [page]);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',

@@ -22,9 +22,9 @@ const Results = ({
     return (
         <section
             ref={resultsRef}
-            className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
+            className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9 "
         >
-            <article className="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4">
+            <article className="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4 xl:grid-rows-2">
                 {!pets.length ? (
                     <div>No Pets Found😩</div>
                 ) : isError ? (
@@ -42,7 +42,7 @@ const Results = ({
                                 images={pet.images}
                                 location={`${pet.city}, ${pet.state}`}
                                 id={pet.id}
-                                delay={index * 1000}
+                                delay={index * 100}
                                 currentPage={page}
                             />
                         );

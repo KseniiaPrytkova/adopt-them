@@ -13,8 +13,10 @@ const Pet = (props) => {
     }
 
     const handleImageLoad = (e) => {
-        setImageLoaded(true);
-        e.target.style.opacity = '1';
+        setTimeout(() => {
+            setImageLoaded(true);
+            e.target.style.opacity = '1';
+        }, delay);
     };
 
     return (
@@ -33,7 +35,7 @@ const Pet = (props) => {
                 <img
                     src={hero}
                     alt={name}
-                    className="h-auto w-full scale-110 transform object-cover object-center  "
+                    className="h-auto w-full scale-110 transform object-cover object-center"
                     onLoad={handleImageLoad}
                 />
             </div>
