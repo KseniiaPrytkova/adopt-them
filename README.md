@@ -6,14 +6,14 @@ The design of this project is a product of my imagination. Do not judge strictly
 - [x] pagination for list of pets avalibale for adoption;
 - [x] ability to change theme (2 choices available), theme will be saved even if the user reloads the page - `localStorage` usage;
 - [x] when the user adopts a pet, this pet will appear above the search form and will remain even if the user refreshes the page - usage of `useContext` and `localStorage`;
-- [x] use [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to perform animation when the user reaches a particular part of the web app; 2 hooks were created (for simplicity to readon about and, debbuging and usgae in general) - one to play the animation 1 time during the life of the entire web application (until a full reload), and the second - to be able to animate every time the element intersects. Implementation is [here](#).
+- [x] use [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to perform animation when the user reaches a particular part of the web app; 2 hooks were created (for simplicity to readon about and, debbuging and usgae in general) - one to play the animation 1 time during the life of the entire web application (until a full reload), and the second - to be able to animate every time the element intersects. Implementation is [here](#observers).
 - [x] the search form provides the ability to search for animals by animal type and breed (the list of breeds depends on the type of animal and appears when the animal type is selected);
 - [x] use `react-query` for API call to minimize efffects in the code;
 
-### custom hooks for Intersection Observer API use:
+### custom hooks for Intersection Observer API use <a id="observers"></a>:
 in this case I am using Intersection Observer API for animations. To animate once per lifetime of web app I am using `React Context` to memorize DOM elements that have been already animated in object
 
-```
+```JSX
 import { createContext, useState } from 'react';
 
 const AppContext = createContext();
@@ -33,7 +33,7 @@ export { AppContextProvider, AppContext };
 ```
 
 `useAnimateOnceOnIntesection`:
-```
+```JSX
 import { useRef, useState, useContext, useEffect } from 'react';
 import { AppContext } from '../AppContext';
 
@@ -95,7 +95,7 @@ export const useAnimateOnceOnIntersection = ({
 };
 ```
 this hook accepts ` animationName`, `animationDuration` and `options` of course (options are native to Intersection Observer API) and returns reference to DOM element and a boolean `animated`which indicates if animation already happenned. Initially `animated` is false, so new `new IntersectionObserver` will be created and to `hasAnimated` object will be added property which is id of a DOM element that is monitored for intersections:
-```
+```JSX
  setHasAnimated((prevState) => ({
     ...prevState,
     [element.id]: true
@@ -103,7 +103,7 @@ this hook accepts ` animationName`, `animationDuration` and `options` of course 
 ```
 
 on all following intersections this check:
-```
+```JSX
  if (hasAnimated[node.id] && !animated) {
     node.classList.remove(`animate-${animationName}`);
     return;
@@ -112,7 +112,7 @@ on all following intersections this check:
 will forse to return and not create new `IntersectionObserver`.
 
 Here is usage inside component:
-```
+```JSX
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
