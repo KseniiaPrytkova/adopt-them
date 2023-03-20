@@ -4,9 +4,8 @@ import { useState } from 'react';
 const Pet = (props) => {
     const { name, animal, breed, images, location, id, delay, currentPage } =
         props;
-    const [isImageLoaded, setImageLoaded] = useState(false);
-
     let hero = 'http://pets-images.dev-apis.com/pets/none.jpg';
+    const [isImageLoaded, setImageLoaded] = useState(false);
 
     if (images.length) {
         hero = images[0];
@@ -23,7 +22,7 @@ const Pet = (props) => {
         <Link
             to={`/details/${id}`}
             state={currentPage}
-            className={`relative block min-h-[12.5rem] p-0 shadow-xl  ${
+            className={`relative block min-h-[12.5rem] p-0 shadow-xl ${
                 isImageLoaded ? '' : 'opacity-0'
             }`}
             style={{

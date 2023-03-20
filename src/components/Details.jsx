@@ -16,18 +16,18 @@ const Details = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const { _, setAdoptedPet } = useContext(AppContext);
-    // wrapperRef is a reference to the DOM node and can be used later in
-    // the component if needed
     // eslint-disable-next-line no-unused-vars
     const [wrapperRef, setWrapperRef] = useState(null);
     const location = useLocation();
     // eslint-disable-next-line no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
+
     const [adoptButtonRef, isadoptButtonIntersecting] = useIntersectionObserver(
         {
             threshold: 0.5
         }
     );
+
     const [yesButtonRef, isYesButtonIntersecting] = useIntersectionObserver({
         threshold: 0.5
     });
@@ -58,7 +58,7 @@ const Details = () => {
 
     if (results.isLoading) {
         return (
-            <div className="flex h-full items-center  justify-center ">
+            <div className="flex h-full items-center  justify-center">
                 <span className="inline animate-spin text-5xl">🌀</span>
             </div>
         );
@@ -91,7 +91,7 @@ const Details = () => {
                 </button>
             </Link>
 
-            <article className="col-span-12 col-start-1 row-span-1 row-start-2 rounded-lg  bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
+            <article className="col-span-12 col-start-1 row-span-1 row-start-2 rounded-lg bg-light-lightNavy p-4 dark:bg-dark-lightGrey sm:col-span-10 sm:col-start-2 lg:col-span-8 lg:col-start-3">
                 <Carousel images={pet.images} />
 
                 <div className="text-center">
@@ -105,7 +105,6 @@ const Details = () => {
                         className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green ${
                             isYesButtonIntersecting ? 'animate-zoom-in-out' : ''
                         }`}
-                        // className={`m-2 rounded bg-light-teal py-2 px-4 text-white hover:opacity-50 dark:bg-dark-green`}
                     >
                         Adopt {pet.name}
                     </button>
@@ -135,10 +134,9 @@ const Details = () => {
                                         }}
                                         className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
                                             isadoptButtonIntersecting
-                                                ? 'animate-shake-immediately'
+                                                ? 'animate-flip'
                                                 : ''
                                         }`}
-                                        // className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple `}
                                     >
                                         Yes
                                     </button>

@@ -5,13 +5,6 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
-            backgroundImage: {
-                'rainbow-border':
-                    'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)'
-            },
-            backgroundSize: {
-                border: '200% 100%'
-            },
             fontFamily: {
                 poppins: ['Poppins', 'ui-sans-serif'],
                 gloria: ['"Gloria Hallelujah"', 'ui-sans-serif']
@@ -46,11 +39,16 @@ module.exports = {
                 'appear-from-left': '3s appear-from-left  ease-in-out ',
                 'fade-in-slow': '6s fade-in ease-in-out forwards',
                 'fade-in-fast': '2s fade-in ease-in-out forwards',
-                shake: '2s shake 4s both',
+                // shake: '2s shake 4s both',
+                shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both 4s',
                 appear: '2s appear ease-out forwards',
                 'zoom-in-out': '2s zoom-in-out',
-                'shake-immediately': '4s shake both',
-                rainbow: 'rainbow 3s linear infinite'
+                'shake-immediately':
+                    'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
+                flash: 'flash 0.5s 2', // Duration: 0.5s, Repeat: 1
+                flip: 'flip 2s', // Duration: 2s, change as needed
+                rubberBand: 'rubberBand 1s', // Duration: 1s, change as needed
+                swing: ' swing 2s ease-in-out 0.1s ' // Duration: 1s, Timing function: ease-in-out, Delay: 0.5s
             },
 
             keyframes: {
@@ -83,17 +81,17 @@ module.exports = {
                     }
                 },
                 shake: {
-                    '20%, 40%, 60%, 80%': {
-                        transform: 'translateX(1%)'
+                    '10%, 90%': {
+                        transform: 'translate3d(-1px, 0, 0)'
                     },
-                    '10%, 30%, 50%, 70%, 90%': {
-                        transform: 'translateX(-5%)'
+                    '20%, 80%': {
+                        transform: 'translate3d(2px, 0, 0)'
                     },
-                    from: {
-                        transform: 'none'
+                    '30%, 50%, 70%': {
+                        transform: 'translate3d(-4px, 0, 0)'
                     },
-                    to: {
-                        transform: 'none'
+                    '40%, 60%': {
+                        transform: 'translate3d(4px, 0, 0)'
                     }
                 },
                 'zoom-in-out': {
@@ -101,15 +99,56 @@ module.exports = {
                     '50%': { transform: 'scale(1.2)' },
                     '100%': { transform: 'scale(1)' }
                 },
-                rainbow: {
-                    '0%': { borderColor: 'red' },
-                    '14%': { borderColor: 'orange' },
-                    '28%': { borderColor: 'yellow' },
-                    '42%': { borderColor: 'green' },
-                    '57%': { borderColor: 'blue' },
-                    '71%': { borderColor: 'indigo' },
-                    '85%': { borderColor: 'violet' },
-                    '100%': { borderColor: 'red' }
+                flash: {
+                    '0%, 100%': {
+                        opacity: '1'
+                    },
+                    '50%': {
+                        opacity: '0'
+                    }
+                },
+                flip: {
+                    '0%': {
+                        transform: 'translateY(0) rotate(0)'
+                    },
+                    '25%': {
+                        transform: 'translateY(-80px) rotate(0)'
+                    },
+                    '75%': {
+                        transform: 'translateY(0) rotate(360deg)'
+                    },
+                    '100%': {
+                        transform: 'translateY(0) rotate(360deg)'
+                    }
+                },
+                rubberBand: {
+                    '0%, 100%': {
+                        transform: 'scaleX(1) scaleY(1)'
+                    },
+                    '25%': {
+                        transform: 'scaleX(1.5) scaleY(0.8)'
+                    },
+                    '75%': {
+                        transform: 'scaleX(0.8) scaleY(1.2)'
+                    }
+                },
+                swing: {
+                    '0%': {
+                        transform: 'rotate(0)',
+                        transformOrigin: '50% 0%'
+                    },
+                    '25%': {
+                        transform: 'rotate(20deg)',
+                        transformOrigin: '50% 0%'
+                    },
+                    '50%': {
+                        transform: 'rotate(-20deg)',
+                        transformOrigin: '50% 0%'
+                    },
+                    '100%': {
+                        transform: 'rotate(0)',
+                        transformOrigin: '50% 0%'
+                    }
                 }
             }
         }
@@ -117,9 +156,7 @@ module.exports = {
     variants: {
         extend: {
             backgroundColor: ['dark'],
-            textColor: ['dark'],
-            backgroundPosition: ['hover'],
-            animation: ['hover']
+            textColor: ['dark']
         }
     },
     plugins: [require('@tailwindcss/forms')]

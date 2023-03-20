@@ -35,7 +35,7 @@ class Carousel extends Component {
                             key={photo}
                             src={photo}
                             className={
-                                (index === active ? 'active-image ' : '') +
+                                (index === active ? 'active-image' : '') +
                                 'col-span-2 h-20 w-20 cursor-pointer rounded-full sm:w-auto md:h-auto'
                             }
                             alt="animal thumbnail"

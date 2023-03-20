@@ -1,22 +1,18 @@
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { AppContext } from '../AppContext';
 import { useContext } from 'react';
-import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
 const Footer = () => {
+    const date = new Date();
+    // eslint-disable-next-line no-unused-vars
+    const { hasAnimated, _ } = useContext(AppContext);
+
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'appear',
         animationDuration: 2000,
 
         options: { threshold: 0.5 }
     });
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
-    const [themeControllerRef, isThemeControllerIntersecting] =
-        useIntersectionObserver({
-            threshold: 0.5
-        });
-    const date = new Date();
 
     const toggleTheme = () => {
         const body = document.querySelector('body');
@@ -39,7 +35,7 @@ const Footer = () => {
         <footer
             id="footer"
             ref={nodeRef}
-            className={` flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
+            className={`flex flex-wrap justify-start bg-light-darkNavy px-10 pt-10 pb-5 text-white dark:bg-dark-purple sm:justify-around lg:justify-evenly ${
                 animated || hasAnimated['footer']
                     ? 'animate-appear opacity-100'
                     : 'opacity-0'
@@ -92,16 +88,9 @@ const Footer = () => {
                 ></input>
             </section>
 
-            <div
-                ref={themeControllerRef}
-                className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4"
-            >
+            <div className="order-3 mt-10 basis-full sm:mt-0 sm:basis-1/6 lg:order-4">
                 <label
-                    className={`relative mr-5 inline-flex cursor-pointer items-center ${
-                        isThemeControllerIntersecting
-                            ? 'animate-shake-immediately'
-                            : ''
-                    }`}
+                    className={`relative mr-5 inline-flex cursor-pointer items-center`}
                 >
                     <input
                         type="checkbox"
@@ -115,7 +104,7 @@ const Footer = () => {
                     />
                     <div className="peer h-6 w-11 rounded-full bg-light-lightNavy after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-dark-paleTeal peer-checked:after:translate-x-full peer-checked:after:border-light-lightNavy peer-focus:ring-4 peer-focus:ring-light-gold dark:border-gray-600 dark:bg-dark-paleTeal dark:peer-focus:ring-dark-green"></div>
                     <span
-                        className={`theme-label ml-3 text-sm font-medium text-light-lightNavy `}
+                        className={`theme-label ml-3 text-sm font-medium text-light-lightNavy`}
                     >
                         {localStorage.getItem('theme') === 'dark'
                             ? 'Dionysus'
@@ -124,7 +113,10 @@ const Footer = () => {
                 </label>
             </div>
 
-            <p className="order-5 basis-full pt-10 text-center text-sm text-light-lightNavy dark:text-dark-lightGrey">
+            <p
+                // ref={themeControllerRef}
+                className="order-5 basis-full pt-10 text-center text-sm text-light-lightNavy dark:text-dark-lightGrey"
+            >
                 Adopt Them @{date.getFullYear()}
             </p>
         </footer>

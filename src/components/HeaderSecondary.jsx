@@ -5,6 +5,7 @@ import { AppContext } from '../AppContext';
 const HeaderSecondary = () => {
     // eslint-disable-next-line no-unused-vars
     const { hasAnimated, _ } = useContext(AppContext);
+
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         animationDuration: 2000,

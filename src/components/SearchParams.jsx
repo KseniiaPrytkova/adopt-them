@@ -32,10 +32,10 @@ const SearchParams = () => {
         useQuery(['search', { ...requestParams, page }], fetchSearch, {
             keepPreviousData: true
         });
-    const pets = data?.pets ?? [];
     const { hasAnimated, resultsPage } = useContext(AppContext);
     const resultsRef = useRef(null);
     const [isRef, setIsRef] = useState(false);
+    const pets = data?.pets ?? [];
 
     const scrollToTop = () => {
         resultsRef.current.scrollIntoView({
@@ -76,7 +76,7 @@ const SearchParams = () => {
             <div
                 id="searchParams"
                 ref={nodeRef}
-                className={`grid-rows-auto grid grid-cols-1  lg:grid-cols-12 ${
+                className={`grid-rows-auto grid grid-cols-1 lg:grid-cols-12 ${
                     animated || hasAnimated['searchParams']
                         ? 'animate-fade-in-fast opacity-100'
                         : 'opacity-0'
@@ -133,7 +133,7 @@ const SearchParams = () => {
                         htmlFor="location"
                         className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
                     >
-                        <span className="   text-light-darkNavy dark:text-dark-purple">
+                        <span className="text-light-darkNavy dark:text-dark-purple">
                             Location
                         </span>
                         <input
@@ -141,7 +141,7 @@ const SearchParams = () => {
                             name="location"
                             placeholder="Location"
                             type="text"
-                            className="mb-5 block  border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple"
+                            className="mb-5 block border-light-darkNavy text-light-darkNavy placeholder:text-light-lightNavy focus:border-light-gold focus:ring-light-gold dark:border-dark-darkRed dark:text-dark-darkRed dark:focus:border-dark-lightPurple dark:focus:ring-dark-lightPurple"
                         />
                     </label>
 
@@ -149,7 +149,7 @@ const SearchParams = () => {
                         htmlFor="animal"
                         className="col-span-8 col-start-3 flex flex-col self-stretch sm:col-span-6 sm:col-start-4 lg:mx-8"
                     >
-                        <span className="  text-light-darkNavy dark:text-dark-purple">
+                        <span className="text-light-darkNavy dark:text-dark-purple">
                             Animal
                         </span>
                         <select
@@ -196,11 +196,6 @@ const SearchParams = () => {
 
                     <div className="col-span-10 col-start-2 flex justify-center">
                         <button
-                            // ref={ref}
-                            // className={`w-36 rounded border-none bg-light-tan px-6 py-2 text-white hover:opacity-50 dark:bg-dark-green ${
-                            //     isIntersecting ? 'animate-zoom-in-out' : ''
-                            // }`}
-                            // w-36
                             className={`rounded border-none bg-light-tan py-2 px-8 text-white hover:opacity-50 dark:bg-dark-green sm:px-10 md:px-12`}
                         >
                             Submit
