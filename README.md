@@ -44,15 +44,15 @@ export const useAnimateOnceOnIntersection = ({
     animationDuration = 2000,
     options
 }) => {
-    // Access the hasAnimatedItems object and setHasAnimated function from AppContext
-    const { hasAnimatedItems, setHasAnimated } = useContext(AppContext);
+    // Access the hasAnimatedItems object and setHasAnimatedItems function from AppContext
+    const { hasAnimatedItems, setHasAnimatedItems } = useContext(AppContext);
     const [animated, setAnimated] = useState(false);
     const [node, setNode] = useState(null);
     const observer = useRef(null);
 
     useEffect(() => {
         if (node) {
-            // If the element has already been animated, remove the animation class
+            // If the element has already been animated and is already in the hasAnimatedItems object, remove the animation class
             if (hasAnimatedItems[node.id] && !animated) {
                 node.classList.remove(`animate-${animationName}`);
                 return;
@@ -110,7 +110,8 @@ The `useAnimateOnceOnIntersection` hook takes `animationName`, `animationDuratio
 - **root**: The element used as the viewport for checking the visibility of the target element. By default, this is set to null, which means the browser's viewport is used.
 - **rootMargin**: A set of margins that are added to the root's bounding box when calculating intersections, effectively growing or shrinking the area used for intersection calculations. The default value is `"0px 0px 0px 0px"`.
 - **threshold**: A single number or an array of numbers between 0 and 1, representing the percentage of the target's visibility within the root. The observer's callback will be executed when the visibility of the target element passes a threshold. The default value is 0, meaning the callback will be executed as soon as even one pixel of the target is visible.
-`useAnimateOnceOnIntersection` hook returns a reference to the observed DOM element and a boolean `animated` that indicates whether the animation has already occurred. When animated is initially set to false, a new `IntersectionObserver` instance is created, and the `hasAnimatedItems` object is updated with a property corresponding to the ID of the monitored DOM element.
+
+`useAnimateOnceOnIntersection` hook returns a reference to the observed DOM element and a boolean `animated` that indicates whether the animation has already occurred. When animated is initially set to false, a new `IntersectionObserver` instance is created, and the `hasAnimatedItems` object is updated with a property corresponding to the ID of the monitored DOM element:
 ```JSX
  setHasAnimated((prevState) => ({
     ...prevState,
@@ -118,14 +119,14 @@ The `useAnimateOnceOnIntersection` hook takes `animationName`, `animationDuratio
 }));
 ```
 
-For all subsequent intersections, the following check ensures that a new `IntersectionObserver` is not created if the element has already been animated:
+For all subsequent intersections, the following check ensures that a new `IntersectionObserver` is not created if the element has already been animated by simple `return`:
 ```JSX
  if (hasAnimatedItems[node.id] && !animated) {
     node.classList.remove(`animate-${animationName}`);
     return;
 }
 ```
-So, the `useAnimateOnceOnIntersection` hook simplifies the process of animating a DOM element using the Intersection Observer API. It ensures that the animation is only applied once per lifetime of your web application and keeps track of animated elements using the hasAnimatedItems object in the context.
+So, the `useAnimateOnceOnIntersection` hook simplifies the process of animating a DOM element using the Intersection Observer API. It ensures that the animation is only applied once per lifetime of your web application and keeps track of animated elements using the `hasAnimatedItems` object in the context.
 
 Here is an example of how to use the hook within a component:
 ```JSX
@@ -135,7 +136,7 @@ import { AppContext } from '../AppContext';
 
 const HeaderSecondary = () => {
     // Access the hasAnimatedItems object from the AppContext
-    const { hasAnimatedItems } = useContext(AppContext);
+    const { hasAnimatedItems, _ } = useContext(AppContext);
 
     // Use the custom hook, passing in the animation details and options
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
@@ -191,6 +192,7 @@ const useIntersectionObserver = (options) => {
 
 export default useIntersectionObserver;
 ```
+
 Example Usage of the Hook in a Component:
 ```
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
