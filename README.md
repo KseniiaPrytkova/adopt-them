@@ -2,16 +2,18 @@
 
 The design of this project is a product of my imagination. Do not judge strictly 😱
 
-## What has been implemented:
-- [x] pagination for list of pets avalibale for adoption;
-- [x] ability to change theme (2 choices available), theme will be saved even if the user reloads the page - `localStorage` usage;
-- [x] when the user adopts a pet, this pet will appear above the search form and will remain even if the user refreshes the page - usage of `useContext` and `localStorage`;
-- [x] use [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to perform animation when the user reaches a particular part of the web app; 2 hooks were created (for simplicity to readon about and, debbuging and usgae in general) - one to play the animation 1 time during the life of the entire web application (until a full reload), and the second - to be able to animate every time the element intersects. Implementation is [here](#observers).
-- [x] the search form provides the ability to search for animals by animal type and breed (the list of breeds depends on the type of animal and appears when the animal type is selected);
-- [x] use `react-query` for API call to minimize efffects in the code;
+## What has been done:
+- [x] smooth pagination for the list of pets available for adoption; elements appear one by one with a slight delay, and smooth scrolling to the top of the container with elements is added for a comfortable user experience;
+- [x] theme switching capability (2 choices available); selected theme will persist even after page reloads, using localStorage;
+- [x] adopted pets are displayed above the search form and will remain even after page refreshes - `useContext` and `localStorage`;
+- [x] implementation of [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to trigger animations when the user reaches specific parts of the web app; two hooks were created for simplicity, debugging, and general usage - one to play the animation once during the entire web application's lifetime (until a full reload), and another to animate every time the element intersects. Implementation can be found [here](#observers);
+- [x] the search form allows users to search for animals by type and breed (the list of breeds is dependent on the animal type and appears when an animal type is selected);
+- [x] `react-query` is used for API calls to minimize effects in the code;
+- [x] smooth scrolling to the top of the Animal detail container is provided for a comfortable user experience. When returning to the homepage, users will land on the top of the container with animals and on the page where they previously stopped;
 
-### custom hooks for Intersection Observer API use <a id="observers"></a>:
-in this case I am using Intersection Observer API for animations. To animate once per lifetime of web app I am using `React Context` to memorize DOM elements that have been already animated in object
+## Custom Hooks for Using Intersection Observer API <a id="observers"></a>:
+### 🛸 Managing animations to occur only once per lifetime of web app:
+In this case, the `Intersection Observer API` is used for animations. The `React Context` is used to keep track of DOM elements that have already been animated by storing their `id` within an object:
 
 ```JSX
 import { createContext, useState } from 'react';
@@ -19,11 +21,11 @@ import { createContext, useState } from 'react';
 const AppContext = createContext();
 
 const AppContextProvider = (props) => {
-    const [hasAnimated, setHasAnimated] = useState({});
+    const [hasAnimatedItems, setHasAnimatedItems] = useState({});
 
     const contextValue = {
-        hasAnimated,
-        setHasAnimated,
+        hasAnimatedItems,
+        setHasAnimatedItems,
     };
 
     return <AppContext.Provider value={contextValue} {...props} />;
@@ -42,23 +44,27 @@ export const useAnimateOnceOnIntersection = ({
     animationDuration = 2000,
     options
 }) => {
-    const { hasAnimated, setHasAnimated } = useContext(AppContext);
+    // Access the hasAnimatedItems object and setHasAnimated function from AppContext
+    const { hasAnimatedItems, setHasAnimated } = useContext(AppContext);
     const [animated, setAnimated] = useState(false);
     const [node, setNode] = useState(null);
     const observer = useRef(null);
 
     useEffect(() => {
         if (node) {
-            if (hasAnimated[node.id] && !animated) {
+            // If the element has already been animated, remove the animation class
+            if (hasAnimatedItems[node.id] && !animated) {
                 node.classList.remove(`animate-${animationName}`);
                 return;
             }
         }
 
+        // Disconnect any previous observer instance
         if (observer.current) observer.current.disconnect();
 
         observer.current = new IntersectionObserver(
             ([entry]) => {
+                // If the element is intersecting, set 'animated' to true and disconnect the observer
                 if (entry.isIntersecting) {
                     setAnimated(true);
                     observer.current.disconnect();
@@ -70,20 +76,25 @@ export const useAnimateOnceOnIntersection = ({
         );
 
         const { current: currentObserver } = observer;
-        if (node && !hasAnimated[node?.id]) currentObserver.observe(node);
+        // If the element hasn't been animated yet, observe the element
+        if (node && !hasAnimatedItems[node?.id]) currentObserver.observe(node);
 
+        // Disconnect the observer when the component is unmounted
         return () => currentObserver.disconnect();
-    }, [animated, animationName, hasAnimated, node, options]);
+    }, [animated, animationName, hasAnimatedItems, node, options]);
 
     useEffect(() => {
+        // If the element has been animated
         if (animated) {
             const element = node;
             if (element) {
+                // Update the hasAnimatedItems object in the AppContext with the current element's id
                 setHasAnimated((prevState) => ({
                     ...prevState,
                     [element.id]: true
                 }));
 
+                // Remove the animation class after the animation duration
                 setTimeout(() => {
                     element.classList.remove(`animate-${animationName}`);
                 }, animationDuration);
@@ -91,10 +102,15 @@ export const useAnimateOnceOnIntersection = ({
         }
     }, [animated, node, animationName, setHasAnimated, animationDuration]);
 
+    // Return a tuple with a function to set the ref and the animated state
     return [setNode, animated];
 };
 ```
-this hook accepts ` animationName`, `animationDuration` and `options` of course (options are native to Intersection Observer API) and returns reference to DOM element and a boolean `animated`which indicates if animation already happenned. Initially `animated` is false, so new `new IntersectionObserver` will be created and to `hasAnimated` object will be added property which is id of a DOM element that is monitored for intersections:
+The `useAnimateOnceOnIntersection` hook takes `animationName`, `animationDuration`, and `options` as parameters. The options are native to the Intersection Observer API and include the following:
+- **root**: The element used as the viewport for checking the visibility of the target element. By default, this is set to null, which means the browser's viewport is used.
+- **rootMargin**: A set of margins that are added to the root's bounding box when calculating intersections, effectively growing or shrinking the area used for intersection calculations. The default value is `"0px 0px 0px 0px"`.
+- **threshold**: A single number or an array of numbers between 0 and 1, representing the percentage of the target's visibility within the root. The observer's callback will be executed when the visibility of the target element passes a threshold. The default value is 0, meaning the callback will be executed as soon as even one pixel of the target is visible.
+`useAnimateOnceOnIntersection` hook returns a reference to the observed DOM element and a boolean `animated` that indicates whether the animation has already occurred. When animated is initially set to false, a new `IntersectionObserver` instance is created, and the `hasAnimatedItems` object is updated with a property corresponding to the ID of the monitored DOM element.
 ```JSX
  setHasAnimated((prevState) => ({
     ...prevState,
@@ -102,53 +118,99 @@ this hook accepts ` animationName`, `animationDuration` and `options` of course 
 }));
 ```
 
-on all following intersections this check:
+For all subsequent intersections, the following check ensures that a new `IntersectionObserver` is not created if the element has already been animated:
 ```JSX
- if (hasAnimated[node.id] && !animated) {
+ if (hasAnimatedItems[node.id] && !animated) {
     node.classList.remove(`animate-${animationName}`);
     return;
 }
 ```
-will forse to return and not create new `IntersectionObserver`.
+So, the `useAnimateOnceOnIntersection` hook simplifies the process of animating a DOM element using the Intersection Observer API. It ensures that the animation is only applied once per lifetime of your web application and keeps track of animated elements using the hasAnimatedItems object in the context.
 
-Here is usage inside component:
+Here is an example of how to use the hook within a component:
 ```JSX
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
 const HeaderSecondary = () => {
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext); // define Context
+    // Access the hasAnimatedItems object from the AppContext
+    const { hasAnimatedItems } = useContext(AppContext);
 
+    // Use the custom hook, passing in the animation details and options
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
         animationDuration: 2000,
         options: { threshold: 0.5 }
-    }); // usage of the hook
+    });
 
     return (
-        <article className="grid grid-cols-12 bg-light-gold px-20 pt-10 pb-16 dark:bg-dark-lightPurple">
-            <p
-                id="headerSecondary" // give id to DOM element you want to observe
-                ref={nodeRef} // stick a ref
-                className={`col-span-10 col-start-2 text-center text-light-navy dark:text-dark-paleGreen lg:text-xl
-                // animate if it didn't animate before and Context doesnt have property with such id yet
-                ${
-                    animated || hasAnimated['headerSecondary']
-                        ? 'animate-fade-in-fast opacity-100'
-                        : 'opacity-0'
-                } transition-opacity duration-1000 ease-in-out`}
-            >
-                From the comfort of their personal computers, pet lovers can
-                search for a pet that best matches their needs. They can then
-                reference a shelter’s web page and discover what services it
-                offers.
-            </p>
-        </article>
+        <p
+            id="headerSecondary" // Assign an id to the DOM element you want to observe
+            ref={nodeRef} // Attach the ref returned from the hook
+            className={`${
+                // Apply the animation if it hasn't been animated before and the hasAnimatedItems object doesn't have the corresponding id
+                animated || hasAnimatedItems['headerSecondary']
+                    ? 'animate-fade-in-fast opacity-100'
+                    : 'opacity-0'
+            } transition-opacity duration-1000 ease-in-out`}
+        >
+            London is a capital of Great Britain
+        </p>
     );
 };
 
 export default HeaderSecondary;
 ```
 
+### 🛸 Continuously Monitor Element Intersection:
+This custom hook, `useIntersectionObserver`, continuously monitors a DOM element's intersection with a specified root element (or the viewport by default). It accepts options as an argument, which configures the `Intersection Observer API` behavior, and returns a `ref` to be attached to the target DOM element and a boolean `isIntersecting`, which indicates whether the element is currently intersecting with the root. The hook leverages the `useEffect` hook to create and manage the Intersection Observer instance, ensuring proper cleanup when the component is unmounted:
+```JSX
+import { useEffect, useRef, useState } from 'react';
+
+const useIntersectionObserver = (options) => {
+    const [isIntersecting, setIsIntersecting] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            setIsIntersecting(entry.isIntersecting);
+        }, options);
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [options]);
+
+    return [ref, isIntersecting];
+};
+
+export default useIntersectionObserver;
+```
+Example Usage of the Hook in a Component:
+```
+import useIntersectionObserver from '../customHooks/useIntersectionObserver';
+
+const Benefits = () => {
+    // ...
+
+    // Use the custom useIntersectionObserver hook with a threshold of 0.5
+    const [benefitsRef, isBenefitsIntersecting] = useIntersectionObserver({
+        threshold: 0.5
+    });
+
+    return (
+        <div ref={elementRef} className={`transition-all duration-500 ease-in-out ${
+            isIntersecting ? 'animate-swing' : ''
+        }`}>
+            London is a capital of Great Britain
+        </div>
+    );
+};
+
+export default Benefits;
+```
