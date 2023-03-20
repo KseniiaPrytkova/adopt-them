@@ -39,16 +39,15 @@ module.exports = {
                 'appear-from-left': '3s appear-from-left  ease-in-out ',
                 'fade-in-slow': '6s fade-in ease-in-out forwards',
                 'fade-in-fast': '2s fade-in ease-in-out forwards',
-                // shake: '2s shake 4s both',
                 shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both 4s',
                 appear: '2s appear ease-out forwards',
                 'zoom-in-out': '2s zoom-in-out',
                 'shake-immediately':
                     'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
-                flash: 'flash 0.5s 2', // Duration: 0.5s, Repeat: 1
-                flip: 'flip 2s', // Duration: 2s, change as needed
-                rubberBand: 'rubberBand 1s', // Duration: 1s, change as needed
-                swing: ' swing 2s ease-in-out 0.1s ' // Duration: 1s, Timing function: ease-in-out, Delay: 0.5s
+                flash: 'flash 0.5s 2', // Duration: 0.5s, Repeat: 2
+                flip: 'flip 2s', // Duration: 2s
+                rubberBand: 'rubberBand 1s', // Duration: 1s
+                swing: ' swing 2s ease-in-out 0.1s ' // Duration: 1s, Timing function: ease-in-out, Delay: 0.1s
             },
 
             keyframes: {

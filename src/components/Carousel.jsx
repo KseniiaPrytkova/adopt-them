@@ -20,7 +20,7 @@ class Carousel extends Component {
         const { images } = this.props;
         return (
             <div className="md:grid md:grid-cols-2">
-                <div className=" col-span-1  ">
+                <div className="col-span-1">
                     <img
                         src={images[active]}
                         alt="animal"
@@ -34,10 +34,9 @@ class Carousel extends Component {
                         <img
                             key={photo}
                             src={photo}
-                            className={
-                                (index === active ? 'active-image' : '') +
-                                'col-span-2 h-20 w-20 cursor-pointer rounded-full sm:w-auto md:h-auto'
-                            }
+                            className={`${
+                                index === active ? 'active-image' : ''
+                            } col-span-2 h-20 w-20 cursor-pointer rounded-full sm:w-auto md:h-auto`}
                             alt="animal thumbnail"
                             onClick={this.handleIndexClick}
                             data-index={index}
