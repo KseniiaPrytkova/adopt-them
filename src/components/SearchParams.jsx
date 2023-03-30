@@ -52,10 +52,13 @@ const SearchParams = () => {
         }
     }, [resultsPage]);
 
+    const isBrowser = typeof window !== 'undefined';
+    const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
+
     // componentDidMount && componentDidUpdate
     // that it will be executed after the component's layout has been updated,
     // ensuring that resultsRef.current is available and set correctly
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (isRef) {
             scrollToTop();
         }
@@ -99,11 +102,13 @@ const SearchParams = () => {
                         setPage(0);
                     }}
                 >
-                    {adoptedPet || localStorage.getItem('adopted') ? (
+                    {adoptedPet ||
+                    (typeof window !== 'undefined' &&
+                        localStorage.getItem('adopted')) ? (
                         <div className="col-span-10 col-start-2 my-4 flex flex-col items-center rounded-lg bg-light-teal p-4 text-light-lightNavy dark:bg-dark-green dark:text-dark-lightGrey lg:m-4">
                             <h1>
                                 You adopted{' '}
-                                {adoptedPet
+                                {typeof window !== 'undefined' && adoptedPet
                                     ? adoptedPet.name
                                     : JSON.parse(
                                           localStorage.getItem('adopted')
@@ -111,14 +116,14 @@ const SearchParams = () => {
                             </h1>
                             <img
                                 src={
-                                    adoptedPet
+                                    typeof window !== 'undefined' && adoptedPet
                                         ? adoptedPet.images[0]
                                         : JSON.parse(
                                               localStorage.getItem('adopted')
                                           ).images[0]
                                 }
                                 alt={
-                                    adoptedPet
+                                    typeof window !== 'undefined' && adoptedPet
                                         ? adoptedPet.name
                                         : JSON.parse(
                                               localStorage.getItem('adopted')

@@ -1,42 +1,50 @@
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { AppContextProvider } from './AppContext';
-import Details from './components/Details';
-import SearchParams from './components/SearchParams';
+// import Details from './components/Details';
+// import SearchParams from './components/SearchParams';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
+// const Navbar = lazy(() => import('./components/Navbar'));
+const Details = lazy(() => import('./components/Details'));
+const SearchParams = lazy(() => import('./components/SearchParams'));
+const Footer = lazy(() => import('./components/Footer'));
 
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             staleTime: Infinity,
-            cacheTime: Infinity
+            cacheTime: Infinity,
+            suspense: true
         }
     }
 });
 
 const App = () => {
-    // const adoptedPet = useState(null);
+    // useEffect(() => {
+    //     const loadingContainer = document.getElementById('loading-container');
+    //     if (loadingContainer) {
+    //         loadingContainer.style.display = 'none';
+    //     }
+    // }, []);
 
-    useEffect(() => {
-        const loadingContainer = document.getElementById('loading-container');
-        if (loadingContainer) {
-            loadingContainer.style.display = 'none';
-        }
-    }, []);
-
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        theme === 'dark'
-            ? document.body.classList.add('dark')
-            : document.body.classList.remove('dark');
-    }, []);
+    // useEffect(() => {
+    //     const theme = localStorage.getItem('theme');
+    //     theme === 'dark'
+    //         ? document.body.classList.add('dark')
+    //         : document.body.classList.remove('dark');
+    // }, []);
 
     return (
-        <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+            <Suspense
+                fallback={
+                    <div id="loading-container" className="loading-spinner">
+                        🌀
+                    </div>
+                }
+            >
                 <AppContextProvider>
                     <Navbar />
 
@@ -50,11 +58,9 @@ const App = () => {
                     <Footer />
                 </AppContextProvider>
                 <div id="modal"></div>
-            </QueryClientProvider>
-        </BrowserRouter>
+            </Suspense>
+        </QueryClientProvider>
     );
 };
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<App />);
+export default App;

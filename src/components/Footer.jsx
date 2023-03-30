@@ -19,7 +19,9 @@ const Footer = () => {
         body.classList.toggle('dark');
 
         const theme = body.classList.contains('dark') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('theme', theme);
+        }
 
         const label = document.querySelector('.theme-label');
         if (label) {
@@ -96,9 +98,10 @@ const Footer = () => {
                         type="checkbox"
                         className="peer sr-only"
                         defaultChecked={
+                            typeof window !== 'undefined' &&
                             localStorage.getItem('theme') === 'dark'
-                                ? true
-                                : false
+                                ? 'Dionysus'
+                                : 'Poseidon'
                         }
                         onClick={() => toggleTheme()}
                     />
@@ -106,7 +109,8 @@ const Footer = () => {
                     <span
                         className={`theme-label ml-3 text-sm font-medium text-light-lightNavy`}
                     >
-                        {localStorage.getItem('theme') === 'dark'
+                        {typeof window !== 'undefined' &&
+                        localStorage.getItem('theme') === 'dark'
                             ? 'Dionysus'
                             : 'Poseidon'}
                     </span>
