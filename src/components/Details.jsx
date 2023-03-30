@@ -123,6 +123,13 @@ const Details = () => {
                                 </h1>
                                 <div className="py-8 text-center">
                                     <button
+                                        onClick={() => setShowModal(false)}
+                                        className="mr-4 w-20 rounded bg-light-darkNavy py-2 px-6 text-white hover:opacity-50 dark:bg-dark-paleTeal"
+                                    >
+                                        No
+                                    </button>
+
+                                    <button
                                         ref={adoptButtonRef}
                                         onClick={() => {
                                             setAdoptedPet(pet);
@@ -132,19 +139,13 @@ const Details = () => {
                                             );
                                             navigate('/');
                                         }}
-                                        className={`mr-4 w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
+                                        className={`w-20 rounded bg-light-tan py-2 px-6 text-white hover:opacity-50 dark:bg-dark-purple ${
                                             isadoptButtonIntersecting
                                                 ? 'animate-flip'
                                                 : ''
                                         }`}
                                     >
                                         Yes
-                                    </button>
-                                    <button
-                                        onClick={() => setShowModal(false)}
-                                        className="w-20 rounded bg-light-darkNavy py-2 px-6 text-white hover:opacity-50 dark:bg-dark-paleTeal"
-                                    >
-                                        No
                                     </button>
                                 </div>
                             </div>

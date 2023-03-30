@@ -33,7 +33,7 @@ const Benefits = () => {
     });
 
     const [benefitsRef, isBenefitsIntersecting] = useIntersectionObserver({
-        threshold: 0.5
+        threshold: 0.9
     });
 
     return (
