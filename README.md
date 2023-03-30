@@ -1,19 +1,52 @@
 # adopt-them
 
-The design of this project is a product of my imagination. Do not judge strictly 😱
+The design of this project is a product of my imagination. Do not judge strictly
+😱
 
 ## What has been done:
-- [x] smooth pagination for the list of pets available for adoption; elements appear one by one with a slight delay, and smooth scrolling to the top of the container with elements is added for a comfortable user experience;
-- [x] theme switching capability (2 choices available); selected theme will persist even after page reloads, using localStorage;
-- [x] adopted pets are displayed above the search form and will remain even after page refreshes - `useContext` and `localStorage`;
-- [x] implementation of [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to trigger animations when the user reaches specific parts of the web app; two hooks were created for simplicity, debugging, and general usage - one to play the animation once during the entire web application's lifetime (until a full reload), and another to animate every time the element intersects. Implementation can be found [here](#observers);
-- [x] the search form allows users to search for animals by type and breed (the list of breeds is dependent on the animal type and appears when an animal type is selected);
-- [x] `react-query` is used for API calls to minimize effects in the code;
-- [x] smooth scrolling to the top of the Animal detail container is provided for a comfortable user experience. When returning to the homepage, users will land on the top of the container with animals and on the page where they previously stopped;
+
+-   [x] smooth pagination for the list of pets available for adoption; elements
+        appear one by one with a slight delay, and smooth scrolling to the top
+        of the container with elements is added for a comfortable user
+        experience;
+-   [x] theme switching capability (2 choices available); selected theme will
+        persist even after page reloads, using localStorage;
+-   [x] adopted pets are displayed above the search form and will remain even
+        after page refreshes - `useContext` and `localStorage`;
+-   [x] implementation of
+        [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+        to trigger animations when the user reaches specific parts of the web
+        app; two hooks were created for simplicity, debugging, and general
+        usage - one to play the animation once during the entire web
+        application's lifetime (until a full reload), and another to animate
+        every time the element intersects. Implementation can be found
+        [here](#observers);
+-   [x] the search form allows users to search for animals by type and breed
+        (the list of breeds is dependent on the animal type and appears when an
+        animal type is selected);
+-   [x] `react-query` is used for API calls to minimize effects in the code;
+-   [x] smooth scrolling to the top of the Animal detail container is provided
+        for a comfortable user experience. When returning to the homepage, users
+        will land on the top of the container with animals and on the page where
+        they previously stopped;
+-   [x] [server-side rendering](https://github.com/KseniiaPrytkova/adopt-them/commit/1c81211ee92a7608021f94d503eec266b85d7b66)
+        and code splitting were explored and implemented initially, but later
+        removed due to the nature of this small app. With its already
+        satisfactory enough performance, the addition of SSR would be an
+        overkill, introducing unnecessary complexity. Furthermore, the benefits
+        of SSR, such as improved SEO and faster initial page load times, are not
+        critical factors for this project. As someone wise said, "solve
+        performance problems when you have them." In this case, it was decided
+        to focus on maintaining simplicity, ease of maintenance, and the overall
+        user experience for this particular project;
 
 ## Custom Hooks for Using Intersection Observer API <a id="observers"></a>:
+
 ### 🛸 Managing animations to occur only once per lifetime of web app:
-In this case, the `Intersection Observer API` is used for animations. The `React Context` is used to keep track of DOM elements that have already been animated by storing their `id` within an object:
+
+In this case, the `Intersection Observer API` is used for animations. The
+`React Context` is used to keep track of DOM elements that have already been
+animated by storing their `id` within an object:
 
 ```JSX
 import { createContext, useState } from 'react';
@@ -35,6 +68,7 @@ export { AppContextProvider, AppContext };
 ```
 
 `useAnimateOnceOnIntesection`:
+
 ```JSX
 import { useRef, useState, useContext, useEffect } from 'react';
 import { AppContext } from '../AppContext';
@@ -106,12 +140,30 @@ export const useAnimateOnceOnIntersection = ({
     return [setNode, animated];
 };
 ```
-The `useAnimateOnceOnIntersection` hook takes `animationName`, `animationDuration`, and `options` as parameters. The options are native to the Intersection Observer API and include the following:
-- **root**: The element used as the viewport for checking the visibility of the target element. By default, this is set to null, which means the browser's viewport is used.
-- **rootMargin**: A set of margins that are added to the root's bounding box when calculating intersections, effectively growing or shrinking the area used for intersection calculations. The default value is `"0px 0px 0px 0px"`.
-- **threshold**: A single number or an array of numbers between 0 and 1, representing the percentage of the target's visibility within the root. The observer's callback will be executed when the visibility of the target element passes a threshold. The default value is 0, meaning the callback will be executed as soon as even one pixel of the target is visible.
 
-`useAnimateOnceOnIntersection` hook returns a reference to the observed DOM element and a boolean `animated` that indicates whether the animation has already occurred. When animated is initially set to false, a new `IntersectionObserver` instance is created, and the `hasAnimatedItems` object is updated with a property corresponding to the ID of the monitored DOM element:
+The `useAnimateOnceOnIntersection` hook takes `animationName`,
+`animationDuration`, and `options` as parameters. The options are native to the
+Intersection Observer API and include the following:
+
+-   **root**: The element used as the viewport for checking the visibility of
+    the target element. By default, this is set to null, which means the
+    browser's viewport is used.
+-   **rootMargin**: A set of margins that are added to the root's bounding box
+    when calculating intersections, effectively growing or shrinking the area
+    used for intersection calculations. The default value is
+    `"0px 0px 0px 0px"`.
+-   **threshold**: A single number or an array of numbers between 0 and 1,
+    representing the percentage of the target's visibility within the root. The
+    observer's callback will be executed when the visibility of the target
+    element passes a threshold. The default value is 0, meaning the callback
+    will be executed as soon as even one pixel of the target is visible.
+
+`useAnimateOnceOnIntersection` hook returns a reference to the observed DOM
+element and a boolean `animated` that indicates whether the animation has
+already occurred. When animated is initially set to false, a new
+`IntersectionObserver` instance is created, and the `hasAnimatedItems` object is
+updated with a property corresponding to the ID of the monitored DOM element:
+
 ```JSX
  setHasAnimated((prevState) => ({
     ...prevState,
@@ -119,16 +171,24 @@ The `useAnimateOnceOnIntersection` hook takes `animationName`, `animationDuratio
 }));
 ```
 
-For all subsequent intersections, the following check ensures that a new `IntersectionObserver` is not created if the element has already been animated by simple `return`:
+For all subsequent intersections, the following check ensures that a new
+`IntersectionObserver` is not created if the element has already been animated
+by simple `return`:
+
 ```JSX
  if (hasAnimatedItems[node.id] && !animated) {
     node.classList.remove(`animate-${animationName}`);
     return;
 }
 ```
-So, the `useAnimateOnceOnIntersection` hook simplifies the process of animating a DOM element using the Intersection Observer API. It ensures that the animation is only applied once per lifetime of your web application and keeps track of animated elements using the `hasAnimatedItems` object in the context.
+
+So, the `useAnimateOnceOnIntersection` hook simplifies the process of animating
+a DOM element using the Intersection Observer API. It ensures that the animation
+is only applied once per lifetime of your web application and keeps track of
+animated elements using the `hasAnimatedItems` object in the context.
 
 Here is an example of how to use the hook within a component:
+
 ```JSX
 import { useAnimateOnceOnIntersection } from '../customHooks/useAnimateOnceOnIntersection';
 import { useContext } from 'react';
@@ -165,7 +225,16 @@ export default HeaderSecondary;
 ```
 
 ### 🛸 Continuously Monitor Element Intersection:
-This custom hook, `useIntersectionObserver`, continuously monitors a DOM element's intersection with a specified root element (or the viewport by default). It accepts options as an argument, which configures the `Intersection Observer API` behavior, and returns a `ref` to be attached to the target DOM element and a boolean `isIntersecting`, which indicates whether the element is currently intersecting with the root. The hook leverages the `useEffect` hook to create and manage the Intersection Observer instance, ensuring proper cleanup when the component is unmounted:
+
+This custom hook, `useIntersectionObserver`, continuously monitors a DOM
+element's intersection with a specified root element (or the viewport by
+default). It accepts options as an argument, which configures the
+`Intersection Observer API` behavior, and returns a `ref` to be attached to the
+target DOM element and a boolean `isIntersecting`, which indicates whether the
+element is currently intersecting with the root. The hook leverages the
+`useEffect` hook to create and manage the Intersection Observer instance,
+ensuring proper cleanup when the component is unmounted:
+
 ```JSX
 import { useEffect, useRef, useState } from 'react';
 
@@ -194,6 +263,7 @@ export default useIntersectionObserver;
 ```
 
 Example Usage of the Hook in a Component:
+
 ```
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
