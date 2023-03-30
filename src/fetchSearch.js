@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 async function fetchSearch({ queryKey }) {
     const { animal, location, breed, page } = queryKey[1];
 

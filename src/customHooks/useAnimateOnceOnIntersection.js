@@ -12,31 +12,33 @@ export const useAnimateOnceOnIntersection = ({
     const observer = useRef(null);
 
     useEffect(() => {
-        if (node) {
-            if (hasAnimated[node.id] && !animated) {
-                node.classList.remove(`animate-${animationName}`);
-                return;
-            }
-        }
-
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setAnimated(true);
-                    observer.current.disconnect();
+        if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+            if (node) {
+                if (hasAnimated[node.id] && !animated) {
+                    node.classList.remove(`animate-${animationName}`);
+                    return;
                 }
-            },
-            {
-                ...options
             }
-        );
 
-        const { current: currentObserver } = observer;
-        if (node && !hasAnimated[node?.id]) currentObserver.observe(node);
+            if (observer.current) observer.current.disconnect();
 
-        return () => currentObserver.disconnect();
+            observer.current = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setAnimated(true);
+                        observer.current.disconnect();
+                    }
+                },
+                {
+                    ...options
+                }
+            );
+
+            const { current: currentObserver } = observer;
+            if (node && !hasAnimated[node?.id]) currentObserver.observe(node);
+
+            return () => currentObserver.disconnect();
+        }
     }, [animated, animationName, hasAnimated, node, options]);
 
     useEffect(() => {

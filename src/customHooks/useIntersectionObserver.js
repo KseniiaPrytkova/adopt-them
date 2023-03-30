@@ -5,17 +5,19 @@ const useIntersectionObserver = (options) => {
     const ref = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            setIsIntersecting(entry.isIntersecting);
-        }, options);
+        if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(([entry]) => {
+                setIsIntersecting(entry.isIntersecting);
+            }, options);
 
-        if (ref.current) {
-            observer.observe(ref.current);
+            if (ref.current) {
+                observer.observe(ref.current);
+            }
+
+            return () => {
+                observer.disconnect();
+            };
         }
-
-        return () => {
-            observer.disconnect();
-        };
     }, [options]);
 
     return [ref, isIntersecting];
