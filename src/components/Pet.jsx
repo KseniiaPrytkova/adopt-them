@@ -32,7 +32,7 @@ const Pet = (props) => {
         >
             <div className="relative overflow-hidden">
                 <img
-                    data-testid="thumbnail"
+                    data-testid={`thumbnail-${id}`}
                     src={hero}
                     alt={name}
                     className="h-auto w-full scale-110 transform object-cover object-center"

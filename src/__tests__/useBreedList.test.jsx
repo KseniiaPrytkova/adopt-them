@@ -1,16 +1,21 @@
-import { expect, test } from 'vitest';
+import { expect, test, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useBreedList from '../customHooks/useBreedList';
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            staleTime: Infinity,
-            cacheTime: Infinity,
-            retry: false
+let queryClient;
+
+beforeEach(() => {
+    fetch.resetMocks();
+    queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: Infinity,
+                cacheTime: Infinity,
+                retry: false
+            }
         }
-    }
+    });
 });
 
 test('gives an empty list with no animal', async () => {
@@ -44,6 +49,7 @@ test('gives back breeds with an animal', async () => {
             breeds
         })
     );
+
     const { result } = renderHook(() => useBreedList('dog'), {
         wrapper: ({ children }) => (
             <QueryClientProvider client={queryClient}>
@@ -56,4 +62,27 @@ test('gives back breeds with an animal', async () => {
 
     const [breedList] = result.current;
     expect(breedList).toEqual(breeds);
+});
+
+test('throws an error when fetch is not `ok`', async () => {
+    fetch.mockResponseOnce(
+        JSON.stringify({ message: 'breeds dog fetch not ok' }),
+        { status: 500 }
+    );
+
+    const { result } = renderHook(() => useBreedList('dog'), {
+        wrapper: ({ children }) => (
+            <QueryClientProvider client={queryClient}>
+                {children}
+            </QueryClientProvider>
+        )
+    });
+
+    await waitFor(() => {
+        expect(result.current[1]).toBe('error');
+    });
+
+    const [breedList, status] = result.current;
+    expect(breedList).toHaveLength(0);
+    expect(status).toBe('error');
 });
