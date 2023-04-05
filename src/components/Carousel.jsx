@@ -23,6 +23,7 @@ class Carousel extends Component {
                 <div className="col-span-1">
                     <img
                         src={images[active]}
+                        data-testid="hero"
                         alt="animal"
                         className="m-auto w-10/12 rounded-3xl border-l border-t border-light-navy p-2 xl:w-8/12"
                     />
@@ -34,6 +35,7 @@ class Carousel extends Component {
                         <img
                             key={photo}
                             src={photo}
+                            data-testid={`thumbnail${index}`}
                             className={`${
                                 index === active ? 'active-image' : ''
                             } col-span-2 h-20 w-20 cursor-pointer rounded-full sm:w-auto md:h-auto`}

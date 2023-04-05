@@ -25,12 +25,12 @@ const Results = ({
             className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
         >
             <article className="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4 xl:grid-rows-2">
-                {!pets.length ? (
-                    <div>No Pets Found😩</div>
-                ) : isError ? (
-                    <div>Error: {error.message}</div>
+                {isError ? (
+                    <div>Error: {error.message} </div>
                 ) : isFetching || isLoading ? (
                     <div>Loading...</div>
+                ) : !pets.length ? (
+                    <div>No Pets Found😩</div>
                 ) : (
                     pets.map((pet, index) => {
                         return (
@@ -52,6 +52,7 @@ const Results = ({
 
             <nav className="mb-2 flex justify-center gap-4">
                 <button
+                    data-testid={`prev-button-${page}`}
                     type="button"
                     onClick={() =>
                         handleButtonClick((old) => Math.max(old - 1, 0))
@@ -67,7 +68,9 @@ const Results = ({
                 </button>
 
                 {isFetching ? (
-                    <span className="inline animate-spin">{page + 1}</span>
+                    <span data-testid="spinner" className="inline animate-spin">
+                        {page + 1}
+                    </span>
                 ) : (
                     <span className="flex h-10 w-10 items-center justify-center text-light-darkNavy dark:text-dark-darkRed">
                         {page + 1}
@@ -76,6 +79,7 @@ const Results = ({
 
                 <button
                     type="button"
+                    data-testid={`next-button-${page}`}
                     onClick={() => handleButtonClick((old) => old + 1)}
                     disabled={isFetching || isPreviousData || pets.length < 10}
                     className={`text-light-darkNavy dark:text-dark-darkRed ${

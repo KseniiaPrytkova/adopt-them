@@ -7,7 +7,7 @@ const Pet = (props) => {
     let hero = 'http://pets-images.dev-apis.com/pets/none.jpg';
     const [isImageLoaded, setImageLoaded] = useState(false);
 
-    if (images.length) {
+    if (images && images.length) {
         hero = images[0];
     }
 
@@ -32,6 +32,7 @@ const Pet = (props) => {
         >
             <div className="relative overflow-hidden">
                 <img
+                    data-testid={`thumbnail-${id}`}
                     src={hero}
                     alt={name}
                     className="h-auto w-full scale-110 transform object-cover object-center"

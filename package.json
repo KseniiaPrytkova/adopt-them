@@ -8,7 +8,10 @@
         "build": "vite build",
         "preview": "vite preview",
         "format": "prettier --write \"src/**/*.{js,jsx}\"",
-        "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+        "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+        "test": "vitest --run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest --coverage"
     },
     "repository": {
         "type": "git",
@@ -23,19 +26,26 @@
     "homepage": "https://github.com/KseniiaPrytkova/adopt-them#readme",
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
+        "@testing-library/react": "^13.4.0",
         "@vitejs/plugin-react": "^2.1.0",
+        "@vitest/coverage-c8": "^0.29.8",
         "autoprefixer": "^10.4.12",
+        "c8": "^7.13.0",
         "eslint": "^8.24.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-jsx-a11y": "^6.6.1",
         "eslint-plugin-react": "^7.31.8",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "happy-dom": "^7.6.0",
         "postcss": "^8.4.18",
         "prettier": "^2.8.4",
         "prettier-plugin-tailwindcss": "^0.2.3",
+        "react-test-renderer": "^18.2.0",
         "tailwindcss": "^3.1.8",
-        "vite": "^3.1.4"
+        "vite": "^3.1.4",
+        "vitest": "^0.29.8",
+        "vitest-fetch-mock": "^0.2.1"
     },
     "dependencies": {
         "@tanstack/react-query": "^4.10.1",
