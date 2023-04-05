@@ -39,6 +39,7 @@ The design of this project is a product of my imagination. Do not judge strictly
         performance problems when you have them." In this case, it was decided
         to focus on maintaining simplicity, ease of maintenance, and the overall
         user experience for this particular project;
+-   [x] tests with `Vitest`;
 
 ## Custom Hooks for Using Intersection Observer API <a id="observers"></a>:
 
@@ -264,7 +265,7 @@ export default useIntersectionObserver;
 
 Example Usage of the Hook in a Component:
 
-```
+```JSX
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
 const Benefits = () => {
