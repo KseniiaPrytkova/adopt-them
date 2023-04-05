@@ -40,6 +40,8 @@ The design of this project is a product of my imagination. Do not judge strictly
         to focus on maintaining simplicity, ease of maintenance, and the overall
         user experience for this particular project;
 -   [x] tests with `Vitest`;
+-   [x] app-level state management using `React Context`; alternatively, I would
+        use `Redux Toolkit (RTK)` together with `RTK Query`;
 
 ## Custom Hooks for Using Intersection Observer API <a id="observers"></a>:
 
