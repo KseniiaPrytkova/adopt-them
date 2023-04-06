@@ -8,18 +8,22 @@ import fetchPet from '../fetchPet';
 import Carousel from './Carousel';
 import { AppContext } from '../AppContext';
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
+import { PetAPIResponse } from '../APIResponsesTypes';
 
 const Details = () => {
     const { id } = useParams();
+
+    if (!id) throw new Error('no id provided to details page');
+
     const [showModal, setShowModal] = useState(false);
-    const results = useQuery(['details', id], fetchPet);
+    const results = useQuery<PetAPIResponse>(['details', id], fetchPet);
     const navigate = useNavigate();
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _, setAdoptedPet } = useContext(AppContext);
-    // eslint-disable-next-line no-unused-vars
-    const [wrapperRef, setWrapperRef] = useState(null);
+    const [wrapperRef, setWrapperRef] = useState<HTMLElement | null>(null);
     const location = useLocation();
-    // eslint-disable-next-line no-unused-vars
+    const locationState = location.state as { resultsPage?: number };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
 
     const [adoptButtonRef, isadoptButtonIntersecting] = useIntersectionObserver(
@@ -32,7 +36,7 @@ const Details = () => {
         threshold: 0.5
     });
 
-    const handleRef = useCallback((node) => {
+    const handleRef = useCallback((node: HTMLElement | null) => {
         if (node !== null) {
             setWrapperRef(node);
         }
@@ -53,8 +57,8 @@ const Details = () => {
     }, []);
 
     useEffect(() => {
-        setResultsPage(location.state);
-    }, [location.state, setResultsPage]);
+        setResultsPage(locationState.resultsPage || null);
+    }, [locationState.resultsPage, setResultsPage]);
 
     if (results.isLoading) {
         return (
@@ -64,7 +68,10 @@ const Details = () => {
         );
     }
 
-    const pet = results.data.pets[0];
+    const pet = results?.data?.pets[0];
+    if (!pet) {
+        throw new Error('pet not found');
+    }
 
     return (
         <section
@@ -157,10 +164,10 @@ const Details = () => {
     );
 };
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
     return (
         <ErrorBoundary>
-            <Details {...props} />
+            <Details />
         </ErrorBoundary>
     );
 }
