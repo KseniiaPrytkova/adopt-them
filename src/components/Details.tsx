@@ -4,37 +4,36 @@ import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from '../ErrorBoundary';
-import fetchPet from '../fetchPet';
+import fetchPet from '../apiCalls/fetchPet';
 import Carousel from './Carousel';
 import { AppContext } from '../AppContext';
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
-import { PetAPIResponse } from '../APIResponsesTypes';
 
 const Details = () => {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
 
     if (!id) throw new Error('no id provided to details page');
 
     const [showModal, setShowModal] = useState(false);
-    const results = useQuery<PetAPIResponse>(['details', id], fetchPet);
+    const results = useQuery(['details', id], fetchPet);
     const navigate = useNavigate();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _, setAdoptedPet } = useContext(AppContext);
+    const { adoptedPet, setAdoptedPet } = useContext(AppContext);
     const [wrapperRef, setWrapperRef] = useState<HTMLElement | null>(null);
     const location = useLocation();
     const locationState = location.state as { resultsPage?: number };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
 
-    const [adoptButtonRef, isadoptButtonIntersecting] = useIntersectionObserver(
-        {
+    const [adoptButtonRef, isadoptButtonIntersecting] =
+        useIntersectionObserver<HTMLButtonElement>({
             threshold: 0.5
-        }
-    );
+        });
 
-    const [yesButtonRef, isYesButtonIntersecting] = useIntersectionObserver({
-        threshold: 0.5
-    });
+    const [yesButtonRef, isYesButtonIntersecting] =
+        useIntersectionObserver<HTMLButtonElement>({
+            threshold: 0.5
+        });
 
     const handleRef = useCallback((node: HTMLElement | null) => {
         if (node !== null) {

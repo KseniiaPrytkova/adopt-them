@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
 const Header = () => {
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { hasAnimated, setHasAnimated } = useContext(AppContext);
 
     const [headerRef, animatedHeader] = useAnimateOnceOnIntersection({
         animationName: 'appear-from-left',

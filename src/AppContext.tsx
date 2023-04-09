@@ -1,11 +1,16 @@
-import { createContext, useState, ReactNode, FC } from 'react';
+import { createContext, useState, ReactNode, FunctionComponent } from 'react';
 import { Pet } from './APIResponsesTypes';
 
 interface AppContextType {
     adoptedPet: Pet | null;
     setAdoptedPet: (adoptedPet: Pet | null) => void;
     hasAnimated: { [key: string]: boolean };
-    setHasAnimated: (animationState: { [key: string]: boolean }) => void;
+    // setHasAnimated: (animationState: { [key: string]: boolean }) => void;
+    setHasAnimated: (
+        updateFunction: (prevState: { [key: string]: boolean }) => {
+            [key: string]: boolean;
+        }
+    ) => void;
     resultsPage: number | null;
     setResultsPage: (resultsPage: number | null) => void;
 }
@@ -36,10 +41,12 @@ interface AppContextProviderProps {
     children: ReactNode;
 }
 
-const AppContextProvider: FC<AppContextProviderProps> = (props) => {
+const AppContextProvider: FunctionComponent<AppContextProviderProps> = (
+    props
+) => {
     const [adoptedPet, setAdoptedPet] = useState<Pet | null>(null);
     const [hasAnimated, setHasAnimated] = useState<{ [key: string]: boolean }>(
-        {}
+        {} as { [key: string]: boolean }
     );
     const [resultsPage, setResultsPage] = useState<number | null>(null);
 

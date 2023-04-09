@@ -1,4 +1,18 @@
+import { Pet as PetType } from '../APIResponsesTypes';
 import Pet from './Pet';
+
+interface ResultsProps {
+    pets: PetType[];
+    page: number;
+    setPage: (value: number | ((old: number) => number)) => void;
+    isLoading: boolean;
+    isFetching: boolean;
+    isPreviousData: boolean;
+    isError: boolean;
+    error: Error;
+    resultsRef: React.RefObject<HTMLElement>;
+    scrollToTop: () => void;
+}
 
 const Results = ({
     pets,
@@ -11,11 +25,11 @@ const Results = ({
     error,
     resultsRef,
     scrollToTop
-}) => {
-    const handleButtonClick = (newPage) => {
+}: ResultsProps) => {
+    const handleButtonClick = (pageUpdater: (old: number) => number) => {
         scrollToTop();
         setTimeout(() => {
-            setPage(newPage);
+            setPage((old) => pageUpdater(old));
         }, 1000);
     };
 

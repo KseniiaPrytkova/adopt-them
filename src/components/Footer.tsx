@@ -4,8 +4,8 @@ import { useContext } from 'react';
 
 const Footer = () => {
     const date = new Date();
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { hasAnimated, setHasAnimated } = useContext(AppContext);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'appear',
@@ -15,7 +15,7 @@ const Footer = () => {
     });
 
     const toggleTheme = () => {
-        const body = document.querySelector('body');
+        const body = document.querySelector('body') as HTMLBodyElement;
         body.classList.toggle('dark');
 
         const theme = body.classList.contains('dark') ? 'dark' : 'light';

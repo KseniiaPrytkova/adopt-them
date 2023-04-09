@@ -1,15 +1,23 @@
 import { useRef, useState, useContext, useEffect } from 'react';
 import { AppContext } from '../AppContext';
 
+interface AnimateOnceOnIntersectionOptions {
+    animationName?: string;
+    animationDuration?: number;
+    options?: IntersectionObserverInit;
+}
+
+type SetNodeFunction = (node: HTMLElement | null) => void;
+
 export const useAnimateOnceOnIntersection = ({
     animationName = '',
     animationDuration = 2000,
     options
-}) => {
+}: AnimateOnceOnIntersectionOptions): [SetNodeFunction, boolean] => {
     const { hasAnimated, setHasAnimated } = useContext(AppContext);
-    const [animated, setAnimated] = useState(false);
-    const [node, setNode] = useState(null);
-    const observer = useRef(null);
+    const [animated, setAnimated] = useState<boolean>(false);
+    const [node, setNode] = useState<HTMLElement | null>(null);
+    const observer = useRef<IntersectionObserver | null>(null);
 
     useEffect(() => {
         if (node) {
@@ -25,7 +33,7 @@ export const useAnimateOnceOnIntersection = ({
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setAnimated(true);
-                    observer.current.disconnect();
+                    observer.current?.disconnect();
                 }
             },
             {

@@ -23,8 +23,8 @@ const Benefits = () => {
         'Curious',
         "More than just animals, they are loyal companions that offer us a sense of purpose, provide comfort, and can even improve our physical and mental well-being. However, it's important to remember that caring for them requires responsibility, commitment, and providing proper nutrition, exercise, and veterinary care"
     ];
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { hasAnimated, setHasAnimated } = useContext(AppContext);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',
@@ -32,9 +32,10 @@ const Benefits = () => {
         options: { threshold: 0.5 }
     });
 
-    const [benefitsRef, isBenefitsIntersecting] = useIntersectionObserver({
-        threshold: 0.6
-    });
+    const [benefitsRef, isBenefitsIntersecting] =
+        useIntersectionObserver<HTMLUListElement>({
+            threshold: 0.6
+        });
 
     return (
         <article

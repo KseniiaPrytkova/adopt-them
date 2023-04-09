@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
+import { Animal } from '../APIResponsesTypes';
 
-const Pet = (props) => {
+interface IProps {
+    name: string;
+    animal: Animal;
+    breed: string;
+    images: string[];
+    location: string;
+    id: number;
+    delay: number;
+    currentPage: number;
+}
+
+const Pet = (props: IProps) => {
     const { name, animal, breed, images, location, id, delay, currentPage } =
         props;
     let hero = 'http://pets-images.dev-apis.com/pets/none.jpg';
@@ -11,10 +23,10 @@ const Pet = (props) => {
         hero = images[0];
     }
 
-    const handleImageLoad = (e) => {
+    const handleImageLoad = (e: MouseEvent<HTMLImageElement>) => {
         setTimeout(() => {
             setImageLoaded(true);
-            e.target.style.opacity = '1';
+            (e.target as HTMLImageElement).style.opacity = '1';
         }, delay);
     };
 
