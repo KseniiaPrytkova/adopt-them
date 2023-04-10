@@ -19,6 +19,11 @@ import { Animal } from '../APIResponsesTypes';
 
 const ANIMALS: Animal[] = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
+interface AdoptedPet {
+    name: string;
+    images: string[];
+}
+
 const SearchParams = () => {
     const [page, setPage] = useState(0);
     const [requestParams, setRequestParams] = useState({
@@ -69,11 +74,6 @@ const SearchParams = () => {
         animationDuration: 2000,
         options: { threshold: 0.1 }
     });
-
-    interface AdoptedPet {
-        name: string;
-        images: string[];
-    }
 
     return (
         <Fragment>

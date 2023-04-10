@@ -42,6 +42,10 @@ The design of this project is a product of my imagination. Do not judge strictly
 -   [x] tests with `Vitest`;
 -   [x] app-level state management using `React Context`; alternatively, I would
         use `Redux Toolkit (RTK)` together with `RTK Query`;
+-   [x] migrate to `TypeScript`;
+        [here](https://github.com/KseniiaPrytkova/adopt-them/tree/319b9aa1d99e7ea4b397a7f2b11ba65b3b759620)
+        is the JavaScript version of the project before I merged the branch that
+        contained the TypeScript migration.
 
 ## Custom Hooks for Using Intersection Observer API <a id="observers"></a>:
 
