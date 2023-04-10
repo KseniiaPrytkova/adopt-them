@@ -1,21 +1,24 @@
 // mostly code from reactjs.org/docs/error-boundaries.html
-import { Component } from 'react';
+import { Component, ErrorInfo, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component<{ children: ReactElement }> {
     state = { hasError: false };
     static getDerivedStateFromError() {
         return { hasError: true };
     }
-    componentDidCatch(error, info) {
+    componentDidCatch(error: Error, info: ErrorInfo) {
         console.error('ErrorBoundary caught an error', error, info);
     }
     render() {
         if (this.state.hasError) {
             return (
-                <h2>
+                <h2 className="m-4">
                     There was an error with this listing.{' '}
-                    <Link to="/">Click here</Link> to back to the home page.
+                    <Link to="/">
+                        Click <span className=" underline">here</span>
+                    </Link>{' '}
+                    to back to the home page.
                 </h2>
             );
         }

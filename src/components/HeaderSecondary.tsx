@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
 const HeaderSecondary = () => {
-    // eslint-disable-next-line no-unused-vars
-    const { hasAnimated, _ } = useContext(AppContext);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { hasAnimated, setHasAnimated } = useContext(AppContext);
 
     const [nodeRef, animated] = useAnimateOnceOnIntersection({
         animationName: 'fade-in-fast',

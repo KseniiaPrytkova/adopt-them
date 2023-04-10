@@ -4,35 +4,37 @@ import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import ErrorBoundary from '../ErrorBoundary';
-import fetchPet from '../fetchPet';
+import fetchPet from '../apiCalls/fetchPet';
 import Carousel from './Carousel';
 import { AppContext } from '../AppContext';
 import useIntersectionObserver from '../customHooks/useIntersectionObserver';
 
 const Details = () => {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
+
+    if (!id) throw new Error('no id provided to details page');
+
     const [showModal, setShowModal] = useState(false);
     const results = useQuery(['details', id], fetchPet);
     const navigate = useNavigate();
-    // eslint-disable-next-line no-unused-vars
-    const { _, setAdoptedPet } = useContext(AppContext);
-    // eslint-disable-next-line no-unused-vars
-    const [wrapperRef, setWrapperRef] = useState(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { adoptedPet, setAdoptedPet } = useContext(AppContext);
+    const [wrapperRef, setWrapperRef] = useState<HTMLElement | null>(null);
     const location = useLocation();
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
 
-    const [adoptButtonRef, isadoptButtonIntersecting] = useIntersectionObserver(
-        {
+    const [adoptButtonRef, isadoptButtonIntersecting] =
+        useIntersectionObserver<HTMLButtonElement>({
             threshold: 0.5
-        }
-    );
+        });
 
-    const [yesButtonRef, isYesButtonIntersecting] = useIntersectionObserver({
-        threshold: 0.5
-    });
+    const [yesButtonRef, isYesButtonIntersecting] =
+        useIntersectionObserver<HTMLButtonElement>({
+            threshold: 0.5
+        });
 
-    const handleRef = useCallback((node) => {
+    const handleRef = useCallback((node: HTMLElement | null) => {
         if (node !== null) {
             setWrapperRef(node);
         }
@@ -53,18 +55,21 @@ const Details = () => {
     }, []);
 
     useEffect(() => {
-        setResultsPage(location.state);
+        setResultsPage(location.state as number);
     }, [location.state, setResultsPage]);
 
     if (results.isLoading) {
         return (
-            <div className="flex h-full items-center  justify-center">
+            <div className="flex h-full items-center justify-center">
                 <span className="inline animate-spin text-5xl">🌀</span>
             </div>
         );
     }
 
-    const pet = results.data.pets[0];
+    const pet = results?.data?.pets[0];
+    if (!pet) {
+        throw new Error('pet not found');
+    }
 
     return (
         <section
@@ -157,10 +162,10 @@ const Details = () => {
     );
 };
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
     return (
         <ErrorBoundary>
-            <Details {...props} />
+            <Details />
         </ErrorBoundary>
     );
 }

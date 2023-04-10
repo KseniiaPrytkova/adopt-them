@@ -1,22 +1,35 @@
 import { expect, test, vi, beforeEach, afterEach, describe } from 'vitest';
 import { render, waitFor } from '@testing-library/react';
-import { createRenderer } from 'react-test-renderer/shallow';
+import { createRenderer, ShallowRenderer } from 'react-test-renderer/shallow';
 import { StaticRouter } from 'react-router-dom/server';
-import Results from '../components/Results';
+import Results, { ResultsProps } from '../components/Results';
+import React from 'react';
+import { Pet as PetType } from '../APIResponsesTypes';
 
-const executeAfterOneSecond = (func, arg) => {
+const executeAfterOneSecond = (func: (arg: number) => void, arg: number) => {
     setTimeout(() => {
         func(arg);
     }, 1000 + 100);
 };
 
+type SetPageCallback = (page: number) => number;
+
+interface MockSetPage {
+    (...args: unknown[]): void;
+    mock: {
+        calls: [SetPageCallback][];
+        reset: () => void;
+    };
+}
+
 describe('Results component', () => {
-    const mockSetPage = vi.fn();
+    // const mockSetPage = vi.fn();
+    const mockSetPage: MockSetPage = vi.fn(() => {}) as unknown as MockSetPage;
     const mockScrollToTop = vi.fn();
 
     beforeEach(() => {
         vi.useFakeTimers();
-        mockSetPage.mockReset();
+        // mockSetPage.mock.reset();
         mockScrollToTop.mockReset();
     });
 
@@ -26,7 +39,7 @@ describe('Results component', () => {
         vi.useRealTimers();
     });
 
-    const defaultProps = {
+    const defaultProps: ResultsProps = {
         pets: [],
         page: 0,
         setPage: mockSetPage,
@@ -34,12 +47,12 @@ describe('Results component', () => {
         isFetching: false,
         isPreviousData: false,
         isError: false,
-        error: null,
-        resultsRef: null,
+        error: new Error(),
+        resultsRef: React.createRef(),
         scrollToTop: mockScrollToTop
     };
 
-    const pets = [
+    const pets: PetType[] = [
         {
             id: 1,
             name: 'Luna',
@@ -159,14 +172,16 @@ describe('Results component', () => {
     ];
 
     test('renders correctly with no pets', () => {
-        const { asFragment } = render(<Results pets={[]} page={0} />);
+        const { asFragment } = render(
+            <Results {...defaultProps} pets={[]} page={0} />
+        );
         expect(asFragment()).toMatchSnapshot();
     });
 
     // test('renders correctly with some pets', () => {
     //     const { asFragment } = render(
     //         <StaticRouter>
-    //             <Results pets={pets} />
+    //             <Results  pets={pets} />
     //         </StaticRouter>
     //     );
     //     expect(asFragment()).toMatchSnapshot();
@@ -174,14 +189,14 @@ describe('Results component', () => {
 
     // with shallow rendering
     test('renders correctly with some pets', () => {
-        const r = createRenderer();
-        r.render(<Results pets={pets} />);
+        const r: ShallowRenderer = createRenderer();
+        r.render(<Results {...defaultProps} pets={pets} />);
         expect(r.getRenderOutput()).toMatchSnapshot();
     });
 
-    test('pets appear smoothly in the correct order', async () => {
+    test('pets appear smoothly in the correct order', () => {
         const results = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results {...defaultProps} pets={pets} />
             </StaticRouter>
         );
@@ -190,7 +205,7 @@ describe('Results component', () => {
             const petThumbnail = results.getByTestId(`thumbnail-${pet.id}`);
             const expectedDelay = index * 100;
 
-            expect(petThumbnail.closest('a').style.animationDelay).toBe(
+            expect(petThumbnail?.closest('a')?.style.animationDelay).toBe(
                 `${expectedDelay}ms`
             );
         });
@@ -200,11 +215,11 @@ describe('Results component', () => {
 
     test('renders error message if there is an error', () => {
         const results = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results
                     {...defaultProps}
                     isError={true}
-                    error={{ message: 'this is an error' }}
+                    error={new Error('this is an error')}
                 />
             </StaticRouter>
         );
@@ -217,7 +232,7 @@ describe('Results component', () => {
 
     test('renders loading message', () => {
         const results = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results {...defaultProps} isLoading={true} />
             </StaticRouter>
         );
@@ -229,7 +244,7 @@ describe('Results component', () => {
 
     test('handleButtonClick for previous page', async () => {
         const results = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results
                     {...defaultProps}
                     scrollToTop={mockScrollToTop}
@@ -247,6 +262,7 @@ describe('Results component', () => {
         executeAfterOneSecond(mockSetPage, 0);
         vi.advanceTimersByTime(1100);
         await waitFor(() => expect(mockSetPage).toHaveBeenCalled());
+
         const setPageCallback = mockSetPage.mock.calls[0][0];
         expect(setPageCallback(1)).toEqual(0);
 
@@ -255,7 +271,7 @@ describe('Results component', () => {
 
     test('handleButtonClick for next page', async () => {
         const results = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results
                     {...defaultProps}
                     scrollToTop={mockScrollToTop}
@@ -281,7 +297,7 @@ describe('Results component', () => {
 
     test('displays spinner when isFetching is true', () => {
         const { getByTestId } = render(
-            <StaticRouter>
+            <StaticRouter location="/">
                 <Results {...defaultProps} isFetching={true} page={1} />
             </StaticRouter>
         );
@@ -289,10 +305,8 @@ describe('Results component', () => {
         const spinner = getByTestId('spinner');
 
         expect(spinner).toBeTruthy();
-        expect(Array.from(spinner.classList)).toContain(
-            'inline',
-            'animate-spin'
-        );
+        expect(Array.from(spinner.classList)).toContain('inline');
+        expect(Array.from(spinner.classList)).toContain('animate-spin');
         expect(spinner.textContent).toBe('2');
     });
 });

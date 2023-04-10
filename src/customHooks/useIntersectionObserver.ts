@@ -1,6 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, RefObject } from 'react';
 
-const useIntersectionObserver = (options) => {
+interface IntersectionObserverOptions {
+    root?: Element | null;
+    rootMargin?: string;
+    threshold?: number | number[];
+}
+
+const useIntersectionObserver = <T extends Element>(
+    options: IntersectionObserverOptions
+): [RefObject<T>, boolean] => {
     const [isIntersecting, setIsIntersecting] = useState(false);
     const ref = useRef(null);
 
