@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MouseEvent, useState } from 'react';
 import { Animal } from '../APIResponsesTypes';
 
-interface IProps {
+export interface IProps {
     name: string;
     animal: Animal;
     breed: string;

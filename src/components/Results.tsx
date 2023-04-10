@@ -1,7 +1,7 @@
 import { Pet as PetType } from '../APIResponsesTypes';
 import Pet from './Pet';
 
-interface ResultsProps {
+export interface ResultsProps {
     pets: PetType[];
     page: number;
     setPage: (value: number | ((old: number) => number)) => void;

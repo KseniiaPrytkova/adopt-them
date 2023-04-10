@@ -1,0 +1,224 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Results component > renders correctly with no pets 1`] = `
+<DocumentFragment>
+  <section
+    class="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
+  >
+    <article
+      class="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4 xl:grid-rows-2"
+    >
+      <div>
+        No Pets Found😩
+      </div>
+    </article>
+    <nav
+      class="mb-2 flex justify-center gap-4"
+    >
+      <button
+        class="text-light-darkNavy dark:text-dark-darkRed cursor-not-allowed opacity-50"
+        data-testid="prev-button-0"
+        disabled=""
+        type="button"
+      >
+        Prev
+      </button>
+      <span
+        class="flex h-10 w-10 items-center justify-center text-light-darkNavy dark:text-dark-darkRed"
+      >
+        1
+      </span>
+      <button
+        class="text-light-darkNavy dark:text-dark-darkRed cursor-not-allowed opacity-50"
+        data-testid="next-button-0"
+        disabled=""
+        type="button"
+      >
+        Next
+      </button>
+    </nav>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Results component > renders correctly with some pets 1`] = `
+<section
+  className="mx-2 flex flex-col rounded-lg bg-light-lightNavy p-2 dark:bg-dark-lightGrey lg:col-span-8 xl:col-span-9"
+>
+  <article
+    className="m-2 grid basis-52 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:basis-full xl:grid-cols-4 xl:grid-rows-2"
+  >
+    <Pet
+      animal="dog"
+      breed="Havanese"
+      currentPage={0}
+      delay={0}
+      id={1}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/dog25.jpg",
+          "http://pets-images.dev-apis.com/pets/dog26.jpg",
+          "http://pets-images.dev-apis.com/pets/dog27.jpg",
+          "http://pets-images.dev-apis.com/pets/dog28.jpg",
+          "http://pets-images.dev-apis.com/pets/dog29.jpg",
+        ]
+      }
+      location="Seattle, WA"
+      name="Luna"
+    />
+    <Pet
+      animal="rabbit"
+      breed="Havanese"
+      currentPage={0}
+      delay={100}
+      id={2}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/rabbit0.jpg",
+        ]
+      }
+      location="Lexington, KY"
+      name="Charisse"
+    />
+    <Pet
+      animal="rabbit"
+      breed="Lab"
+      currentPage={0}
+      delay={200}
+      id={3}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/rabbit1.jpg",
+        ]
+      }
+      location="Dallas, TX"
+      name="Maitilde"
+    />
+    <Pet
+      animal="rabbit"
+      breed="Lab"
+      currentPage={0}
+      delay={300}
+      id={4}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/rabbit2.jpg",
+        ]
+      }
+      location="Tampa, FL"
+      name="Natalina"
+    />
+    <Pet
+      animal="reptile"
+      breed="Havanese"
+      currentPage={0}
+      delay={400}
+      id={5}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/reptile1.jpg",
+        ]
+      }
+      location="Tuscaloosa, AL"
+      name="Michail"
+    />
+    <Pet
+      animal="bird"
+      breed="Havanese"
+      currentPage={0}
+      delay={500}
+      id={6}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/bird2.jpg",
+        ]
+      }
+      location="Carol Stream, IL"
+      name="Gizela"
+    />
+    <Pet
+      animal="reptile"
+      breed="Havanese"
+      currentPage={0}
+      delay={600}
+      id={7}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/reptile2.jpg",
+        ]
+      }
+      location="Bridgeport, CT"
+      name="Laughton"
+    />
+    <Pet
+      animal="dog"
+      breed="Lab"
+      currentPage={0}
+      delay={700}
+      id={8}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/dog0.jpg",
+        ]
+      }
+      location="Charlotte, NC"
+      name="Si"
+    />
+    <Pet
+      animal="rabbit"
+      breed="Lab"
+      currentPage={0}
+      delay={800}
+      id={9}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/rabbit3.jpg",
+        ]
+      }
+      location="Springfield, IL"
+      name="Lyda"
+    />
+    <Pet
+      animal="dog"
+      breed="Lab"
+      currentPage={0}
+      delay={900}
+      id={10}
+      images={
+        [
+          "http://pets-images.dev-apis.com/pets/dog1.jpg",
+        ]
+      }
+      location="Tucson, AZ"
+      name="Jackquelin"
+    />
+  </article>
+  <nav
+    className="mb-2 flex justify-center gap-4"
+  >
+    <button
+      className="text-light-darkNavy dark:text-dark-darkRed cursor-not-allowed opacity-50"
+      data-testid="prev-button-0"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Prev
+    </button>
+    <span
+      className="flex h-10 w-10 items-center justify-center text-light-darkNavy dark:text-dark-darkRed"
+    >
+      1
+    </span>
+    <button
+      className="text-light-darkNavy dark:text-dark-darkRed opacity-100"
+      data-testid="next-button-0"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Next
+    </button>
+  </nav>
+</section>
+`;

@@ -3,7 +3,9 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useBreedList from '../customHooks/useBreedList';
 
-let queryClient;
+const { fetch } = window;
+
+let queryClient: QueryClient;
 
 beforeEach(() => {
     fetch.resetMocks();
@@ -18,7 +20,7 @@ beforeEach(() => {
     });
 });
 
-test('gives an empty list with no animal', async () => {
+test('gives an empty list with no animal', () => {
     const { result } = renderHook(() => useBreedList(''), {
         wrapper: ({ children }) => (
             <QueryClientProvider client={queryClient}>

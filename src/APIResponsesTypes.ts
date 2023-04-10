@@ -1,5 +1,5 @@
 // enumerated type
-export type Animal = 'cat' | 'dog' | 'bird' | 'rabbit' | 'reptile';
+export type Animal = 'cat' | 'dog' | 'bird' | 'rabbit' | 'reptile' | '';
 
 export interface Pet {
     id: number;
