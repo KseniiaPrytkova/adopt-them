@@ -7,8 +7,7 @@ const fetchBreedList: QueryFunction<
 > = async ({ queryKey }) => {
     const animal = queryKey[1];
 
-    // TS will catch that first, before runtime would
-    // if (!animal) return [];
+    if (!animal) return [];
 
     const res = await fetch(
         `https://pets-v2.dev-apis.com/breeds?animal=${animal}`

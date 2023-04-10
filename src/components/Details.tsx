@@ -21,7 +21,6 @@ const Details = () => {
     const { adoptedPet, setAdoptedPet } = useContext(AppContext);
     const [wrapperRef, setWrapperRef] = useState<HTMLElement | null>(null);
     const location = useLocation();
-    const locationState = location.state as { resultsPage?: number };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { resultsPage, setResultsPage } = useContext(AppContext);
 
@@ -56,12 +55,12 @@ const Details = () => {
     }, []);
 
     useEffect(() => {
-        setResultsPage(locationState.resultsPage || null);
-    }, [locationState.resultsPage, setResultsPage]);
+        setResultsPage(location.state as number);
+    }, [location.state, setResultsPage]);
 
     if (results.isLoading) {
         return (
-            <div className="flex h-full items-center  justify-center">
+            <div className="flex h-full items-center justify-center">
                 <span className="inline animate-spin text-5xl">🌀</span>
             </div>
         );

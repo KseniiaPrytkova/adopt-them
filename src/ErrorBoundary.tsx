@@ -13,9 +13,12 @@ class ErrorBoundary extends Component<{ children: ReactElement }> {
     render() {
         if (this.state.hasError) {
             return (
-                <h2>
+                <h2 className="m-4">
                     There was an error with this listing.{' '}
-                    <Link to="/">Click here</Link> to back to the home page.
+                    <Link to="/">
+                        Click <span className=" underline">here</span>
+                    </Link>{' '}
+                    to back to the home page.
                 </h2>
             );
         }
